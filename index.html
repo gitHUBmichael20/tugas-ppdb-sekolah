@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPDB JABAR 2024</title>
+    <link rel="shortcut icon" href="assets/images/logo-website.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -18,18 +19,17 @@
             </label>
             <div class="nav-links">
                 <div class="nav-item" tabindex="0">
-                    <a href="#community">Community</a>
+                    <a href="#community">Staf PPDB</a>
                     <div class="dropdown">
-                        <a href="#forums">Forums</a>
-                        <a href="#events">Events</a>
-                        <a href="#mentorship">Mentorship</a>
+                        <a href="/tugas-ppdb-sekolah-main/admin/dashboard-admin/dashboard-admin.php">Admin</a>
+                        <a href="./sekolah/dashboard-sekolah/dashboard-sekolah.html">Sekolah</a>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#news">News</a>
+                    <a href="#footer">📧 Contact</a>
                 </div>
                 <div class="nav-buttons">
-                    <a href="dashboard/dashboard.php">Dashboard</a>
+                    <a href="dashboard/dashboard.php">Dashboard Murid</a>
                     <a href="auth/login.php" class="login-btn">LOGIN</a>
                     <a href="auth/register.php" class="register-btn">Register</a>
                 </div>
@@ -41,26 +41,26 @@
         <div class=" hero-content">
             <h1 class="typing">Find Your <span>Future</span> Today!</h1>
             <p>Explore Your Options, Find Your Best Match</p>
-            <a href="#get-started" class="button">GET STARTED</a>
+            <a href="dashboard/dashboard.php" class="button">GET STARTED</a>
         </div>
     </section>
 
     <section class="services container">
         <h2>Services</h2>
         <div class="services-grid">
-            <div class="service-card">
+            <div onclick="window.open('dashboard/section/sekolah.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/school.mp4"></video>
                 <p>Find School</p>
             </div>
-            <div class="service-card">
+            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/check.mp4"></video>
-                <p>Cek Status</p>
+                <p>Periksa Hasil</p>
             </div>
-            <div class="service-card">
+            <div onclick="window.open('auth/register.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/create.mp4"></video>
                 <p>Buat Akun</p>
             </div>
-            <div class="service-card service-burgundy">
+            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card service-burgundy">
                 <video autoplay muted loop src="assets/animation/Status.mp4"></video>
                 <p>Cek Status</p>
             </div>
@@ -72,12 +72,12 @@
         <h2>Top ranking High School In Jawa Barat</h2>
         <div class="universities-grid">
             <div class="university-card">SMAN 1 KOTA BEKASI</div>
-            <div class="university-card">SMKN 1 KOTA BEKASI</div>
-            <div class="university-card">SMAN 2 KOTA BEKASI</div>
+            <div class="university-card">SMKN 2 KOTA BEKASI</div>
+            <div class="university-card">SMAN 3 KOTA BEKASI</div>
         </div>
     </section>
 
-    <footer>
+    <footer id="footer">
         <div class="container footer-content">
             <div class="contact-info">
                 <h3>Contact Info</h3>

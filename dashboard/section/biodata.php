@@ -11,7 +11,7 @@ $user_id = $_SESSION['USER_ID'];
 $user_data = [];
 
 // Ambil data pengguna dari database
-$stmt = $conn->prepare("SELECT username, alamat, tanggal_lahir, NISN, password FROM student WHERE id = ?");
+$stmt = $conn->prepare("SELECT username, alamat, tanggal_lahir, NISN, password FROM murid WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -22,19 +22,18 @@ if ($result->num_rows > 0) {
 $stmt->close();
 
 // Proses update data jika form disubmit
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['update-bio'])) {
     $username = $_POST['username'];
     $alamat = $_POST['alamat'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
     $NISN = $_POST['NISN'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash ulang password
 
-    $update_stmt = $conn->prepare("UPDATE student SET username = ?, alamat = ?, tanggal_lahir = ?, NISN = ?, password = ? WHERE id = ?");
+    $update_stmt = $conn->prepare("UPDATE murid SET username = ?, alamat = ?, tanggal_lahir = ?, NISN = ?, password = ? WHERE id = ?");
     $update_stmt->bind_param("sssssi", $username, $alamat, $tanggal_lahir, $NISN, $password, $user_id);
 
     if ($update_stmt->execute()) {
         echo "<script>alert('Data berhasil diperbarui!');</script>";
-        header("Refresh:0"); // Reload halaman untuk menampilkan data terbaru
     } else {
         echo "<script>alert('Gagal memperbarui data.');</script>";
     }
@@ -78,7 +77,8 @@ $conn->close();
                 <input type="password" id="password" name="password" placeholder="Masukkan password baru">
                 <small>Biarkan kosong jika tidak ingin mengubah password.</small>
             </div>
-            <button type="submit" class="btn-submit">Simpan</button>
+            <button type="submit" 
+            name="update-bio" class="btn-submit">Simpan</button>
         </form>
     </div>
 </section>

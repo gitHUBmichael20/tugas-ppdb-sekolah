@@ -11,11 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 
-    $sql = "INSERT INTO student (username, alamat, tanggal_lahir, NISN, password)
+    $sql = "INSERT INTO murid (username, alamat, tanggal_lahir, NISN, password)
             VALUES ('$username', '$alamat', '$tanggal_lahir', '$nisn', '$hashed_password')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Data berhasil disimpan!";
+        $_SESSION['IS_LOGIN'] = true;
+        $_SESSION['USER_ID'] = $data['id'];
+        header('Location: ../dashboard/dashboard.php');
+        exit;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -33,7 +36,6 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi Akun</title>
     <link rel="stylesheet" href="styles/account.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
