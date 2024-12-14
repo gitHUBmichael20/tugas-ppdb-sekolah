@@ -1,0 +1,116 @@
+.container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 32px;
+    margin-bottom: 48px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+}
+.search-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+.search-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.search-button:hover {
+    background-color: #1d4ed8;
+}
+.clear-filter {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #e5e7eb;
+    color: #4b5563;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.clear-filter:hover {
+    background-color: #d1d5db;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-header {
+    background-color: #f3f4f6;
+}
+.table-header th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #4b5563;
+}
+.table-row {
+    border-bottom: 1px solid #e5e7eb;
+}
+.table-cell {
+    padding: 16px;
+}
+.status-select {
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+.update-button {
+    padding: 8px 16px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.update-button:hover {
+    background-color: #1d4ed8;
+}
+.no-data {
+    text-align: center;
+    padding: 16px;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination a, .pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #3D3BF3;
+    color: #3D3BF3;
+}
+.pagination .current {
+    background-color: #3D3BF3;
+    color: white;
+}
+.pagination .disabled {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}

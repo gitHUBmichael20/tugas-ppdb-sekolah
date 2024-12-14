@@ -51,40 +51,134 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        video {
+            display: block;
+            width: 40%;
+            margin: 0 auto 16px;
+            border-radius: 8px;
+        }
+
+        form {
+            display: grid;
+            gap: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #ef4444;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: #ef4444;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #dc2626;
+        }
+
+        button:focus {
+            outline: 2px solid #ef4444;
+            outline-offset: 2px;
+        }
+
+        .alert {
+            margin-top: 16px;
+            text-align: center;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-        <h1 class="text-2xl font-bold text-center mb-6">Login Admin</h1>
-        <video muted loop autoplay class="w-2/5 mx-auto mb-4 rounded">
+
+<body>
+    <div class="container">
+        <h1>Login Admin</h1>
+        <video muted loop autoplay>
             <source src="../../assets/animation/hello-animation.webm">
         </video>
-        <form action="login-admin.php" method="post" class="space-y-4">
+        <form action="login-admin.php" method="post">
             <input type="hidden" name="action" value="login">
             <div>
-                <label for="admin_id" class="block text-sm font-medium text-gray-700">ADMIN ID</label>
-                <input type="text" id="admin_id" name="admin_id" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                <label for="admin_id">ADMIN ID</label>
+                <input type="text" id="admin_id" name="admin_id" required>
             </div>
             <div>
-                <label for="admin_nama" class="block text-sm font-medium text-gray-700">ADMIN NAMA</label>
-                <input type="text" id="admin_nama" name="admin_nama" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                <label for="admin_nama">ADMIN NAMA</label>
+                <input type="text" id="admin_nama" name="admin_nama" required>
             </div>
             <div>
-                <label for="admin_password" class="block text-sm font-medium text-gray-700">ADMIN PASSWORD</label>
-                <input type="password" id="admin_password" name="admin_password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                <label for="admin_password">ADMIN PASSWORD</label>
+                <input type="password" id="admin_password" name="admin_password" required>
             </div>
-            <button type="submit" class="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Login</button>
+            <button type="submit">Login</button>
         </form>
 
         <?php if (!empty($login_message)) : ?>
-            <script>
-                alert("<?php echo $login_message; ?>");
-            </script>
+            <div class="alert">
+                <?php echo $login_message; ?>
+            </div>
         <?php endif; ?>
     </div>
 </body>
+
 </html>

@@ -17,7 +17,7 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/style-admin.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../../assets/images/logo-website.png" type="image/x-icon">
     <style>
         .section {
             display: none;
@@ -26,6 +26,8 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         .section.active {
             display: block;
         }
+
+        
     </style>
 </head>
 
@@ -36,6 +38,7 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         <nav class="nav-links">
             <a href="javascript:void(0);" class="nav-link active" onclick="showSection('pengajuan')">Pengajuan</a>
             <a href="javascript:void(0);" class="nav-link" onclick="showSection('kuota')">Kuota</a> 
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('statistik')">Statistik</a>
         </nav>
         <button class="logout-btn" onclick="window.location.href='../auth-admin/logout-admin.php'">Logout</button>
     </aside>
@@ -50,6 +53,9 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         </div>
         <div id="kuota" class="section">
             <?php include '../section/kouta.php'; ?>
+        </div> 
+        <div id="statistik" class="section">
+            <?php include '../section/statistik.php'; ?>
         </div> 
     </main>
 

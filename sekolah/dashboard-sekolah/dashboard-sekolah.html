@@ -1,96 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-gray-100 h-screen flex">
-    <!-- Mobile Hamburger Button -->
-    <button onclick="toggleSidebar()" class="md:hidden absolute top-4 left-4 z-50">
-        <i data-feather="menu" class="h-6 w-6"></i>
+
+<body>
+    <button class="hamburger" aria-label="Toggle Menu">
+        <i class="ri-menu-line"></i>
     </button>
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="
-        fixed md:relative 
-        -translate-x-full md:translate-x-0
-        z-40 w-64 h-full 
-        bg-gray-800 text-white 
-        transition-transform duration-300 ease-in-out
-    ">
-        <div class="p-4">
-            <h2 class="text-2xl font-bold mb-8">School Dashboard</h2>
-            
-            <nav class="space-y-4">
-                <button onclick="changeTab('home')" class="tab-button home-tab flex items-center w-full p-2 rounded">
-                    <i data-feather="home" class="mr-2"></i> Home
-                </button>
-                <button onclick="changeTab('statistik')" class="tab-button statistik-tab flex items-center w-full p-2 rounded">
-                    <i data-feather="bar-chart-2" class="mr-2"></i> Statistik
-                </button>
-                <button onclick="changeTab('data-murid')" class="tab-button data-murid-tab flex items-center w-full p-2 rounded">
-                    <i data-feather="users" class="mr-2"></i> Data Murid
-                </button>
-            </nav>
+    <div class="sidebar">
+        <h1 class="sidebar-title">School Dashboard</h1>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item active" data-section="section-1">
+                🔍 Analytics
+            </li>
+            <li class="sidebar-item" data-section="section-2">
+                👨‍🎓 Students
+            </li>
+            <li class="sidebar-item" data-section="section-3">
+                📕 Courses
+            </li>
+            <li class="sidebar-item" data-section="section-4">
+                ⌛Schedule
+            </li>
+        </ul>
+        <button class="logout-btn">
+            Logout
+        </button>
+    </div>
 
-            <button class="absolute bottom-4 left-4 right-4 bg-red-600 p-2 rounded hover:bg-red-700 flex items-center justify-center">
-                <i data-feather="log-out" class="mr-2"></i> Logout
-            </button>
-        </div>
-    </aside>
+    <div class="overlay"></div>
 
-    <!-- Main Content Area -->
-    <main id="content" class="flex-1 bg-gray-100 overflow-y-auto p-4">
-        <div id="home" class="tab-content hidden">Home Content</div>
-        <div id="statistik" class="tab-content hidden grid grid-cols-2 gap-4">
-            <div class="p-4 rounded-lg shadow-md bg-blue-500 text-white">
-                <h3 class="text-lg font-bold">Total Siswa</h3>
-                <p class="text-2xl">350</p>
-            </div>
-            <div class="p-4 rounded-lg shadow-md bg-green-500 text-white">
-                <h3 class="text-lg font-bold">Siswa Aktif</h3>
-                <p class="text-2xl">325</p>
-            </div>
-            <div class="p-4 rounded-lg shadow-md bg-purple-500 text-white">
-                <h3 class="text-lg font-bold">Siswa Baru</h3>
-                <p class="text-2xl">75</p>
-            </div>
-            <div class="p-4 rounded-lg shadow-md bg-yellow-500 text-white">
-                <h3 class="text-lg font-bold">Rata-rata Nilai</h3>
-                <p class="text-2xl">85</p>
-            </div>
-        </div>
-        <div id="data-murid" class="tab-content hidden">Data Murid Content</div>
-    </main>
+    <div class="main-content">
+        <section id="section-1" class="section active">
+            <h2>Asal Sekolah Siswa</h2>
+            <p>Menampilkan Asal Sekolah siswa yang mendaftar</p>
+            <canvas id="asal_sekolah"></canvas>
+        </section>
+        <section id="section-2" class="section">
+            <h2>Students Management</h2>
+            <p>Manage and track student information here.</p>
+        </section>
+        <section id="section-3" class="section">
+            <h2>Courses Overview</h2>
+            <p>View and manage school courses.</p>
+        </section>
+        <section id="section-4" class="section">
+            <h2>Schedule Management</h2>
+            <p>Organize and view school schedules.</p>
+        </section>
+    </div>
 
     <script>
-        feather.replace();
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            const overlay = document.querySelector('.overlay');
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const sections = document.querySelectorAll('.section');
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function changeTab(tabName) {
-            // Hide all tab contents and remove active states
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('bg-blue-600'));
-
-            // Show selected tab content
-            document.getElementById(tabName).classList.remove('hidden');
-            document.querySelector(`.${tabName}-tab`).classList.add('bg-blue-600');
-
-            // Close sidebar on mobile
-            if (window.innerWidth < 768) {
-                toggleSidebar();
+            // Toggle Sidebar
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
             }
-        }
 
-        // Default to home tab
-        changeTab('home');
+            hamburger.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+
+            // Section Switching
+            function switchSection(sectionId) {
+                sidebarItems.forEach(item => item.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                const selectedItem = document.querySelector(`.sidebar-item[data-section="${sectionId}"]`);
+                const selectedSection = document.getElementById(sectionId);
+
+                if (selectedItem && selectedSection) {
+                    selectedItem.classList.add('active');
+                    selectedSection.classList.add('active');
+                }
+
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            }
+
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const sectionId = item.getAttribute('data-section');
+                    switchSection(sectionId);
+                });
+            });
+
+            // Logout Button
+            const logoutBtn = document.querySelector('.logout-btn');
+            logoutBtn.addEventListener('click', () => {
+                alert('Logout clicked! Implement your logout logic here.');
+            });
+        });
     </script>
+    
 </body>
+
 </html>

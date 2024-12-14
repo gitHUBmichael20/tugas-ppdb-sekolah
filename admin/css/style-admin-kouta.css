@@ -1,0 +1,125 @@
+.kouta .container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.kouta .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.kouta .page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.kouta .search-container {
+    position: relative;
+    width: 100%;
+    max-width: 18rem;
+}
+
+.kouta .search-input {
+    width: 100%;
+    padding: 8px 16px 8px 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 9999px;
+    outline: none;
+}
+
+.kouta .search-input:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.kouta .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    pointer-events: none;
+}
+
+.kouta table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.kouta .judul-header {
+    background: linear-gradient(to right, #2563eb, #6366f1) !important;
+}
+
+.kouta .judul-header th {
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.kouta .table-row {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.kouta .table-row:hover {
+    background-color: #dbeafe;
+    transition: background-color 0.3s;
+}
+
+.kouta .table-cell {
+    padding: 12px;
+    color: #374151;
+}
+
+.kouta .progress-container {
+    width: 100%;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    height: 1rem;
+    overflow: hidden;
+}
+
+.kouta .progress-bar {
+    background-color: #60a5fa;
+    height: 100%;
+    border-radius: 9999px;
+    text-align: right;
+    animation: progressAnimation 1.5s ease-out forwards;
+}
+
+.kouta .progress-text {
+    color: black;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0 8px;
+    line-height: 1.5;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .kouta .desktop-only {
+        display: none;
+    }
+}
+
+@keyframes progressAnimation {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: var(--progress-width);
+    }
+}

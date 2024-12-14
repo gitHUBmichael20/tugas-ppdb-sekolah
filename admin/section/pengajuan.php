@@ -1,17 +1,39 @@
 <?php
 include '../service/database-admin.php';
 
+// Pagination setup
+$rows_per_page = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $rows_per_page;
+
 // Ambil data pengajuan pendaftaran
 $search_term = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Count total rows for pagination
+$count_query = "SELECT COUNT(*) as total FROM pendaftaran 
+                WHERE NISN LIKE ? OR 
+                      nama_murid LIKE ? OR 
+                      nama_sekolah LIKE ? OR 
+                      waktu LIKE ? OR 
+                      status LIKE ?";
+$count_stmt = $conn->prepare($count_query);
+$search_param = "%$search_term%";
+$count_stmt->bind_param("sssss", $search_param, $search_param, $search_param, $search_param, $search_param);
+$count_stmt->execute();
+$count_result = $count_stmt->get_result();
+$total_rows = $count_result->fetch_assoc()['total'];
+$total_pages = ceil($total_rows / $rows_per_page);
+
+// Main query with pagination
 $query = "SELECT NISN, nama_murid, nama_sekolah, waktu, status FROM pendaftaran 
           WHERE NISN LIKE ? OR 
                 nama_murid LIKE ? OR 
                 nama_sekolah LIKE ? OR 
                 waktu LIKE ? OR 
-                status LIKE ?";
+                status LIKE ?
+          LIMIT ? OFFSET ?";
 $stmt = $conn->prepare($query);
-$search_param = "%$search_term%";
-$stmt->bind_param("sssss", $search_param, $search_param, $search_param, $search_param, $search_param);
+$stmt->bind_param("sssssii", $search_param, $search_param, $search_param, $search_param, $search_param, $rows_per_page, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -32,85 +54,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $update_stmt->close();
 }
-?><?php
-    // ... (PHP code remains unchanged)
-    ?>
-<section class="bg-white rounded-lg p-8 mb-12">
-    <!-- Search Bar -->
-    <div class="flex justify-between items-center mb-4">
-        <form id="searchForm" method="GET" class="flex w-full gap-2">
-            <input
-                type="text"
-                name="search"
-                placeholder="Cari NISN, Nama, Sekolah, Waktu, atau Status..."
-                value="<?php echo htmlspecialchars($search_term); ?>"
-                id="searchInput"
-                class="flex-grow p-2 border border-gray-300 rounded">
-            <button type="submit" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700">
-                <i class="search-icon">🔍</i> Cari
-            </button>
-            <?php if (!empty($search_term)): ?>
-                <a href="pengajuan.php" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded no-underline hover:bg-gray-300">Hapus Filter</a>
-            <?php endif; ?>
-        </form>
-    </div>
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-    <table class="w-full border-collapse">
-        <thead>
-            <tr>
-                <td colspan="6" class="p-4">
-                    <h1 class="text-2xl font-bold">
-                        Pengajuan Pendaftaran
-                        <?php if (!empty($search_term)): ?>
-                            <span class="text-sm text-gray-500 ml-2">(Hasil Pencarian: "<?php echo htmlspecialchars($search_term); ?>")</span>
-                        <?php endif; ?>
-                    </h1>
-                </td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th class="p-4 text-left font-semibold text-gray-600">NISN</th>
-                <th class="p-4 text-left font-semibold text-gray-600">Nama Murid</th>
-                <th class="p-4 text-left font-semibold text-gray-600">Nama Sekolah</th>
-                <th class="p-4 text-left font-semibold text-gray-600">Waktu</th>
-                <th class="p-4 text-left font-semibold text-gray-600">Status</th>
-                <th class="p-4 text-left font-semibold text-gray-600">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ($result && $result->num_rows > 0) {
-                // Tampilkan data
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr class='border-b border-gray-200'>";
-                    echo "<td class='p-4'>" . htmlspecialchars($row['NISN']) . "</td>";
-                    echo "<td class='p-4'>" . htmlspecialchars($row['nama_murid']) . "</td>";
-                    echo "<td class='p-4'>" . htmlspecialchars($row['nama_sekolah']) . "</td>";
-                    echo "<td class='p-4'>" . htmlspecialchars($row['waktu']) . "</td>";
-                    echo "<td class='p-4'>";
-                    echo "<form method='POST'>";
-                    echo "<input type='hidden' name='nisn' value='" . htmlspecialchars($row['NISN']) . "' />";
-                    echo "<select name='status' class='p-2 border border-gray-300 rounded'>";
-                    echo "<option disabled value='belum-konfirmasi'" . ($row['status'] === 'belum-konfirmasi' ? " selected" : "") . ">Belum Dikonfirmasi</option>";
-                    echo "<option value='Pending'" . ($row['status'] === 'Pending' ? " selected" : "") . ">Pending</option>";
-                    echo "<option value='Approved'" . ($row['status'] === 'Approved' ? " selected" : "") . ">Approved</option>";
-                    echo "<option value='Rejected'" . ($row['status'] === 'Rejected' ? " selected" : "") . ">Rejected</option>";
-                    echo "</select>";
-                    echo "</td>";
-                    echo "<td class='p-4'><button type='submit' class='px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-300'>Update</button></td>";
-                    echo "</form>";
-                    echo "</tr>";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style-admin-pengajuan.css">
+</head>
+
+<body>
+    <section class="container">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <form id="searchForm" method="GET" class="search-form">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Cari NISN, Nama, Sekolah, Waktu, atau Status..."
+                    value="<?php echo htmlspecialchars($search_term); ?>"
+                    id="searchInput"
+                    class="search-input">
+                <button type="submit" class="search-button">
+                    🔍 Cari
+                </button>
+                <?php if (!empty($search_term)): ?>
+                    <a href="pengajuan.php" class="clear-filter">Hapus Filter</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td colspan="6" class="table-cell">
+                        <h1 style="color: #3D3BF3;">
+                            Pengajuan Pendaftaran Murid
+                            <?php if (!empty($search_term)): ?>
+                                <span style="font-size: 0.75rem; color: #1F509A; margin-left: 8px;">(Hasil Pencarian: "<?php echo htmlspecialchars($search_term); ?>")</span>
+                            <?php endif; ?>
+                        </h1>
+                    </td>
+                </tr>
+                <tr class="table-header">
+                    <th>NISN</th>
+                    <th>Nama Murid</th>
+                    <th>Nama Sekolah</th>
+                    <th>Waktu</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result && $result->num_rows > 0) {
+                    // Tampilkan data
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr class='table-row'>";
+                        echo "<td class='table-cell'>" . htmlspecialchars($row['NISN']) . "</td>";
+                        echo "<td class='table-cell'>" . htmlspecialchars($row['nama_murid']) . "</td>";
+                        echo "<td class='table-cell'>" . htmlspecialchars($row['nama_sekolah']) . "</td>";
+                        echo "<td class='table-cell'>" . htmlspecialchars($row['waktu']) . "</td>";
+                        echo "<td class='table-cell'>";
+                        echo "<form method='POST'>";
+                        echo "<input type='hidden' name='nisn' value='" . htmlspecialchars($row['NISN']) . "' />";
+                        echo "<select name='status' class='status-select'>";
+                        echo "<option disabled value='belum-konfirmasi'" . ($row['status'] === 'belum-konfirmasi' ? " selected" : "") . ">Belum Dikonfirmasi</option>";
+                        echo "<option value='Pending'" . ($row['status'] === 'Pending' ? " selected" : "") . ">Pending</option>";
+                        echo "<option value='Approved'" . ($row['status'] === 'Approved' ? " selected" : "") . ">Approved</option>";
+                        echo "<option value='Rejected'" . ($row['status'] === 'Rejected' ? " selected" : "") . ">Rejected</option>";
+                        echo "</select>";
+                        echo "</td>";
+                        echo "<td class='table-cell'><button type='submit' class='update-button'>Update</button></td>";
+                        echo "</form>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6' class='no-data'>Tidak ada data pendaftaran yang cocok.</td></tr>";
                 }
+                ?>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <?php
+            // Previous page link
+            if ($page > 1) {
+                $prev_search = $search_term ? "&search=" . urlencode($search_term) : "";
+                echo "<a href='?page=" . ($page - 1) . $prev_search . "'>Previous</a>";
             } else {
-                echo "<tr><td colspan='6' class='p-4 text-center'>Tidak ada data pendaftaran yang cocok.</td></tr>";
+                echo "<span class='disabled'>Previous</span>";
+            }
+
+            // Page numbers
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $search_param = $search_term ? "&search=" . urlencode($search_term) : "";
+                if ($i == $page) {
+                    echo "<span class='current'>$i</span>";
+                } else {
+                    echo "<a href='?page=$i$search_param'>$i</a>";
+                }
+            }
+
+            // Next page link
+            if ($page < $total_pages) {
+                $next_search = $search_term ? "&search=" . urlencode($search_term) : "";
+                echo "<a href='?page=" . ($page + 1) . $next_search . "'>Next</a>";
+            } else {
+                echo "<span class='disabled'>Next</span>";
             }
             ?>
-        </tbody>
-    </table>
-</section>
+        </div>
+    </section>
 
-<?php if (isset($message)) {
-    echo "<p class='mt-4 text-center'>" . htmlspecialchars($message) . "</p>";
-} ?>
+</body>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -157,3 +216,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     });
 </script>
+
+</html>
+
+<?php if (isset($message)) {
+    echo "<p class='mt-4 text-center'>" . htmlspecialchars($message) . "</p>";
+} ?>
