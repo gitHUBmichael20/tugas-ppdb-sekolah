@@ -12,7 +12,7 @@ if (isset($_SESSION['IS_LOGIN_ADMIN']) && $_SESSION['IS_LOGIN_ADMIN'] === true) 
 
 // Prevent user login from accessing admin page
 if (isset($_SESSION['IS_LOGIN']) && $_SESSION['IS_LOGIN'] === true) {
-    header('Location: ../dashboard/dashboard.php');
+    header('Location: ../../dashboard/dashboard.php');
     exit;
 }
 
@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         // Destroy any existing user sessions
         if (isset($_SESSION['IS_LOGIN'])) {
             unset($_SESSION['IS_LOGIN']);
-            unset($_SESSION['USER_ID']);
         }
 
         // Login successful for admin

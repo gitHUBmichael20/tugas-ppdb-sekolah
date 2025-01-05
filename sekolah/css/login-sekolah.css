@@ -48,6 +48,16 @@ body {
   font-size: 1.6em;
 }
 
+.login-video{
+  display: grid;
+  width: 100%;
+  place-items: center;
+}
+
+video{
+  width: 40%;;
+}
+
 .form-group {
   margin-bottom: 15px;
 }

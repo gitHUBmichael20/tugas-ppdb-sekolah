@@ -80,40 +80,50 @@
                 <div class="swiper-slide">
                     <div class="swiper-caption">
                         <h3 class="title-school">SMA NEGERI 1 BANDUNG</h3>
-                        <p class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error eaque veniam nihil vel, distinctio quos ipsam quis fuga, hic possimus aspernatur modi adipisci doloribus nobis!</p>
-                        <button class="swiper-button" type="submit" value="daftar">Daftar</button>
+                        <p class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error eaque veniam
+                            nihil vel, distinctio quos ipsam quis fuga, hic possimus aspernatur modi adipisci doloribus
+                            nobis!</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
                     </div>
                     <img class="swiper-image" src="assets/images/gedung-sma-1.jpeg" alt="gedung-sma-1">
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-caption">
                         <h3 class="title-school">SMA NEGERI 3 BOGOR</h3>
-                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum necessitatibus, cupiditate hic.</p>
-                        <button class="swiper-button" type="submit" value="daftar">Daftar</button>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
                     </div>
                     <img class="swiper-image" src="assets/images/gedung-sma-2.jpeg" alt="gedung-sma-2">
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-caption">
                         <h3 class="title-school">SMA NEGERI 1 GARUT</h3>
-                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum necessitatibus, cupiditate hic.</p>
-                        <button class="swiper-button" type="submit" value="daftar">Daftar</button>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
                     </div>
                     <img class="swiper-image" src="assets/images/gedung-sma-3.jpg" alt="gedung-sma-3">
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-caption">
                         <h3 class="title-school">SMK NEGERI 1 KOTA BEKASI</h3>
-                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum necessitatibus, cupiditate hic.</p>
-                        <button class="swiper-button" type="submit" value="daftar">Daftar</button>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
                     </div>
                     <img class="swiper-image" src="assets/images/gedung-sma-4.jpg" alt="gedung-sma-4">
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-caption">
                         <h3 class="title-school">SMA NEGERI 13 BANDUNG</h3>
-                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum necessitatibus, cupiditate hic.</p>
-                        <button class="swiper-button" type="submit" value="daftar">Daftar</button>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
                     </div>
                     <img class="swiper-image" src="assets/images/gedung-sma-5.jpg" alt="gedung-sma-5">
                 </div>
@@ -148,11 +158,28 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
             pagination: {
                 el: ".swiper-pagination",
-                dynamicBullets: true,
+                clickable: true
             },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            effect: "creative",
+            creativeEffect: {
+                prev: {
+                    shadow: true,
+                    translate: ["-20%", 0, -1]
+                },
+                next: {
+                    translate: ["100%", 0, 0]
+                }
+            }
         });
     </script>
 </body>

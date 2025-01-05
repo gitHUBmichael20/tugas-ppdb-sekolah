@@ -7,6 +7,7 @@
     <title>School Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../../assets/images/logo-website.png" type="image/x-icon">
 </head>
 
 <body>
