@@ -39,6 +39,7 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
             <a href="javascript:void(0);" class="nav-link active" onclick="showSection('pengajuan')">Pengajuan</a>
             <a href="javascript:void(0);" class="nav-link" onclick="showSection('kuota')">Kuota</a> 
             <a href="javascript:void(0);" class="nav-link" onclick="showSection('statistik')">Statistik</a>
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('buat-akun')">Buat Akun</a>
         </nav>
         <button class="logout-btn" onclick="window.location.href='../auth-admin/logout-admin.php'">Logout</button>
     </aside>
@@ -57,6 +58,9 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         <div id="statistik" class="section">
             <?php include '../section/statistik.php'; ?>
         </div> 
+        <div id="buat-akun" class="section">
+            <?php include '../section/buat-akun.php' ?>
+        </div>
     </main>
 
     <script>
