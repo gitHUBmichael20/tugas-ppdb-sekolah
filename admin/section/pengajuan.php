@@ -38,22 +38,44 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Jika form disubmit untuk mengupdate status
+// Jika form disubmit untuk mengupdate status
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nisn = $_POST['nisn'];
-    $status = $_POST['status'];
+    // Check if both nisn and status are set in POST data
+    if (isset($_POST['nisn']) && isset($_POST['status'])) {
+        $nisn = $_POST['nisn'];
+        $status = $_POST['status'];
 
-    // Update status di database
-    $update_query = "UPDATE pendaftaran SET status = ? WHERE NISN = ?";
-    $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("ss", $status, $nisn);
+        // Update status di database
+        $update_query = "UPDATE pendaftaran SET status = ? WHERE NISN = ?";
+        $update_stmt = $conn->prepare($update_query);
+        $update_stmt->bind_param("ss", $status, $nisn);
 
-    if ($update_stmt->execute()) {
-        $message = "Status berhasil diperbarui.";
-    } else {
-        $message = "Gagal memperbarui status: " . $conn->error;
+        if ($update_stmt->execute()) {
+            $message = "Status berhasil diperbarui.";
+        } else {
+            $message = "Gagal memperbarui status: " . $conn->error;
+        }
+        $update_stmt->close();
     }
-    $update_stmt->close();
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_nisn'])) {
+    $delete_nisn = $_POST['delete_nisn'];
+
+    // Query untuk menghapus data berdasarkan NISN
+    $delete_query = "DELETE FROM pendaftaran WHERE NISN = ?";
+    $delete_stmt = $conn->prepare($delete_query);
+    $delete_stmt->bind_param("s", $delete_nisn);
+
+    if ($delete_stmt->execute()) {
+        $message = "Data berhasil dihapus.";
+    } else {
+        $message = "Gagal menghapus data: " . $conn->error;
+    }
+
+    $delete_stmt->close();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,9 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="search-button">
                     🔍 Cari
                 </button>
-                <?php if (!empty($search_term)): ?>
-                    <a href="pengajuan.php" class="clear-filter">Hapus Filter</a>
-                <?php endif; ?>
             </form>
         </div>
 
@@ -89,6 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <thead>
                 <tr>
                     <td colspan="6" class="table-cell">
+
+                        <?php if (isset($message)) {
+                            echo "<p class='mt-4 text-center' style='color: red; font-weight: bold;'>" . htmlspecialchars($message) . "</p>";
+                        } ?>
                         <h1 style="color: #3D3BF3;">
                             Pengajuan Pendaftaran Murid
                             <?php if (!empty($search_term)): ?>
@@ -104,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Waktu</th>
                     <th>Status</th>
                     <th>Action</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,6 +152,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "</td>";
                         echo "<td class='table-cell'><button type='submit' class='update-button'>Update</button></td>";
                         echo "</form>";
+                        echo "<td class='table-cell'>";
+                        echo "<form method='POST' onsubmit='return confirm(\"Apakah Anda yakin ingin menghapus data ini?\")'>";
+                        echo "<input type='hidden' name='delete_nisn' value='" . htmlspecialchars($row['NISN']) . "' />";
+                        echo "<button type='submit' class='delete-button'>Hapus</button>";
+                        echo "</form>";
+                        echo "</td>";
+
                         echo "</tr>";
                     }
                 } else {
@@ -218,7 +249,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 
 </html>
-
-<?php if (isset($message)) {
-    echo "<p class='mt-4 text-center'>" . htmlspecialchars($message) . "</p>";
-} ?>
