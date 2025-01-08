@@ -26,8 +26,6 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         .section.active {
             display: block;
         }
-
-        
     </style>
 </head>
 
@@ -37,7 +35,7 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         <div class="logo">Dashboard Admin</div>
         <nav class="nav-links">
             <a href="javascript:void(0);" class="nav-link active" onclick="showSection('pengajuan')">Pengajuan</a>
-            <a href="javascript:void(0);" class="nav-link" onclick="showSection('kuota')">Kuota</a> 
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('kuota')">Kuota</a>
             <a href="javascript:void(0);" class="nav-link" onclick="showSection('statistik')">Statistik</a>
             <a href="javascript:void(0);" class="nav-link" onclick="showSection('buat-akun')">Buat Akun</a>
         </nav>
@@ -54,10 +52,10 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
         </div>
         <div id="kuota" class="section">
             <?php include '../section/kouta.php'; ?>
-        </div> 
+        </div>
         <div id="statistik" class="section">
             <?php include '../section/statistik.php'; ?>
-        </div> 
+        </div>
         <div id="buat-akun" class="section">
             <?php include '../section/buat-akun.php' ?>
         </div>
@@ -88,8 +86,8 @@ if (empty($_SESSION['IS_LOGIN_ADMIN']) || $_SESSION['IS_LOGIN_ADMIN'] !== true) 
                 link.classList.remove('active');
             });
 
-            // Set the active class on the clicked link
-            const activeLink = Array.from(navLinks).find(link => link.textContent === sectionId.charAt(0).toUpperCase() + sectionId.slice(1));
+            // Find the link by the href attribute instead of text content
+            const activeLink = document.querySelector(`.nav-link[onclick*="${sectionId}"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
