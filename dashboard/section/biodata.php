@@ -29,7 +29,7 @@ if (isset($_POST['update-bio'])) {
     $NISN = $_POST['NISN'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash ulang password
 
-    $update_stmt = $conn->prepare("UPDATE murid SET username = ?, alamat = ?, tanggal_lahir = ?, NISN = ?, password = ? WHERE id = ?");
+    $update_stmt = $conn->prepare("UPDATE siswa SET nama_murid = ?, alamat = ?, tanggal_lahir = ?, NISN = ?, password = ? WHERE id = ?");
     $update_stmt->bind_param("sssssi", $username, $alamat, $tanggal_lahir, $NISN, $password, $user_id);
 
     if ($update_stmt->execute()) {
@@ -67,11 +67,6 @@ $conn->close();
                 <label for="NISN">NISN</label>
                 <input type="text" id="NISN" name="NISN" placeholder="Masukkan NISN" value="<?php echo htmlspecialchars($user_data['NISN'] ?? '', ENT_QUOTES); ?>" required>
             </div>
-            <!-- <div class="form-group">
-                <label for="ijazah">Upload File PDF</label>
-                <input type="file" id="ijazah" name="ijazah" accept=".pdf" required>
-                <small>Hanya file PDF yang diperbolehkan.</small>
-            </div> -->
             <div class="form-group">
                 <label for="password">Password Baru</label>
                 <input type="password" id="password" name="password" placeholder="Masukkan password baru">

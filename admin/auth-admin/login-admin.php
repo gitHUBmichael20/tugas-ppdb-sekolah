@@ -1,8 +1,7 @@
 <?php
+// Include database connection
 include "../service/database-admin.php";
 session_start();
-
-$login_message = "";
 
 // Redirect if already logged in as admin
 if (isset($_SESSION['IS_LOGIN_ADMIN']) && $_SESSION['IS_LOGIN_ADMIN'] === true) {
@@ -10,29 +9,32 @@ if (isset($_SESSION['IS_LOGIN_ADMIN']) && $_SESSION['IS_LOGIN_ADMIN'] === true) 
     exit;
 }
 
-// Prevent user login from accessing admin page
+// Redirect user login to the user dashboard
 if (isset($_SESSION['IS_LOGIN']) && $_SESSION['IS_LOGIN'] === true) {
     header('Location: ../../dashboard/dashboard.php');
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
-    // Basic input validation
+// Initialize login message
+$login_message = "";
+
+// Handle login form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin_id = $_POST['admin_id'];
     $admin_nama = $_POST['admin_nama'];
     $admin_password = $_POST['admin_password'];
 
-    // Query to check admin credentials
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE admin_id = ? AND admin_nama = ? AND admin_password = ?");
+    // Prepare and execute SQL query
+    $stmt = $conn->prepare("SELECT * FROM admin_ppdb WHERE admin_ID = ? AND admin_nama = ? AND password = ?");
     $stmt->bind_param("sss", $admin_id, $admin_nama, $admin_password);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Destroy any existing user sessions
-        if (isset($_SESSION['IS_LOGIN'])) {
-            unset($_SESSION['IS_LOGIN']);
-        }
+        // Destroy existing user session if any
+        session_unset();
+        session_destroy();
+        session_start();
 
         // Login successful for admin
         $_SESSION['IS_LOGIN_ADMIN'] = true;
@@ -40,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         header('Location: ../dashboard-admin/dashboard-admin.php');
         exit;
     } else {
-        $login_message = "Login gagal, periksa kembali data admin anda";
+        $login_message = "Login failed, please check your credentials.";
     }
     $stmt->close();
 }
@@ -155,24 +157,23 @@ $conn->close();
         <video muted loop autoplay>
             <source src="../../assets/animation/hello-animation.webm">
         </video>
-        <form action="login-admin.php" method="post">
-            <input type="hidden" name="action" value="login">
+        <form method="post" action="">
             <div>
-                <label for="admin_id">ADMIN ID</label>
+                <label for="admin_id">Admin ID:</label>
                 <input type="text" id="admin_id" name="admin_id" required>
             </div>
             <div>
-                <label for="admin_nama">ADMIN NAMA</label>
+                <label for="admin_nama">Admin Name:</label>
                 <input type="text" id="admin_nama" name="admin_nama" required>
             </div>
             <div>
-                <label for="admin_password">ADMIN PASSWORD</label>
+                <label for="admin_password">Password:</label>
                 <input type="password" id="admin_password" name="admin_password" required>
             </div>
             <button type="submit">Login</button>
         </form>
 
-        <?php if (!empty($login_message)) : ?>
+        <?php if ($login_message): ?>
             <div class="alert">
                 <?php echo $login_message; ?>
             </div>

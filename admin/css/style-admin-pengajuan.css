@@ -1,129 +1,192 @@
+/* Base container */
 .container {
-    background-color: white;
-    border-radius: 8px;
-    padding: 32px;
-    margin-bottom: 48px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
 }
+
+/* Search section */
 .search-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+  margin-bottom: 1.5rem;
 }
 
 .search-form {
-    display: flex;
-    width: 100%;
-    gap: 8px;
+  display: flex;
+  gap: 0.75rem;
 }
+
 .search-input {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
 }
+
+.search-input:focus {
+  border-color: #3d3bf3;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(61, 59, 243, 0.1);
+}
+
 .search-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #3d3bf3;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
 }
+
 .search-button:hover {
-    background-color: #1d4ed8;
+  background-color: #2826e3;
+  transform: translateY(-1px);
 }
-.clear-filter {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    background-color: #e5e7eb;
-    color: #4b5563;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-.clear-filter:hover {
-    background-color: #d1d5db;
-}
+
+/* Table Styles */
 .table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.table-header {
-    background-color: #f3f4f6;
-}
+
 .table-header th {
-    padding: 16px;
-    text-align: left;
-    font-weight: 600;
-    color: #4b5563;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  font-weight: 600;
+  text-align: left;
+  color: #4b5563;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
 }
+
 .table-row {
-    border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
 }
+
+.table-row:hover {
+  background-color: #f9fafb;
+}
+
 .table-cell {
-    padding: 16px;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
 }
+
+/* Status Select Styling */
 .status-select {
-    padding: 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background-color: white;
+  min-width: 120px;
 }
+
+.status-select:focus {
+  border-color: #3d3bf3;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(61, 59, 243, 0.1);
+}
+
+/* Status Colors */
+.status-pending {
+  border-left: 4px solid #ffa500;
+  background-color: #fff7e6;
+}
+
+.status-approved {
+  border-left: 4px solid #10b981;
+  background-color: #ecfdf5;
+}
+
+.status-rejected {
+  border-left: 4px solid #ef4444;
+  background-color: #fef2f2;
+}
+
+/* Action Buttons */
+.update-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 .update-button {
-    padding: 8px 16px;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #3d3bf3;
+  color: white;
 }
+
 .update-button:hover {
-    background-color: #1d4ed8;
-}
-.no-data {
-    text-align: center;
-    padding: 16px;
-}
-
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-.pagination a, .pagination span {
-    margin: 0 5px;
-    padding: 5px 10px;
-    text-decoration: none;
-    border: 1px solid #3D3BF3;
-    color: #3D3BF3;
-}
-.pagination .current {
-    background-color: #3D3BF3;
-    color: white;
-}
-.pagination .disabled {
-    color: #ccc;
-    border-color: #ccc;
-    cursor: not-allowed;
+  background-color: #2826e3;
+  transform: translateY(-1px);
 }
 
 .delete-button {
-    background-color: #FF4D4D;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #ff4d4d;
+  color: white;
 }
 
 .delete-button:hover {
-    background-color: #FF1A1A;
+  background-color: #ff1a1a;
+  transform: translateY(-1px);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination a,
+.pagination span {
+  padding: 0.5rem 1rem;
+  border: 1px solid #3d3bf3;
+  border-radius: 4px;
+  color: #3d3bf3;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  background-color: #3d3bf3;
+  color: white;
+}
+
+.pagination .current {
+  background-color: #3d3bf3;
+  color: white;
+  font-weight: 500;
+}
+
+.pagination .disabled {
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+/* No Data Message */
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+  font-style: italic;
 }
