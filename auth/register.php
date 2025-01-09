@@ -3,7 +3,7 @@ include '../service/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $username = $_POST['username'];
+    $nama_murid = $_POST['nama_murid'];
     $alamat = $_POST['alamat'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
     $nisn = $_POST['NISN'];
@@ -11,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 
-    $sql = "INSERT INTO murid (username, alamat, tanggal_lahir, NISN, password)
-            VALUES ('$username', '$alamat', '$tanggal_lahir', '$nisn', '$hashed_password')";
+    $sql = "INSERT INTO siswa (nama_murid, alamat, tanggal_lahir, NISN, password)
+            VALUES ('$nama_murid', '$alamat', '$tanggal_lahir', '$nisn', '$hashed_password')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['IS_LOGIN'] = true;
@@ -47,8 +47,8 @@ $conn->close();
             </video>
             <form action="register.php" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required />
+                    <label for="nama_murid">nama_murid</label>
+                    <input type="text" id="nama_murid" name="nama_murid" required />
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat</label>

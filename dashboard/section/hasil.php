@@ -11,9 +11,9 @@ if (!isset($_SESSION['IS_LOGIN']) || !$_SESSION['IS_LOGIN']) {
 $user_id = $_SESSION['USER_ID'] ?? '';
 
 // Fetch the user's registration and personal data
-$query = "SELECT m.NISN, m.username as nama_murid, p.nama_sekolah, p.waktu, p.status 
-          FROM murid m
-          LEFT JOIN pendaftaran p ON m.NISN = p.NISN 
+$query = "SELECT m.NISN, m.nama_murid as nama_murid, p.nama_sekolah, p.waktu, p.status 
+          FROM siswa m
+          LEFT JOIN pendaftaran p ON m.NISN = p.NISN_Siswa 
           WHERE m.id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -39,8 +39,6 @@ if (!$pendaftaran) {
 $status = strtolower($pendaftaran['status'] ?? 'belum-konfirmasi');
 $status = in_array($status, ['approved', 'rejected', 'pending', 'belum-konfirmasi']) ? $status : 'belum-konfirmasi';
 ?>
-
-
 
 <section class="section hasil-ppdb">
     <div class="announcement-card">

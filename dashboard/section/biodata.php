@@ -11,7 +11,7 @@ $user_id = $_SESSION['USER_ID'];
 $user_data = [];
 
 // Ambil data pengguna dari database
-$stmt = $conn->prepare("SELECT username, alamat, tanggal_lahir, NISN, password FROM murid WHERE id = ?");
+$stmt = $conn->prepare("SELECT nama_murid, alamat, tanggal_lahir, NISN, password FROM siswa WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -67,11 +67,11 @@ $conn->close();
                 <label for="NISN">NISN</label>
                 <input type="text" id="NISN" name="NISN" placeholder="Masukkan NISN" value="<?php echo htmlspecialchars($user_data['NISN'] ?? '', ENT_QUOTES); ?>" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="ijazah">Upload File PDF</label>
                 <input type="file" id="ijazah" name="ijazah" accept=".pdf" required>
                 <small>Hanya file PDF yang diperbolehkan.</small>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="password">Password Baru</label>
                 <input type="password" id="password" name="password" placeholder="Masukkan password baru">

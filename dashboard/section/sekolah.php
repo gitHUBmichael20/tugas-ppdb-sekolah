@@ -7,63 +7,73 @@ if (!isset($_SESSION['IS_LOGIN']) || !$_SESSION['IS_LOGIN']) {
     exit;
 }
 
+// Fetch user ID from session
 $user_id = $_SESSION['USER_ID'];
 $user_data = [];
 
 // Get user data from database
-$stmt = $conn->prepare("SELECT username, alamat, tanggal_lahir, NISN, password FROM murid WHERE id = ?");
+$stmt = $conn->prepare("SELECT NISN, nama_murid, alamat, tanggal_lahir, password FROM siswa WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $user_data = $result->fetch_assoc();
+} else {
+    echo "User not found.";
+    exit;
 }
 $stmt->close();
 
 // Check if user has already registered
-$check_registration = $conn->prepare("SELECT * FROM pendaftaran WHERE NISN = ?");
+$check_registration = $conn->prepare("SELECT 1 FROM pendaftaran WHERE NISN_Siswa = ?");
 $check_registration->bind_param("s", $user_data['NISN']);
 $check_registration->execute();
-$registration_result = $check_registration->get_result();
-$is_registered = $registration_result->num_rows > 0;
+$is_registered = $check_registration->get_result()->num_rows > 0;
 $check_registration->close();
+
 // Pagination settings
-$perPage = isset($_GET['per_page']) ? (int)$_GET['per_page'] : 5;
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$perPage = isset($_GET['per_page']) ? max((int)$_GET['per_page'], 1) : 5;
+$page = isset($_GET['page']) ? max((int)$_GET['page'], 1) : 1;
 $start = ($page - 1) * $perPage;
 
 // Get total number of schools
 $totalSql = "SELECT COUNT(*) as total FROM sekolah";
 $totalResult = $conn->query($totalSql);
-$totalRow = $totalResult->fetch_assoc();
-$totalData = $totalRow['total'];
+$totalData = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalData / $perPage);
 
 // Get school data with pagination
-$sql = "SELECT id_sekolah, nama_sekolah, jenis, email, kouta, lokasi FROM sekolah LIMIT $start, $perPage";
-$result = $conn->query($sql);
+$sql = "SELECT id_sekolah, nama_sekolah, jenis, email, kouta, lokasi FROM sekolah LIMIT ?, ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $start, $perPage);
+$stmt->execute();
+$school_result = $stmt->get_result();
+$stmt->close();
 
 // Handle registration process
 $registrationStatus = '';
-if (isset($_POST['daftar']) && !$is_registered) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['daftar']) && !$is_registered) {
     $id_sekolah = $_POST['id_sekolah'];
     $nama_sekolah = $_POST['nama_sekolah'];
     $waktu = date('Y-m-d H:i:s');
     $status = 'belum-konfirmasi';
 
-    $daftar_stmt = $conn->prepare("INSERT INTO pendaftaran (NISN, nama_sekolah, id_sekolah, nama_murid, waktu, status) VALUES (?, ?, ?, ?, ?, ?)");
-    $daftar_stmt->bind_param("ssssss", $user_data['NISN'], $nama_sekolah, $id_sekolah, $user_data['username'], $waktu, $status);
+    if (!empty($id_sekolah) && !empty($nama_sekolah)) {
+        $daftar_stmt = $conn->prepare("INSERT INTO pendaftaran (NISN_Siswa, nama_sekolah, id_sekolah, nama_murid, waktu, status) VALUES (?, ?, ?, ?, ?, ?)");
+        $daftar_stmt->bind_param("ssssss", $user_data['NISN'], $nama_sekolah, $id_sekolah, $user_data['nama_murid'], $waktu, $status);
 
-    if ($daftar_stmt->execute()) {
-        $registrationStatus = 'success';
-        $is_registered = true;
+        if ($daftar_stmt->execute()) {
+            $registrationStatus = 'success';
+            $is_registered = true;
+        } else {
+            $registrationStatus = 'error';
+        }
+        $daftar_stmt->close();
     } else {
         $registrationStatus = 'error';
     }
-    $daftar_stmt->close();
 }
-
 $conn->close();
 ?>
 
@@ -99,8 +109,8 @@ $conn->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($result && $result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php if ($school_result && $school_result->num_rows > 0): ?>
+                        <?php while ($row = $school_result->fetch_assoc()): ?>
                             <tr>
                                 <td><?= htmlspecialchars($row['nama_sekolah']); ?></td>
                                 <td><?= htmlspecialchars($row['jenis']); ?></td>
@@ -124,10 +134,18 @@ $conn->close();
                         </tr>
                     <?php endif; ?>
                 </tbody>
+
             </table>
         </div>
 
-        <!-- Pagination code remains the same -->
+        <div class="pagination" style="max-width: 40%; margin: 0 auto; text-align: center;">
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="?page=<?= $i; ?>&per_page=<?= $perPage; ?>"
+                    style="padding: 5px 8px; margin: 0 3px; text-decoration: none; border: 1px solid #ddd; border-radius: 3px; font-size: 14px; color: #333; <?= ($i === $page) ? 'background-color: #007bff; color: white; border-color: #007bff;' : ''; ?>">
+                    <?= $i; ?>
+                </a>
+            <?php endfor; ?>
+        </div>
 
     </section>
 
@@ -157,7 +175,6 @@ $conn->close();
             <?php endif; ?>
         }
         document.addEventListener('DOMContentLoaded', function() {
-            // Check registration status and show SweetAlert
             <?php if ($registrationStatus === 'success'): ?>
                 Swal.fire({
                     icon: 'success',

@@ -85,9 +85,6 @@ $conn->close();
                 </div>
             </div>
             <button type="submit" class="submit-btn">Sign In</button>
-            <div class="forgot-password">
-                <a href="#">Forgot Password?</a>
-            </div>
         </form>
         <?php if (!empty($login_message)) : ?>
             <div class="alert">

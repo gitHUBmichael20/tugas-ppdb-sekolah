@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $NISN = $_POST['NISN'];
 
     // Query untuk mendapatkan user berdasarkan username dan NISN
-    $stmt = $conn->prepare("SELECT * FROM murid WHERE username = ? AND NISN = ?");
+    $stmt = $conn->prepare("SELECT * FROM siswa WHERE nama_murid = ? AND NISN = ?");
     $stmt->bind_param("ss", $username, $NISN);
     $stmt->execute();
     $result = $stmt->get_result();
