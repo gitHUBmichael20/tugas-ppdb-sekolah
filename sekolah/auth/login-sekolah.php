@@ -2,48 +2,44 @@
 include '../service-sekolah/database.php';
 session_start();
 
-if (isset($_SESSION['IS_LOGIN_SEKOLAH']) && $_SESSION['IS_LOGIN_SEKOLAH'] === true) {
+// Check if already logged in
+if (isset($_SESSION['IS_LOGIN_SEKOLAH'])) {
     header('Location: ../dashboard-sekolah/dashboard-sekolah.php');
     exit;
 }
 
-// Prevent user login from accessing admin page
-if (isset($_SESSION['IS_LOGIN_SEKOLAH']) && $_SESSION['IS_LOGIN_SEKOLAH'] === true) {
-    header('Location: ../../dashboard/dashboard.php');
-    exit;
-}
+$error_message = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
-    // Basic input validation
-    $id_sekolah = $_POST['id-sekolah'];
-    $nama_sekolah = $_POST['nama-sekolah'];
-    $password_sekolah = $_POST['password-sekolah'];
+// Handle login
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_sekolah = $_POST['id_sekolah'] ?? '';
+    $nama_sekolah = $_POST['nama_sekolah'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    // Query to check admin credentials
-    $stmt = $conn->prepare("SELECT * FROM sekolah WHERE id_sekolah = ? AND nama_sekolah = ? AND password = ?");
-    $stmt->bind_param("sss", $id_sekolah, $nama_sekolah, $password_sekolah);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Destroy any existing user sessions
-        if (isset($_SESSION['IS_LOGIN'])) {
-            unset($_SESSION['IS_LOGIN']);
-        }
-
-        // Login successful for admin
-        $_SESSION['IS_LOGIN_SEKOLAH'] = true;
-        $_SESSION['ID_SEKOLAH'] = $id_sekolah;
-        header('Location: ../dashboard-sekolah/dashboard-sekolah.php');
-        exit;
+    if (empty($id_sekolah) || empty($nama_sekolah) || empty($password)) {
+        $error_message = "Semua field harus diisi!";
     } else {
-        $login_message = "Login gagal, periksa kembali data admin anda";
+        // Check credentials
+        $stmt = $conn->prepare("SELECT * FROM sekolah WHERE id_sekolah = ? AND nama_sekolah = ? AND password = ?");
+        $stmt->bind_param("sss", $id_sekolah, $nama_sekolah, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $_SESSION['IS_LOGIN_SEKOLAH'] = true;
+            $_SESSION['ID_SEKOLAH'] = $id_sekolah;
+            header('Location: ../dashboard-sekolah/dashboard-sekolah.php');
+            exit;
+        } else {
+            $error_message = "Login gagal, periksa kembali data anda";
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,43 +57,50 @@ $conn->close();
             <img class="logo-web" src="../../assets/images/logo-website.png" alt="logo-website">
             <h2 class="login-title">Login to Continue</h2>
         </div>
+
         <div class="login-video">
             <video muted autoplay loop>
                 <source src="../../assets/animation/hello-animation.webm">
             </video>
         </div>
-        <form action="login-sekolah.php" method="post">
-            <div class="form-group">
-                <label for="id-sekolah" class="form-label">ID Sekolah</label>
-                <input type="text" id="id-sekolah" class="form-input" placeholder="Enter your username">
-            </div>
-            <div class="form-group">
-                <label for="nama-sekolah" class="form-label">Nama Sekolah</label>
-                <input type="text" id="nama-sekolah" class="form-input" placeholder="Enter your username">
-            </div>
-            <div class="form-group">
-                <label for="password-sekolah" class="form-label">Password</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password-sekolah" class="form-input" placeholder="Enter your password">
-                    <button type="submit" class="toggle-password" onclick="togglePasswordVisibility();">
-                        👁️
-                    </button>
-                </div>
-            </div>
-            <button type="submit" class="submit-btn">Sign In</button>
-        </form>
-        <?php if (!empty($login_message)) : ?>
+
+        <?php if ($error_message): ?>
             <div class="alert">
-                <?php echo $login_message; ?>
+                <?php echo htmlspecialchars($error_message); ?>
             </div>
         <?php endif; ?>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="id_sekolah">ID Sekolah</label>
+                <input type="text" id="id_sekolah" name="id_sekolah" class="form-input"
+                    placeholder="Masukkan ID Sekolah" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nama_sekolah">Nama Sekolah</label>
+                <input type="text" id="nama_sekolah" name="nama_sekolah" class="form-input"
+                    placeholder="Masukkan Nama Sekolah" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" class="form-input"
+                        placeholder="Masukkan Password" required>
+                    <button type="button" onclick="togglePassword()" class="toggle-password">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
     </div>
 
     <script>
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password-sekolah');
-            const passwordType = passwordInput.type === 'password-sekolah' ? 'text' : 'password-sekolah';
-            passwordInput.type = passwordType;
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
         }
     </script>
 </body>
