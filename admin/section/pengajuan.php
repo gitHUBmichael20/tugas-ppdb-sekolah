@@ -52,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pendaftaran_ID'], $_P
     $update_query = "UPDATE pendaftaran SET status = ? WHERE pendaftaran_ID = ?";
     $update_stmt = $conn->prepare($update_query);
     $update_stmt->bind_param("si", $_POST['status'], $_POST['pendaftaran_ID']);
-    
-    $message = $update_stmt->execute() 
-        ? "Status berhasil diperbarui." 
+
+    $message = $update_stmt->execute()
+        ? "Status berhasil diperbarui."
         : "Gagal memperbarui status: " . $conn->error;
 }
 
@@ -63,29 +63,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $delete_query = "DELETE FROM pendaftaran WHERE pendaftaran_ID = ?";
     $delete_stmt = $conn->prepare($delete_query);
     $delete_stmt->bind_param("i", $_POST['delete_id']);
-    
-    $message = $delete_stmt->execute() 
-        ? "Data berhasil dihapus." 
+
+    $message = $delete_stmt->execute()
+        ? "Data berhasil dihapus."
         : "Gagal menghapus data: " . $conn->error;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style-admin-pengajuan.css">
     <title>Pengajuan Pendaftaran</title>
 </head>
+
 <body>
     <section class="container">
         <!-- Search Bar -->
         <div class="search-container">
             <form method="GET" class="search-form">
-                <input type="text" name="search" 
-                    placeholder="Cari berdasarkan NISN, Nama, atau Sekolah..." 
-                    value="<?= htmlspecialchars($search_term) ?>" 
+                <input type="text" name="search"
+                    placeholder="Cari berdasarkan NISN, Nama, atau Sekolah..."
+                    value="<?= htmlspecialchars($search_term) ?>"
                     class="search-input">
                 <button type="submit" class="search-button">🔍 Cari</button>
             </form>
@@ -117,9 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
                             <td><?= htmlspecialchars($row['waktu']) ?></td>
                             <td>
                                 <form method="POST" class="status-form">
-                                    <input type="hidden" name="pendaftaran_ID" 
+                                    <input type="hidden" name="pendaftaran_ID"
                                         value="<?= htmlspecialchars($row['pendaftaran_ID']) ?>">
-                                    <select name="status" class="status-select" 
+                                    <select name="status" class="status-select"
                                         data-status="<?= htmlspecialchars($row['status']) ?>">
                                         <option value="Pending" <?= $row['status'] === 'Pending' ? 'selected' : '' ?>>
                                             Pending
@@ -136,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
                             </td>
                             <td>
                                 <form method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                    <input type="hidden" name="delete_id" 
+                                    <input type="hidden" name="delete_id"
                                         value="<?= htmlspecialchars($row['pendaftaran_ID']) ?>">
                                     <button type="submit" class="delete-button">Hapus</button>
                                 </form>
@@ -178,29 +180,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     </section>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const statusSelects = document.querySelectorAll('.status-select');
-        
-        statusSelects.forEach(select => {
-            const updateStatus = () => {
-                select.className = 'status-select';
-                switch(select.value) {
-                    case 'Pending':
-                        select.classList.add('status-pending');
-                        break;
-                    case 'Approved':
-                        select.classList.add('status-approved');
-                        break;
-                    case 'Rejected':
-                        select.classList.add('status-rejected');
-                        break;
-                }
-            };
-            
-            updateStatus();
-            select.addEventListener('change', updateStatus);
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusSelects = document.querySelectorAll('.status-select');
+
+            statusSelects.forEach(select => {
+                const updateStatus = () => {
+                    select.className = 'status-select';
+                    switch (select.value) {
+                        case 'Pending':
+                            select.classList.add('status-pending');
+                            break;
+                        case 'Approved':
+                            select.classList.add('status-approved');
+                            break;
+                        case 'Rejected':
+                            select.classList.add('status-rejected');
+                            break;
+                    }
+                };
+
+                updateStatus();
+                select.addEventListener('change', updateStatus);
+            });
         });
-    });
     </script>
 </body>
+
 </html>
