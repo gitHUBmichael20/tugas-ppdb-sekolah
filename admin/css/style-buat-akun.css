@@ -1,0 +1,123 @@
+.buat-akun {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.buat-akun * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.buat-akun .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.buat-akun .form-container {
+  flex: 1;
+  min-width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buat-akun .form-title {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.buat-akun .form-group {
+  margin-bottom: 15px;
+}
+
+.buat-akun label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.buat-akun input,
+.buat-akun select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.buat-akun select {
+  background-color: white;
+}
+
+.buat-akun button {
+  background: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.buat-akun button:hover {
+  background: #45a049;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+@media (max-width: 768px) {
+  .buat-akun {
+    padding: 15px;
+  }
+
+  .buat-akun .container {
+    gap: 30px; /* Increased gap between forms on mobile */
+    padding: 10px;
+  }
+
+  .buat-akun .form-container {
+    flex: 100%;
+    margin-bottom: 20px; /* Added space below each form */
+    padding: 25px; /* Increased padding inside forms */
+  }
+
+  .buat-akun .form-title {
+    margin-bottom: 25px; /* Increased space below titles */
+    font-size: 1.5em; /* Larger title on mobile */
+  }
+
+  .buat-akun .form-group {
+    margin-bottom: 20px; /* Increased space between form groups */
+  }
+
+  .buat-akun button {
+    padding: 12px 15px; /* Larger button padding */
+    margin-top: 10px; /* Added space above buttons */
+  }
+}

@@ -1,0 +1,101 @@
+.kouta {
+  --primary-gradient: linear-gradient(to right, #2563eb, #6366f1);
+  --border-color: #e5e7eb;
+  --text-primary: #1f2937;
+  --text-secondary: #374151;
+  --bg-hover: #dbeafe;
+  --progress-bg: #e5e7eb;
+  --progress-fill: #60a5fa;
+}
+
+.kouta-container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.kouta-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.kouta-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.kouta-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kouta-header-row {
+  background: var(--primary-gradient);
+}
+
+.kouta-header-cell {
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.kouta-row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.kouta-row:hover {
+  background-color: var(--bg-hover);
+  transition: background-color 0.3s;
+}
+
+.kouta-cell {
+  padding: 12px;
+  color: var(--text-secondary);
+}
+
+.kouta-progress-wrapper {
+  width: 100%;
+  background-color: var(--progress-bg);
+  border-radius: 9999px;
+  height: 1rem;
+  overflow: hidden;
+}
+
+.kouta-progress {
+  background-color: var(--progress-fill);
+  height: 100%;
+  border-radius: 9999px;
+  text-align: right;
+  animation: progressAnimation 1.5s ease-out forwards;
+}
+
+.kouta-progress-text {
+  color: black;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .kouta-mobile-hidden {
+    display: none;
+  }
+}
+
+@keyframes progressAnimation {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--progress-width);
+  }
+}

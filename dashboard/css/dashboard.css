@@ -101,78 +101,129 @@
     margin-bottom: 1rem;
 }
 
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 .search-bar input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 .table-container {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    /* overflow-x: auto; */
-    width: 100%;
+    margin: 20px 0;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
+table button {
+    background-color: #0056b3; 
+    color: white; 
+    padding: 0.5em 1em; 
+    border: none; 
+    border-radius: 8px;
+    font-size: 0.9em; 
+    font-weight: bold; 
+    cursor: pointer; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease; 
+}
+
+table button:hover {
+    background-color: #004494; 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); 
+}
+
+table button:active {
+    background-color: #003366; 
+    transform: translateY(0); 
+}
+
+
 th, td {
-    padding: 1rem;
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #e2e8f0;
 }
 
 th {
-    background-color: #f8fafc;
-    font-weight: 500;
-    color: #475569;
-}
-
-.daftar-btn {
     background-color: #1e40af;
     color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.daftar-btn:hover {
-    background-color: #1e3a8a;
 }
 
 .pagination {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.page-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid #e2e8f0;
-    background-color: white;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.per-page select {
+    padding: 5px;
 }
 
-.page-btn:hover {
-    background-color: #f8fafc;
+.page-links a {
+    text-decoration: none;
+    color: #1e40af;
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #1e40af;
+    border-radius: 3px;
 }
 
-.page-btn.active {
+.page-links a.active {
     background-color: #1e40af;
     color: white;
-    border-color: #1e40af;
 }
+
+.page-links a:hover {
+    background-color: #1e40af;
+    color: white;
+}
+
+
 
 .menu-toggle {
     display: none;
@@ -210,6 +261,7 @@ th {
         padding: 1rem;
     }
 }
+
 /* END  */
 
 /* STYLING DATA DIRI */
@@ -449,11 +501,3 @@ th {
 }
 
 /* END */
-
-/* STYLING HASIL PPDB */
-.hasil-ppdb {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}

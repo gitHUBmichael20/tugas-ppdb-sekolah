@@ -2,34 +2,40 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PPDB JABAR 2024</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="assets/images/logo-website.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 </head>
 
 <body>
     <header>
         <nav class="container">
-            <div class="logo">PPDB JABAR 2024</div>
-            <input type="checkbox" id="nav-toggle">
+            <div class="banner">
+                <img style="width: 3em" class="banner-logo" src="assets/images/logo-website.png" alt="logo-website" />
+                <p class="logo">PPDB JABAR 2024</p>
+            </div>
+            <input type="checkbox" id="nav-toggle" />
             <label for="nav-toggle" class="nav-toggle-label">
                 <span></span>
             </label>
             <div class="nav-links">
                 <div class="nav-item" tabindex="0">
-                    <a href="#community">Community</a>
+                    <a href="#community">Staf PPDB</a>
                     <div class="dropdown">
-                        <a href="#forums">Forums</a>
-                        <a href="#events">Events</a>
-                        <a href="#mentorship">Mentorship</a>
+                        <a href="./admin/dashboard-admin/dashboard-admin.php">Admin</a>
+                        <a href="./sekolah/auth/login-sekolah.php">Sekolah</a>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#news">News</a>
+                    <a href="#footer">📧 Contact</a>
                 </div>
                 <div class="nav-buttons">
-                    <a href="dashboard/dashboard.php">Dashboard</a>
+                    <a href="dashboard/dashboard.php">Dashboard Murid</a>
                     <a href="auth/login.php" class="login-btn">LOGIN</a>
                     <a href="auth/register.php" class="register-btn">Register</a>
                 </div>
@@ -38,74 +44,144 @@
     </header>
 
     <section class="hero">
-        <div class=" hero-content">
+        <div class="hero-content">
             <h1 class="typing">Find Your <span>Future</span> Today!</h1>
             <p>Explore Your Options, Find Your Best Match</p>
-            <a href="#get-started" class="button">GET STARTED</a>
+            <a href="dashboard/dashboard.php" class="button">GET STARTED</a>
         </div>
     </section>
 
     <section class="services container">
         <h2>Services</h2>
         <div class="services-grid">
-            <div class="service-card">
+            <div onclick="window.open('dashboard/section/sekolah.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/school.mp4"></video>
                 <p>Find School</p>
             </div>
-            <div class="service-card">
+            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/check.mp4"></video>
-                <p>Cek Status</p>
+                <p>Periksa Hasil</p>
             </div>
-            <div class="service-card">
+            <div onclick="window.open('auth/register.php')" class="service-card">
                 <video autoplay muted loop src="assets/animation/create.mp4"></video>
                 <p>Buat Akun</p>
             </div>
-            <div class="service-card service-burgundy">
+            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card service-burgundy">
                 <video autoplay muted loop src="assets/animation/Status.mp4"></video>
                 <p>Cek Status</p>
             </div>
         </div>
     </section>
-    
 
-    <section class="universities container">
-        <h2>Top ranking High School In Jawa Barat</h2>
-        <div class="universities-grid">
-            <div class="university-card">SMAN 1 KOTA BEKASI</div>
-            <div class="university-card">SMKN 1 KOTA BEKASI</div>
-            <div class="university-card">SMAN 2 KOTA BEKASI</div>
+    <section class="schools container">
+        <h2>Top Ranking High Schools In Jawa Barat</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="swiper-caption">
+                        <h3 class="title-school">SMA NEGERI 1 BANDUNG</h3>
+                        <p class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error eaque veniam
+                            nihil vel, distinctio quos ipsam quis fuga, hic possimus aspernatur modi adipisci doloribus
+                            nobis!</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
+                    </div>
+                    <img class="swiper-image" src="assets/images/gedung-sma-1.jpeg" alt="gedung-sma-1">
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-caption">
+                        <h3 class="title-school">SMA NEGERI 3 BOGOR</h3>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
+                    </div>
+                    <img class="swiper-image" src="assets/images/gedung-sma-2.jpeg" alt="gedung-sma-2">
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-caption">
+                        <h3 class="title-school">SMA NEGERI 1 GARUT</h3>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
+                    </div>
+                    <img class="swiper-image" src="assets/images/gedung-sma-3.jpg" alt="gedung-sma-3">
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-caption">
+                        <h3 class="title-school">SMK NEGERI 1 KOTA BEKASI</h3>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
+                    </div>
+                    <img class="swiper-image" src="assets/images/gedung-sma-4.jpg" alt="gedung-sma-4">
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-caption">
+                        <h3 class="title-school">SMA NEGERI 13 BANDUNG</h3>
+                        <p class="caption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis officiis
+                            quisquam vero esse expedita, quas amet harum exercitationem adipisci quo, commodi laborum
+                            necessitatibus, cupiditate hic.</p>
+                        <button class="swiper-button" type="submit" value="daftar">Daftar disini</button>
+                    </div>
+                    <img class="swiper-image" src="assets/images/gedung-sma-5.jpg" alt="gedung-sma-5">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </section>
 
     <footer>
-        <div class="container footer-content">
-            <div class="contact-info">
-                <h3>Contact Info</h3>
-                <p><strong>Address:</strong> 6391 Elgin St. Celina, Delaware 10299</p>
-                <p><strong>Phone:</strong> +84 1102 2703</p>
-                <p><strong>Email:</strong> hello@thebox.com</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: carlosimbolon23@gmail.com</p>
+                <p>Phone: +62 0859-4796-1197</p>
             </div>
-            <div class="newsletter">
-                <h3>Login</h3>
-                <form method="post">
-                    <input type="email" placeholder="Your email here" aria-label="Email Address">
-                    <button type="submit">Login Now</button>
-                </form>
-            </div>
-            <div class="social">
-                <h3>Follow Me</h3>
+            <div class="footer-section">
+                <h3>Follow me</h3>
                 <div class="social-links">
-                    <a href="#facebook"><i class="fab fa-facebook"></i> Facebook</a>
-                    <a href="#linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="#twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://github.com/gitHUBmichael20" aria-label="github"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://www.instagram.com/michaell_carlo/" aria-label="instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/carlo-simbolon-301704267/" aria-label="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 The Box. All rights reserved.</p>
+            <p>&copy; 2024 November. Tugas Database Basis Data.</p>
         </div>
     </footer>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            effect: "creative",
+            creativeEffect: {
+                prev: {
+                    shadow: true,
+                    translate: ["-20%", 0, -1]
+                },
+                next: {
+                    translate: ["100%", 0, 0]
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
