@@ -87,14 +87,14 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 4. Salin file konfigurasi jika diperlukan dan sesuaikan database di file konfigurasi PHP Anda.
    
 6. Jalankan server lokal menggunakan Laragon:
-   - Aktifkan Laragon.
-   - Pastikan server berjalan, lalu buka browser dan akses `http://localhost/tugas-ppdb-sekolah-main`.
+      - Aktifkan Laragon.
+      - Pastikan server berjalan, lalu buka browser dan akses `http://localhost/tugas-ppdb-sekolah-main`.
      
 7. Jalankan Database
-  - Masuk ke dalam phpmyadmin
-  - ketik di browser 'http://localhost/phpmyadmin/'.
-  - Cari tomboh untuk import
-  - Ambil file database dari folder database di clone github
+     - Masuk ke dalam phpmyadmin
+     - ketik di browser 'http://localhost/phpmyadmin/'.
+     - Cari tomboh untuk import
+     - Ambil file database dari folder database di clone github
 
 ---
 
