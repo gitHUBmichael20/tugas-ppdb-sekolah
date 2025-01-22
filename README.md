@@ -1,5 +1,3 @@
-# tugas-ppdb-sekolah
-
 # Sistem Penerimaan Peserta Didik Baru (PPDB) - README
 
 ## Deskripsi Proyek
@@ -50,8 +48,8 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 ---
 
 ## Teknologi yang Digunakan
-- **Backend**: Laravel
-- **Frontend**: Vue.js / React.js (sesuaikan dengan kebutuhan)
+- **Backend**: Native PHP
+- **Frontend**: Native CSS
 - **Database**: MySQL
 - **Hosting Lokal**: Disarankan menggunakan **Laragon**
 
@@ -62,12 +60,12 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 - Server lokal dengan PHP, MySQL, dan Apache/Nginx yang sudah terintegrasi.
 - Kecepatan tinggi dalam menjalankan aplikasi lokal.
 - Antarmuka sederhana yang cocok untuk pemula.
-- Kompatibel dengan berbagai framework, seperti Laravel, WordPress, dan lainnya.
+- Kompatibel dengan berbagai framework atau aplikasi berbasis PHP.
 
 ### Instalasi Laragon:
 1. Unduh Laragon dari situs resminya: [laragon.org](https://laragon.org).
 2. Ikuti langkah instalasi hingga selesai.
-3. Gunakan Laragon untuk menjalankan proyek Laravel PPDB secara lokal.
+3. Gunakan Laragon untuk menjalankan proyek PPDB secara lokal.
 
 ---
 
@@ -82,28 +80,9 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
    cd ppdb-system
    ```
 
-3. Jalankan perintah berikut untuk menginstal dependensi:
-   ```bash
-   composer install
-   npm install
-   ```
+3. Salin file konfigurasi jika diperlukan dan sesuaikan database di file konfigurasi PHP Anda.
 
-4. Salin file `.env.example` menjadi `.env` dan konfigurasi database:
-   ```bash
-   cp .env.example .env
-   ```
-
-5. Generate application key:
-   ```bash
-   php artisan key:generate
-   ```
-
-6. Jalankan migrasi database:
-   ```bash
-   php artisan migrate
-   ```
-
-7. Jalankan server lokal menggunakan Laragon:
+4. Jalankan server lokal menggunakan Laragon:
    - Aktifkan Laragon.
    - Pastikan server berjalan, lalu buka browser dan akses `http://localhost/ppdb-system`.
 
@@ -119,6 +98,6 @@ Jika Anda ingin berkontribusi pada proyek ini:
 
 ## Kontak
 Jika ada pertanyaan atau masalah terkait proyek ini, silakan hubungi:
-- **Email**: carlosimbolon23@gmail.com
-- **Telepon**: +62 859-4796-1197
+- **Email**: admin@example.com
+- **Telepon**: +62 812-3456-7890
 
