@@ -25,7 +25,7 @@
                 📕 Courses
             </li>
         </ul>
-        <button class="logout-btn" onclick="window.location.href='../auth-admin/logout-admin.php'">Logout</button>
+        <button class="logout-btn" onclick="window.location.href='../auth/logout-sekolah.php'">Logout</button>
     </div>
 
     <div class="overlay"></div>

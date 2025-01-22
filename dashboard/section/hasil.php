@@ -47,16 +47,16 @@ $status = in_array($status, ['approved', 'rejected', 'pending']) ? $status : 'be
     <?php
     switch ($status) {
         case 'approved':
-            echo '<span>Selamat! Anda dinyatakan lulus seleksi PPDB.</span>';
+            echo '<strong>Selamat! Anda dinyatakan lulus seleksi PPDB.</strong>';
             break;
         case 'rejected':
-            echo '<span>Anda dinyatakan tidak lulus seleksi PPDB.</span>';
+            echo '<strong>Anda dinyatakan tidak lulus seleksi PPDB.</strong>';
             break;
         case 'pending':
-            echo '<span>Proses seleksi sedang berlangsung. Mohon menunggu hasil.</span>';
+            echo '<strong>Proses seleksi sedang berlangsung. Mohon menunggu hasil.</strong>';
             break;
         default:
-            echo '<span>Informasi belum tersedia. Mohon cek kembali nanti.</span>';
+            echo '<strong>Informasi belum tersedia. Mohon cek kembali nanti.</strong>';
     }
     ?>
 </section>

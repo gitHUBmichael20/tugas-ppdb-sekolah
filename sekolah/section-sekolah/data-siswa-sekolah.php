@@ -41,11 +41,6 @@ $result = $stmt->get_result();
     <title>Daftar Siswa Pendaftar</title>
     <link rel="shortcut icon" href="../../assets/images/logo-website.png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
 
         .container {
             max-width: 1200px;
