@@ -119,6 +119,6 @@ Jika Anda ingin berkontribusi pada proyek ini:
 
 ## Kontak
 Jika ada pertanyaan atau masalah terkait proyek ini, silakan hubungi:
-- **Email**: admin@example.com
-- **Telepon**: +62 812-3456-7890
+- **Email**: carlosimbolon23@gmail.com
+- **Telepon**: +62 859-4796-1197
 
