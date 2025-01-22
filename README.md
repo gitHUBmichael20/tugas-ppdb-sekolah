@@ -81,7 +81,7 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 
 3. Masuk ke direktori proyek:
    ```bash
-   cd ppdb-system
+   cd .\tugas-ppdb-sekolah\
    ```
 
 4. Salin file konfigurasi jika diperlukan dan sesuaikan database di file konfigurasi PHP Anda.
