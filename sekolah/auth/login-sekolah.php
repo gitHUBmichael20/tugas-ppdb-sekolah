@@ -94,6 +94,7 @@ $conn->close();
 
             <button type="submit" class="submit-btn">Login</button>
         </form>
+        <a href="../auth/register-sekolah.php">Belum punya akun ? Register sekarang</a>
     </div>
 
     <script>
