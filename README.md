@@ -72,19 +72,29 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 ## Instalasi dan Pengaturan Proyek
 1. Clone repository ini:
    ```bash
-   git clone https://github.com/username/ppdb-system.git
+   git clone https://github.com/gitHUBmichael20/tugas-ppdb-sekolah.git
    ```
 
-2. Masuk ke direktori proyek:
+2. Pindahkan folder proyek yang sudah di-clone ke dalam folder `www` di instalasi Laragon Anda:
+   - Temukan folder `www` di direktori tempat Laragon terinstal (biasanya `C:\laragon\www`).
+   - Salin atau pindahkan folder hasil clone ke dalam folder `www`.
+
+3. Masuk ke direktori proyek:
    ```bash
    cd ppdb-system
    ```
 
-3. Salin file konfigurasi jika diperlukan dan sesuaikan database di file konfigurasi PHP Anda.
-
-4. Jalankan server lokal menggunakan Laragon:
+4. Salin file konfigurasi jika diperlukan dan sesuaikan database di file konfigurasi PHP Anda.
+   
+6. Jalankan server lokal menggunakan Laragon:
    - Aktifkan Laragon.
-   - Pastikan server berjalan, lalu buka browser dan akses `http://localhost/ppdb-system`.
+   - Pastikan server berjalan, lalu buka browser dan akses `http://localhost/tugas-ppdb-sekolah-main`.
+     
+7. Jalankan Database
+  - Masuk ke dalam phpmyadmin
+  - ketik di browser 'http://localhost/phpmyadmin/'.
+  - Cari tomboh untuk import
+  - Ambil file database dari folder database di clone github
 
 ---
 
