@@ -22,27 +22,27 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
    - Isi formulir pendaftaran dengan data yang valid.
    - Konfirmasi email atau nomor telepon untuk verifikasi akun.
 
-2. **Login**:
+2. **Login & Registrasi**:
    - Masuk ke akun menggunakan email dan password yang telah dibuat.
-
-3. **Unggah Dokumen**:
-   - Masuk ke halaman "Profil Saya".
-   - Klik opsi "Unggah Dokumen" untuk mengunggah akta kelahiran, nilai rapor, dan ijazah.
+   - Jika belum membuat akun Bisa masuk ke halaman register
 
 4. **Cari Sekolah**:
    - Gunakan fitur pencarian untuk menemukan sekolah yang sesuai dengan preferensi.
    - Klik tombol "Daftar" untuk mendaftar ke sekolah pilihan.
+     
+5. **Tunggu pengumuman hasil pendaftaran**
+   - Pada bagian hasil ppdb akan diberikan hasil pendaftaran murid
 
 ### Untuk Admin PPDB:
-1. **Login ke Dashboard Admin**:
+1. **Login / Register ke Dashboard Admin**:
    - Masuk ke halaman admin menggunakan kredensial yang valid.
 
 2. **Seleksi Siswa**:
    - Lihat daftar pendaftar melalui dashboard.
-   - Gunakan filter untuk menyaring siswa berdasarkan kriteria tertentu (misalnya, nilai rapor).
    - Tandai siswa yang lolos seleksi dan kirim notifikasi ke akun mereka.
+   - Pada halaman hasil ppdb di siswa, akan ditampilkan hasil ppdb mereka
 
-3. **Manajemen Sekolah**:
+3. **Manajemen Sekolah & Murid**:
    - Tambahkan, edit, atau hapus informasi sekolah di sistem.
 
 ---
@@ -94,15 +94,8 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
      - Masuk ke dalam phpmyadmin
      - ketik di browser 'http://localhost/phpmyadmin/'.
      - Cari tomboh untuk import
-     - Ambil file database dari folder database di clone github
-
----
-
-## Kontribusi
-Jika Anda ingin berkontribusi pada proyek ini:
-1. Fork repository ini.
-2. Buat branch baru untuk fitur atau perbaikan Anda.
-3. Lakukan pull request setelah selesai.
+     - **Ambil file database dari folder database di clone github**
+     - **Pastikan sudah di IMPORT dengan benar**
 
 ---
 
