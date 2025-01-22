@@ -57,98 +57,7 @@ $conn->close();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f3f4f6;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 400px;
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 32px;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        video {
-            display: block;
-            width: 40%;
-            margin: 0 auto 16px;
-            border-radius: 8px;
-        }
-
-        form {
-            display: grid;
-            gap: 16px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #4b5563;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px 12px;
-            font-size: 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #ef4444;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px 16px;
-            background-color: #ef4444;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #dc2626;
-        }
-
-        button:focus {
-            outline: 2px solid #ef4444;
-            outline-offset: 2px;
-        }
-
-        .alert {
-            margin-top: 16px;
-            text-align: center;
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style-admin-login.css">
 </head>
 
 <body>
@@ -172,6 +81,7 @@ $conn->close();
             </div>
             <button type="submit">Login</button>
         </form>
+        <a href="../auth-admin/register-admin.php">Belum ada akun admin ?? register sekarang !! </a>
 
         <?php if ($login_message): ?>
             <div class="alert">
