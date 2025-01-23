@@ -55,20 +55,6 @@ Sistem PPDB adalah platform yang membantu siswa dalam mencari sekolah tujuan dan
 
 ---
 
-## Mengapa Laragon?
-**Laragon** adalah software ringan yang membantu Anda mengatur lingkungan pengembangan web lokal dengan cepat dan mudah. Fitur-fiturnya meliputi:
-- Server lokal dengan PHP, MySQL, dan Apache/Nginx yang sudah terintegrasi.
-- Kecepatan tinggi dalam menjalankan aplikasi lokal.
-- Antarmuka sederhana yang cocok untuk pemula.
-- Kompatibel dengan berbagai framework atau aplikasi berbasis PHP.
-
-### Instalasi Laragon:
-1. Unduh Laragon dari situs resminya: [laragon.org](https://laragon.org).
-2. Ikuti langkah instalasi hingga selesai.
-3. Gunakan Laragon untuk menjalankan proyek PPDB secara lokal.
-
----
-
 ## Instalasi dan Pengaturan Proyek
 1. Clone repository ini:
    ```bash
