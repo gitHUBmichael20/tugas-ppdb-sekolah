@@ -5,14 +5,12 @@
 }
 
 body {
-  font-family: 'segoe ui';
+  font-family: 'Segoe UI', sans-serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../assets/images/background-login-sekolah.jpg");
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: #f0f2f5; /* Warna background yang netral */
   margin: 0;
   padding: 20px;
 }
@@ -20,42 +18,42 @@ body {
 .login-container {
   width: 100%;
   max-width: 400px;
-  background: rgba(0, 0, 0, 0.505);
-  border: 1px solid rgba(253, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
+  background: #ffffff; /* Background putih */
+  border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow yang halus */
 }
 
-.website-title{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
+.website-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.logo-web{
-    max-width: 4em;
+.logo-web {
+  max-width: 4em;
 }
 
 .login-title {
-  color: white;
+  color: #333; /* Warna teks yang netral */
   text-align: center;
   font-size: 1.6em;
+  font-weight: 600;
 }
 
-.login-video{
+.login-video {
   display: grid;
   width: 100%;
   place-items: center;
+  margin-bottom: 20px;
 }
 
-video{
-  width: 40%;;
+video {
+  width: 40%;
+  border-radius: 8px;
 }
 
 .form-group {
@@ -64,28 +62,29 @@ video{
 
 .form-label {
   display: block;
-  color: rgb(255, 255, 255);
+  color: #555; /* Warna teks yang lebih soft */
   margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .form-input {
   width: 100%;
   padding: 10px 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  color: white;
+  background: #f9f9f9; /* Background input yang lembut */
+  border: 1px solid #ddd; /* Border yang tidak mencolok */
+  border-radius: 8px;
+  color: #333;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: #999; /* Placeholder yang tidak terlalu mencolok */
 }
 
 .form-input:focus {
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  border-color: #667eea; /* Warna biru yang soft saat focus */
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2); /* Efek shadow saat focus */
 }
 
 .password-wrapper {
@@ -99,7 +98,7 @@ video{
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: #999; /* Warna ikon yang tidak mencolok */
   cursor: pointer;
   padding: 5px;
 }
@@ -107,9 +106,9 @@ video{
 .submit-btn {
   width: 100%;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #667eea; /* Warna biru yang soft */
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -117,7 +116,7 @@ video{
 }
 
 .submit-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #5a6ec7; /* Warna biru yang sedikit lebih gelap saat hover */
 }
 
 .forgot-password {
@@ -126,13 +125,20 @@ video{
 }
 
 .forgot-password a {
-  color: rgba(255, 255, 255, 0.8);
+  color: #667eea; /* Warna biru yang soft untuk link */
   text-decoration: none;
   font-size: 14px;
 }
 
 .forgot-password a:hover {
   text-decoration: underline;
+}
+
+.alert {
+  text-align: center;
+  color: #ff4444; /* Warna merah untuk pesan error */
+  margin-bottom: 15px;
+  font-weight: 500;
 }
 
 @media (max-width: 480px) {

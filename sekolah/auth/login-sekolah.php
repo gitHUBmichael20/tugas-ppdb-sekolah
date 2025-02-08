@@ -73,7 +73,7 @@ $conn->close();
         <form method="post">
             <div class="form-group">
                 <label for="id_sekolah">ID Sekolah</label>
-                <input type="text" id="id_sekolah" name="id_sekolah" class="form-input"
+                <input autocomplete="off" type="text" id="id_sekolah" name="id_sekolah" class="form-input"
                     placeholder="Masukkan ID Sekolah" required>
             </div>
 
@@ -94,7 +94,9 @@ $conn->close();
 
             <button type="submit" class="submit-btn">Login</button>
         </form>
-        <a href="../auth/register-sekolah.php">Belum punya akun ? Register sekarang</a>
+        <div class="forgot-password">
+            <a href="../auth/register-sekolah.php">Belum punya akun? Register sekarang</a>
+        </div>
     </div>
 
     <script>

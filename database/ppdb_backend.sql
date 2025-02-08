@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 22, 2025 at 11:52 AM
+-- Generation Time: Feb 08, 2025 at 02:38 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -38,7 +38,13 @@ CREATE TABLE `admin_ppdb` (
 --
 
 INSERT INTO `admin_ppdb` (`admin_ID`, `admin_nama`, `password`) VALUES
-('001', 'Puji Winarto', '101010');
+('AOGOW', 'Budi Firman', 'password'),
+('ASDFGH', 'Nadia Permata', 'password'),
+('MADXYZA', 'Kuswanto Adikarya', 'password'),
+('PLMNOA', 'Siti Rahmawati', 'password'),
+('QWERBC', 'Rizky Maulana', 'password'),
+('XKJQWZ', 'Andi Pratama', 'password'),
+('ZXYTUV', 'Dewi Anggraini', 'password');
 
 -- --------------------------------------------------------
 
@@ -62,9 +68,12 @@ CREATE TABLE `pendaftaran` (
 --
 
 INSERT INTO `pendaftaran` (`pendaftaran_ID`, `nama_murid`, `nama_sekolah`, `waktu`, `status`, `NISN_Siswa`, `id_sekolah`, `admin_ID`) VALUES
-(1, 'michael simbolon', 'SMA Negeri 13 Cimahi', '2025-01-09', 'Rejected', '101010', '5182', '001'),
-(2, 'Leonardo Simbolon', 'SMA Negeri 19 Karawang', '2025-01-15', 'Rejected', '00011293495', '3122', NULL),
-(118, 'Kelly Davis', 'SMA Negeri 19 Karawang', '2025-01-22', 'belum-konfirmasi', '9340776510', '3122', NULL);
+(2, 'Leonardo Simbolon', 'SMA Negeri 19 Karawang', '2025-01-15', 'Approved', '00011293495', '3122', 'MADXYZA'),
+(118, 'Kelly Davis', 'SMA Negeri 19 Karawang', '2025-01-22', 'Rejected', '9340776510', '3122', 'MADXYZA'),
+(119, 'Tegar Kurniawan', 'SMA Negeri 2 Garut', '2025-02-08', 'belum-konfirmasi', '0987542176', '3452', NULL),
+(120, 'Arif Mulyadi', 'SMA Negeri 2 Garut', '2025-02-08', 'belum-konfirmasi', '146257257', '3452', NULL),
+(121, 'Muhammad Daffa', 'SMA Negeri 2 Garut', '2025-02-08', 'belum-konfirmasi', '27794291512', '3452', NULL),
+(122, 'Setyadi Mohendra', 'SMA Negeri 2 Garut', '2025-02-08', 'belum-konfirmasi', '09458883344', '3452', NULL);
 
 -- --------------------------------------------------------
 
@@ -87,7 +96,6 @@ CREATE TABLE `sekolah` (
 --
 
 INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `jenis`, `email`, `kouta`, `lokasi`, `password`) VALUES
-('2111', 'SMANSA BANDUNG', NULL, NULL, NULL, NULL, 'SMANSA'),
 ('3047', 'SMA Negeri 20 Tasikmalaya', 'SMA', 'sma20tasikmalaya@example.com', 125, 'Tasikmalaya', 'SMAK3047'),
 ('3122', 'SMA Negeri 19 Karawang', 'SMA', 'sma19karawang@example.com', 95, 'Karawang', 'SMAK3122'),
 ('3452', 'SMA Negeri 2 Garut', 'SMA', 'sma2garut@example.com', 105, 'Garut', 'SMAK3452'),
@@ -130,8 +138,13 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id`, `NISN`, `nama_murid`, `alamat`, `tanggal_lahir`, `password`) VALUES
 (3, '00011293495', 'Leonardo Simbolon', 'Jl raya bekasi', '2014-08-17', '$2y$10$FToK81MR3zrB1WINcnnQSOnKBNoS6W2BZTsjBe4./cKVQjExTEYWm'),
+(12, '09458883344', 'Setyadi Mohendra', 'Bekasi barat', '2008-08-09', '$2y$10$W1mYoYqG1cBslnBU0HsjTupGFEiZL9qGsCnzIA1u0vuTGNg69Ih/i'),
+(13, '0985456246', 'Kartika dewi', 'Bintara Bekasi barat', '2008-08-08', '$2y$10$3ZX5nxNQHQAOry.uYdj/PO9ANt660yW8oNVQ2/f9SFM587.z5P5JW'),
+(9, '0987542176', 'Tegar Kurniawan', 'Melawai, jakarta selatan', '2007-09-29', '$2y$10$Jp85Wtrcrovv2AIjYnN/LuYNHBfN7/NEbydaeFODYXB9MAaRFWFqa'),
 (1, '101010', 'michael simbolon', 'jl bogor merdeka', '2001-09-09', '$2y$10$5QEI502/vO5p1.6tqIly5utsFj4k6xtYxf7/DhPWEi2BrQPn1swwK'),
+(10, '146257257', 'Arif Mulyadi', 'Jl braga bandung', '2008-02-07', '$2y$10$B/md/ZZusq5wbCJp8xvELedeeCP2BOUiuwuSab1PZlWDzaOxfJEr2'),
 (8, '234556', 'Budi', 'Kota Bogor Jawa Barat', '2007-01-11', 'cb842408b5ae206df110141c8d2ae4378f6afce406d752e4eefb071bf3ba3121'),
+(11, '27794291512', 'Muhammad Daffa', 'Jl medan merdeka', '2007-12-09', '$2y$10$/sEkVFr5omzOWxNbW.KJiOpWl3oebjS.ik6VyR0ULBkVfCvc1kygO'),
 (4, '9286599918', 'Debra Hill', '0886 Erica Creek Suite 723, South Annville, WY 31162', '2005-01-04', '$2y$10$fuQdeOZiUvsqqH5lZN1c/OmCbgsE3oxkpusVpfC.mA5JO9myQ9YH6'),
 (5, '9340776510', 'Kevin Brown', '2992 Francis Keys, Erikachester, OK 23495', '1992-12-04', '$2y$10$RN144hWAnxy.thm1BYT8Tu9t3aegIqOVgU8G35gVgos5pbrWQnLui'),
 (6, '9348520709', 'Debbie Olson', '1828 Mckinney Haven, Thomasfurt, TX 60947', '2001-08-09', '$2y$10$LlXs/6Rl/4xbsXCCEvqoaejQkS1vhh/whvXJKleHnWx3Kfp2BhGZe');
@@ -176,13 +189,13 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `pendaftaran_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `pendaftaran_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

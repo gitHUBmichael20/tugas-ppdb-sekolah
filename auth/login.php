@@ -78,6 +78,7 @@ $conn->close();
                 <!-- Tombol pertama -->
                 <button type="submit" name="action" value="login">Login</button>
             </form>
+            <a href="./register.php"><button style="margin-top: 15px;" type="button">Doesn't Have an account?</button></a>
 
             <?php if (!empty($login_message)) : ?>
                 <script>

@@ -9,67 +9,16 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
 </head>
 
 <body>
-    <header>
-        <nav class="container">
-            <div class="banner">
-                <img style="width: 3em" class="banner-logo" src="assets/images/logo-website.png" alt="logo-website" />
-                <p class="logo">PPDB JABAR 2024</p>
-            </div>
-            <input type="checkbox" id="nav-toggle" />
-            <label for="nav-toggle" class="nav-toggle-label">
-                <span></span>
-            </label>
-            <div class="nav-links">
-                <div class="nav-item" tabindex="0">
-                    <a href="#community">Staf PPDB</a>
-                    <div class="dropdown">
-                        <a href="./admin/dashboard-admin/dashboard-admin.php">Admin</a>
-                        <a href="./sekolah/auth/login-sekolah.php">Sekolah</a>
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <a href="#footer">📧 Contact</a>
-                </div>
-                <div class="nav-buttons">
-                    <a href="dashboard/dashboard.php">Dashboard Murid</a>
-                    <a href="auth/login.php" class="login-btn">LOGIN</a>
-                    <a href="auth/register.php" class="register-btn">Register</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <?php include('./main-components/navbar.php') ?>
 
     <section class="hero">
         <div class="hero-content">
             <h1 class="typing">Find Your <span>Future</span> Today!</h1>
             <p>Explore Your Options, Find Your Best Match</p>
             <a href="dashboard/dashboard.php" class="button">GET STARTED</a>
-        </div>
-    </section>
-
-    <section class="services container">
-        <h2>Services</h2>
-        <div class="services-grid">
-            <div onclick="window.open('dashboard/section/sekolah.php')" class="service-card">
-                <video autoplay muted loop src="assets/animation/school.mp4"></video>
-                <p>Find School</p>
-            </div>
-            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card">
-                <video autoplay muted loop src="assets/animation/check.mp4"></video>
-                <p>Periksa Hasil</p>
-            </div>
-            <div onclick="window.open('auth/register.php')" class="service-card">
-                <video autoplay muted loop src="assets/animation/create.mp4"></video>
-                <p>Buat Akun</p>
-            </div>
-            <div onclick="window.open('dashboard/section/hasil.php')" class="service-card service-burgundy">
-                <video autoplay muted loop src="assets/animation/Status.mp4"></video>
-                <p>Cek Status</p>
-            </div>
         </div>
     </section>
 
@@ -132,29 +81,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: carlosimbolon23@gmail.com</p>
-                <p>Phone: +62 0859-4796-1197</p>
-            </div>
-            <div class="footer-section">
-                <h3>Follow me</h3>
-                <div class="social-links">
-                    <a href="https://github.com/gitHUBmichael20" aria-label="github"><i
-                            class="fa-brands fa-github"></i></a>
-                    <a href="https://www.instagram.com/michaell_carlo/" aria-label="instagram"><i
-                            class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/carlo-simbolon-301704267/" aria-label="LinkedIn"><i
-                            class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 November. Tugas Database Basis Data.</p>
-        </div>
-    </footer>
+    <?php include('./main-components/footer.php') ?>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>

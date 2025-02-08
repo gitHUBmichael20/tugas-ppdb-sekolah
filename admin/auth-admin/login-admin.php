@@ -58,6 +58,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link rel="stylesheet" href="../css/style-admin-login.css">
+    <link rel="shortcut icon" href="../../assets//images//logo-website.png" type="image/x-icon">
 </head>
 
 <body>
