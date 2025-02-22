@@ -18,8 +18,8 @@
             </video>
             <form action="login.php" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required />
+                    <label for="username">Nama Murid</label>
+                    <input type="text" id="username" name="username" required autocomplete="off" />
                 </div>
                 <div class="form-group">
                     <label for="NISN">NISN</label>

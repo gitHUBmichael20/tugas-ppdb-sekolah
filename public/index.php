@@ -20,8 +20,12 @@ if (isset($_GET['page'])) {
     } elseif ($_GET['page'] == 'dashboard-siswa') {
         include('../resources/views/siswa/dashboard-siswa/dashboard-siswa.php');
     }
+} elseif (isset($_GET['auth'])) {
+    if ($_GET['auth'] == 'admin') {
+        // include('../resources/views/admin/auth-admin/login-admin.php');
+    } elseif ($_GET['auth'] == 'sekolah') {
+        // include('../resources/views/sekolah/auth-sekolah/login-sekolah.php');
+    }
 } else {
     include('../resources/views/landing.php');
 }
-
-?>
