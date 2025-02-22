@@ -1,0 +1,117 @@
+:root {
+  --primary-color-button: #003092;
+  --button-color-button: #7886C7;
+  --secondary-color-button: #f5f7fa;
+}
+
+table {
+  width: 100%;
+  max-width: 80rem;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+thead th {
+  background-color: var(--primary-color-button);
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: none;
+  }
+
+  tbody td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 10px;
+  }
+}
+
+/* Styling untuk tombol generik */
+.green-button,
+.red-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px; /* Jarak antar tombol */
+}
+
+/* Styling spesifik untuk tombol Terima */
+.green-button {
+    background-color: #28a745; /* Hijau */
+    color: #fff;
+}
+
+.green-button:hover {
+    background-color: #218838; /* Hijau lebih gelap saat hover */
+}
+
+/* Styling spesifik untuk tombol Tolak */
+.red-button {
+    background-color: #dc3545; /* Merah */
+    color: #fff;
+}
+
+.red-button:hover {
+    background-color: #c82333; /* Merah lebih gelap saat hover */
+}
+
+/* Responsivitas untuk tabel */
+@media (max-width: 600px) {
+    .green-button,
+    .red-button {
+        padding: 6px 10px;
+        font-size: 12px;
+        display: block; /* Tombol jadi block di layar kecil */
+        width: 100%; /* Lebar penuh di layar kecil */
+        margin: 5px 0; /* Jarak vertikal */
+    }
+}
