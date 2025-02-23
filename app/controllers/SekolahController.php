@@ -1,22 +1,21 @@
 <?php
 
-include '../models/sekolahModel.php';
+include ('../app/models/sekolahModel.php');
 
-// class SekolahController {
-//     private $model;
+class SekolahController {
+    private $sekolahModel;
+    
+    public function __construct() {
+        $this->sekolahModel = new SekolahModel();
+    }
 
-//     public function __construct() {
-//         $this->model = new SekolahModel();
-//     }
-
-//     public function index() {
-//         $data = $this->model->getAllSekolah() ?? [];
-//         include './PPDB-Penerimaan-Siswa-MVC/resources/views/siswa/dashboard-siswa/section/sekolah.php';
-//     }
-// }
-
-// // Panggil fungsi index untuk menampilkan data
-// $controller = new SekolahController();
-// $controller->index();
+    public function index() {
+        // Mengirim data ke frontend
+        $sekolah = $this->sekolahModel->getAllSekolah();
+        
+        // Include the view file
+        include '../resources/views/siswa/dashboard-siswa/dashboard-siswa.php';
+    }
+}
 
 ?>

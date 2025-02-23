@@ -1,5 +1,15 @@
 <?php
 
+// include controller
+// include ('../app/controllers/AdminController.php');
+include ('../app/controllers/SekolahController.php');
+// include ('../app/controllers/SiswaController.php');
+
+// Buat object baru
+// $admin = new AdminController();
+$sekolah = new SekolahController();
+// $siswa = new SiswaController();
+
 if (isset($_GET['page'])) {
     if ($_GET['page'] == 'login-admin') {
         include('../resources/views/admin/auth-admin/login-admin.php');
@@ -18,7 +28,7 @@ if (isset($_GET['page'])) {
     } elseif ($_GET['page'] == 'sign-up-siswa') {
         include('../resources/views/siswa/auth-siswa/sign-up-siswa.php');
     } elseif ($_GET['page'] == 'dashboard-siswa') {
-        include('../resources/views/siswa/dashboard-siswa/dashboard-siswa.php');
+        $sekolah->index();
     }
 } elseif (isset($_GET['auth'])) {
     if ($_GET['auth'] == 'admin') {

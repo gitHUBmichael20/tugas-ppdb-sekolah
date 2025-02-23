@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard Siswa</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../resources/css/table/table.css">
+    <link rel="stylesheet" href="../resources/css/form/form.css">
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
@@ -24,7 +26,7 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard</div>
+        <div class="logo">Dashboard Panel Siswa</div>
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Pilihan Sekolah</a>
             <a href="#" data-section="data"><i class="fas fa-file"></i>Data Anda</a>
@@ -48,6 +50,7 @@
         <div id="status" class="content-section">
             <h2>Status Penerimaan</h2>
             <p>Your application status will be displayed here.</p>
+            <?php include('../resources/views/siswa/dashboard-siswa/section/status-penerimaan.php') ?>
         </div>
     </main>
 
