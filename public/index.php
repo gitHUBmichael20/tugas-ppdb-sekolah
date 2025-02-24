@@ -1,41 +1,79 @@
 <?php
+// Mulai session untuk autentikasi
+session_start();
 
-// include controller
-// include ('../app/controllers/AdminController.php');
-include ('../app/controllers/SekolahController.php');
-// include ('../app/controllers/SiswaController.php');
+// Include semua controller yang diperlukan
+include '../app/controllers/AdminController.php';
+include '../app/controllers/SekolahController.php';
+include '../app/controllers/SiswaController.php';
 
-// Buat object baru
-// $admin = new AdminController();
+// Buat instance objek controller
+$admin = new AdminController();
 $sekolah = new SekolahController();
-// $siswa = new SiswaController();
+$siswa = new SiswaController();
 
-if (isset($_GET['page'])) {
-    if ($_GET['page'] == 'login-admin') {
-        include('../resources/views/admin/auth-admin/login-admin.php');
-    } elseif ($_GET['page'] == 'sign-up-admin') {
-        include('../resources/views/admin/auth-admin/sign-up-admin.php');
-    } elseif ($_GET['page'] == 'dashboard-admin') {
-        include('../resources/views/admin/dashboard-admin/dashboard-admin.php');
-    } elseif ($_GET['page'] == 'login-sekolah') {
-        include('../resources/views/sekolah/auth-sekolah/login-sekolah.php');
-    } elseif ($_GET['page'] == 'sign-up-sekolah') {
-        include('../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php');
-    } elseif ($_GET['page'] == 'dashboard-sekolah') {
-        include('../resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php');
-    } elseif ($_GET['page'] == 'login-siswa') {
-        include('../resources/views/siswa/auth-siswa/login-siswa.php');
-    } elseif ($_GET['page'] == 'sign-up-siswa') {
-        include('../resources/views/siswa/auth-siswa/sign-up-siswa.php');
-    } elseif ($_GET['page'] == 'dashboard-siswa') {
-        $sekolah->index();
+// Fungsi untuk membatasi akses ke dashboard tertentu
+function restrictToLoggedIn($role)
+{
+    $sessionKey = $role . '_logged_in';
+    if (!isset($_SESSION[$sessionKey]) || $_SESSION[$sessionKey] !== true) {
+        header("Location: ?page=login-$role");
+        exit();
     }
-} elseif (isset($_GET['auth'])) {
-    if ($_GET['auth'] == 'admin') {
-        // include('../resources/views/admin/auth-admin/login-admin.php');
-    } elseif ($_GET['auth'] == 'sekolah') {
-        // include('../resources/views/sekolah/auth-sekolah/login-sekolah.php');
+}
+
+// Routing berdasarkan parameter 'page'
+if (isset($_GET['page'])) {
+    switch ($_GET['page']) {
+            // Admin Routes
+        case 'login-admin':
+            include '../resources/views/admin/auth-admin/login-admin.php';
+            break;
+        case 'sign-up-admin':
+            include '../resources/views/admin/auth-admin/sign-up-admin.php';
+            break;
+        case 'dashboard-admin':
+            restrictToLoggedIn('admin');
+            include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+            break;
+
+            // Sekolah Routes
+        case 'login-sekolah':
+            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            break;
+        case 'sign-up-sekolah':
+            include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+            break;
+        case 'dashboard-sekolah':
+            restrictToLoggedIn('sekolah');
+            $sekolah->index(); // Memanggil index dari SekolahController
+            break;
+
+            // Siswa Routes
+        case 'login-siswa':
+            if (isset($_GET['action']) && $_GET['action'] == 'login') {
+                $siswa->login();
+            } else {
+                include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            }
+            break;
+        case 'sign-up-siswa':
+            include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
+            break;
+        case 'dashboard-siswa':
+            restrictToLoggedIn('siswa');
+            $sekolah->index(); // Memanggil database untuk mengisi tabel
+            break;
+        case 'logout-siswa':
+            $siswa->logout();
+            break;
+
+            // Default case jika page tidak dikenali
+        default:
+            include '../resources/views/landing.php';
+            break;
     }
 } else {
-    include('../resources/views/landing.php');
+    // Default: tampilkan landing page jika tidak ada parameter 'page'
+    include '../resources/views/landing.php';
 }

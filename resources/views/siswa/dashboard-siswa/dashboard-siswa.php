@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
     <link rel="stylesheet" href="../resources/css/table/table.css">
     <link rel="stylesheet" href="../resources/css/form/form.css">
+    <link rel="stylesheet" href="../resources/css/status-ppdb/status-ppdb.css">
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
@@ -32,10 +33,12 @@
             <a href="#" data-section="data"><i class="fas fa-file"></i>Data Anda</a>
             <a href="#" data-section="status"><i class="fas fa-users"></i>Status Penerimaan</a>
         </nav>
-        <button class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </button>
+        <a href="index.php?page=logout-siswa">
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </a>
     </div>
 
     <main class="main-content">

@@ -1,0 +1,90 @@
+.status-wrapper {
+    display: flex;
+    margin: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    max-width: 800px;
+    padding: 30px;
+    background-color: #f7f7f7;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007BFF; /* Warna biru cerah untuk konsisten dengan desain sebelumnya */
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+    color: white;
+}
+
+.status-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-ppdb {
+    width: 100px;
+    height: 100px;
+}
+
+.status-body {
+    width: 100%;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-item-siswa {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.info-item-siswa strong {
+    font-weight: bold;
+}
+
+.placeholder {
+    display: inline-block;
+    width: 200px;
+    border-bottom: 1px solid #999999;
+}
+
+.instruction-box {
+    background-color: #F5F5F5;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.additional-info {
+    font-size: 14px;
+    color: #666666;
+    margin-top: 15px;
+}
