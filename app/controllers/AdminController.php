@@ -47,4 +47,16 @@ class AdminController
         header('Location: ?page=login-admin');
         exit();
     }
+
+    public function saveMurid(){
+        $data = [
+            'nama' => $_POST['nama'],
+            'kelas' => $_POST['kelas'],
+            'jurusan' => $_POST['jurusan'],
+            'tanggal_lahir' => $_POST['tanggal_lahir'],
+            'alamat' => $_POST['alamat'],
+            'no_telp' => $_POST['no_telp']
+        ];
+        $this->adminModel->addSiswa($data);
+    }
 }

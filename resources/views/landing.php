@@ -23,7 +23,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Find the best solution for your future</h1>
+            <h1>Find the best solution for your future now</h1>
             <p>You can find the best school in Western Java here, make sure you choose the best one.</p>
             <a href="#" class="cta-button">Get Started</a>
         </div>
