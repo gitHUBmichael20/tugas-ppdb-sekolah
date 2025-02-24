@@ -31,10 +31,12 @@
             <a href="#" data-section="data"><i class="fa-regular fa-address-card"></i>Tambah Murid & Sekolah</a>
             <a href="#" data-section="status"><i class="fa-solid fa-square-poll-horizontal"></i>Status Penerimaan</a>
         </nav>
-        <button class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </button>
+        <a href="index.php?page=logout-admin">
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </a>
     </div>
 
     <main class="main-content">

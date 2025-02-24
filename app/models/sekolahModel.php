@@ -21,4 +21,14 @@ class SekolahModel
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getSekolahById($id)
+    {
+        $query = "SELECT * FROM $this->tabel WHERE id_sekolah = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

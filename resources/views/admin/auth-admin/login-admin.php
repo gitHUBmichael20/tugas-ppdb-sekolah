@@ -16,14 +16,10 @@
             <video loop autoplay class="video-container">
                  <source src="./assets/animation/hello-animation.webm">
             </video>
-            <form action="login.php" method="post">
+            <form action="?page=login-admin&action=login" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required />
-                </div>
-                <div class="form-group">
-                    <label for="NISN">NISN</label>
-                    <input type="text" id="NISN" name="NISN" required />
+                    <label for="admin_ID">ID Admin</label>
+                    <input type="text" id="admin_ID" name="admin_ID" required />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -34,7 +30,6 @@
                 <button type="submit" name="action" value="login">Login</button>
             </form>
             <a href="index.php?page=sign-up-admin"><button style="margin-top: 15px;" type="button">Doesn't Have an account?</button></a>
-            <a href="index.php?page=dashboard-admin"><button style="margin-top: 15px;" type="button">Preview Dashboard</button></a>
         </div>
     </div>
 </body>

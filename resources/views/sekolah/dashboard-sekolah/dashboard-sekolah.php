@@ -30,10 +30,12 @@
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid diterima</a>
             <a href="#" data-section="statistic"><i class="fa-solid fa-square-poll-horizontal"></i>Statistik Penerimaan</a>
         </nav>
-        <button class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </button>
+        <a href="index.php?page=logout-sekolah">
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </a>
     </div>
 
     <main class="main-content">

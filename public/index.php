@@ -27,26 +27,40 @@ if (isset($_GET['page'])) {
     switch ($_GET['page']) {
             // Admin Routes
         case 'login-admin':
-            include '../resources/views/admin/auth-admin/login-admin.php';
+            if (isset($_GET['action']) && $_GET['action'] == 'login') {
+                $admin->login();
+            } else {
+                include '../resources/views/admin/auth-admin/login-admin.php';
+            }
             break;
         case 'sign-up-admin':
             include '../resources/views/admin/auth-admin/sign-up-admin.php';
             break;
         case 'dashboard-admin':
             restrictToLoggedIn('admin');
-            include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+            $admin->index();
+            break;
+        case 'logout-admin':
+            $admin->logout();
             break;
 
             // Sekolah Routes
         case 'login-sekolah':
-            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            if (isset($_GET['action']) && $_GET['action'] == 'login') {
+                $sekolah->login();
+            } else {
+                include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            }
             break;
         case 'sign-up-sekolah':
             include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
             break;
         case 'dashboard-sekolah':
             restrictToLoggedIn('sekolah');
-            $sekolah->index(); // Memanggil index dari SekolahController
+            $sekolah->index();
+            break;
+        case 'logout-sekolah':
+            $sekolah->logout();
             break;
 
             // Siswa Routes
@@ -62,7 +76,7 @@ if (isset($_GET['page'])) {
             break;
         case 'dashboard-siswa':
             restrictToLoggedIn('siswa');
-            $sekolah->index(); // Memanggil database untuk mengisi tabel
+            $sekolah->getAllSchollData(); // Memanggil database untuk mengisi tabel
             break;
         case 'logout-siswa':
             $siswa->logout();
