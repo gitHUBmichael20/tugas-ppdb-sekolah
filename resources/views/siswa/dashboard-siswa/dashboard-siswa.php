@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../resources/css/table/table.css">
     <link rel="stylesheet" href="../resources/css/form/form.css">
     <link rel="stylesheet" href="../resources/css/status-ppdb/status-ppdb.css">
+    <script src="../resources/js/siswa/dashboard-siswa.js"></script>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
