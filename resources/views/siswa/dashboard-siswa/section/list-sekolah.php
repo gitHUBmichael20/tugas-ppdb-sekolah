@@ -96,7 +96,7 @@
                                 <td><?= $sekolah['jenis']; ?></td>
                                 <td><?= $sekolah['email']; ?></td>
                                 <td><?= $sekolah['kouta']; ?></td>
-                                <td><button class="green-button">Daftar</button></td>
+                                <td><a href="?page=daftar-sekolah&sekolah=<?= $sekolah['id_sekolah']; ?>"><button class="green-button">Daftar</button></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

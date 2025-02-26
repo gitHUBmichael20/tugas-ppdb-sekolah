@@ -16,22 +16,37 @@
             <video muted loop autoplay class="video-container">
                 <source src="./assets/animation/hello-animation.webm">
             </video>
-            <form action="register.php" method="post">
+            <?php if (isset($error)) : ?>
+                <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+            <?php endif; ?>
+            <form action="index.php?page=register-sekolah&action=register" method="post">
                 <div class="form-group">
-                    <label for="nama_murid">Nama Murid</label>
-                    <input type="text" id="nama_murid" name="nama_murid" required />
+                    <label for="id_sekolah">ID Sekolah</label>
+                    <input type="text" id="id_sekolah" name="id_sekolah" required />
                 </div>
                 <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <input type="text" id="alamat" name="alamat" required />
+                    <label for="nama_sekolah">Nama Sekolah</label>
+                    <input type="text" id="nama_sekolah" name="nama_sekolah" required />
                 </div>
                 <div class="form-group">
-                    <label for="tanggal_lahir">Tanggal lahir</label>
-                    <input type="date" name="tanggal_lahir" id="tanggal_lahir">
+                    <label for="tanggal_lahir">Jenis Sekolah</label>
+                    <select name="jenis" id="jenis">
+                        <option disabled selected>Pilih Salah satu</option>
+                        <option value="SMA">SMA</option>
+                        <option value="SMK">SMK</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="NISN">NISN</label>
-                    <input type="text" id="NISN" name="NISN" required />
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" id="lokasi" name="lokasi" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="kouta">Kouta</label>
+                    <input type="number" id="kouta" name="kouta" required />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

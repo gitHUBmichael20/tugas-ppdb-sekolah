@@ -1,71 +1,144 @@
-.content-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    padding: 2rem;
-    background-color: #f7f7f7;
+.content-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding: 2rem;
+  background-color: #f7f7f7;
 }
 
 .form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width: 55rem;
-    margin: 0 auto 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 55rem;
+  margin: 0 auto 30px;
 }
 
 .form-title {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .form-group textarea {
-    resize: vertical;
-    min-height: 80px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.rapor-group {
+  margin-bottom: 15px;
+}
+
+.rapor-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.file-upload-wrapper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border: 2px dashed #007bff;
+  border-radius: 6px;
+  background-color: #f9fbfd;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.file-upload-wrapper:hover {
+  border-color: #0056b3;
+}
+
+#rapor {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.file-upload-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  pointer-events: none;
+}
+
+.file-preview {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f1f8ff;
+  border-radius: 4px;
+  min-height: 20px;
+  font-size: 14px;
+  color: #2c3e50;
+  border: 1px solid #cce5ff;
 }
 
 .submit-btn {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
 }
 
 .submit-btn:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 @media (max-width: 600px) {
-    .form-container {
-        padding: 15px;
-        max-width: 100%;
-    }
+  .form-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .file-upload-wrapper {
+    height: 45px;
+  }
+
+  .file-upload-text {
+    font-size: 12px;
+  }
+
+  .file-preview {
+    font-size: 12px;
+  }
 }

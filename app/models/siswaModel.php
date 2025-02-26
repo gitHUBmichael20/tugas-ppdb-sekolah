@@ -1,5 +1,4 @@
 <?php
-// require_once '../config/database.php';
 
 class SiswaModel
 {
@@ -22,8 +21,24 @@ class SiswaModel
 
     public function addSiswa($data)
     {
-        $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, password) 
-                  VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :password)";
+        $storagePath = __DIR__ . '/../config/storage';
+        $raporFile = $_FILES['rapor_siswa'];
+
+        if ($raporFile['name'] !== '') {
+            $fileName = uniqid() . '_' . basename($raporFile['name']);
+            $targetFile = $storagePath . '/' . $fileName;
+
+            if (move_uploaded_file($raporFile['tmp_name'], $targetFile)) {
+                $data['rapor_siswa'] = $fileName;
+            } else {
+                throw new Exception("Gagal mengunggah file rapor siswa.");
+            }
+        } else {
+            $data['rapor_siswa'] = null;
+        }
+
+        $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password) 
+              VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
         $stmt = $this->db->prepare($query);
         return $stmt->execute($data);
     }

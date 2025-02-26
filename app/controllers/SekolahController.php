@@ -58,4 +58,24 @@ class SekolahController
         header('Location: ?page=login-sekolah'); // Perbaiki sintaks header
         exit();
     }
+
+    public function saveSekolah(){
+        $data = [
+            'id_sekolah' => $_POST['id_sekolah'],
+            'nama_sekolah' => $_POST['nama_sekolah'],
+            'jenis' => $_POST['jenis'],
+            'email' => $_POST['email'],
+            'kouta' => $_POST['kouta'],
+            'lokasi' => $_POST['lokasi'],
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+        ];
+
+        if ($this->sekolahModel->addSekolah($data)) {
+            $success = 'Register Success';
+            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+        } else {
+            $error = 'Register Failed';
+            include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+        }
+    }
 }

@@ -4,22 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Siswa</title>
+    <title>Form Siswa | <?= $_SESSION['siswa_nama'] ?></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
     <link rel="stylesheet" href="../resources/css/table/table.css">
     <link rel="stylesheet" href="../resources/css/form/form.css">
     <link rel="stylesheet" href="../resources/css/status-ppdb/status-ppdb.css">
-    <script src="../resources/js/siswa/dashboard-siswa.js"></script>
+    <script src="../resources/js/siswa/sorting-school.js"></script>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
             flex: 1;
             padding: 20px;
         }
+
         .content-section {
             display: none;
         }
+
         .content-section.active {
             display: block;
         }

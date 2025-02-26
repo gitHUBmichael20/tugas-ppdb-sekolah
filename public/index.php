@@ -52,8 +52,12 @@ if (isset($_GET['page'])) {
                 include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
             }
             break;
-        case 'sign-up-sekolah':
-            include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+        case 'register-sekolah':
+            if(isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+                $sekolah->saveSekolah();
+            } else {
+                include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+            }
             break;
         case 'dashboard-sekolah':
             restrictToLoggedIn('sekolah');
@@ -75,15 +79,16 @@ if (isset($_GET['page'])) {
             if (isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
                 $siswa->saveMurid(); 
             } else {
-                include '../resources/views/siswa/auth-siswa/register-siswa.php'; 
+                include '../resources/views/siswa/auth-siswa/sign-up-siswa.php'; 
             }
             break;
         case 'edit-profile-siswa':
             restrictToLoggedIn('siswa');
-            include '../resources/views/siswa/auth-siswa/edit-profile-siswa.php'; 
-            break;
-        case 'sign-up-siswa': 
-            include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
+            if (isset($_GET['action']) && $_GET['action'] == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+                $siswa->updateMurid(); 
+            } else {
+                include '../resources/views/siswa/dashboard-siswa/section/data-diri.php'; 
+            }
             break;
         case 'dashboard-siswa':
             restrictToLoggedIn('siswa');

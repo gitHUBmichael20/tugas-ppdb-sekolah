@@ -14,9 +14,9 @@
             <video loop autoplay class="video-container">
                 <source src="./assets/animation/hello-animation.webm">
             </video>
-            <?php if (isset($error)) : ?>
-                <p class="error-message" style="color: red; text-align: center;"><?php echo $error; ?></p>
-            <?php endif; ?>
+            <?php if (isset($success)) : ?>
+                <p style="color: green; text-align: center; font-size: 30px;"><?php echo $success; ?></p>
+                <?php endif; ?>
             <form action="?page=login-sekolah&action=login" method="post">
                 <div class="form-group">
                     <label for="id_sekolah">ID Sekolah</label>
@@ -28,7 +28,7 @@
                 </div>
                 <button type="submit" name="action" value="login">Login</button>
             </form>
-            <a href="?page=sign-up-sekolah">
+            <a href="?page=register-sekolah">
                 <button style="margin-top: 15px;" type="button">Doesn't Have an Account?</button>
             </a>
         </div>

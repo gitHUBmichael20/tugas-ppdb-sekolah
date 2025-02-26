@@ -31,4 +31,12 @@ class SekolahModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function addSekolah($data)
+    {
+        $query = "INSERT INTO sekolah 
+                Values (:id_sekolah, :nama_sekolah, :jenis, :email, :kouta, :lokasi, :password)";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute($data);
+    }
 }
