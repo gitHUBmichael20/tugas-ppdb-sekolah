@@ -1,4 +1,5 @@
 <?php
+// require_once '../config/database.php';
 
 class AdminModel
 {
@@ -19,9 +20,9 @@ class AdminModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function addSiswa($data){
-        $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, password) VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :password)";
-        $stmt = $this->db->prepare($query);
-        $result = $stmt->execute($data);
-    }
+    // public function addSiswa($data){
+    //     $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, password) VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :password)";
+    //     $stmt = $this->db->prepare($query);
+    //     $result = $stmt->execute($data);
+    // }
 }

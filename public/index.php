@@ -1,18 +1,18 @@
 <?php
-// Mulai session untuk autentikasi
+
 session_start();
 
-// Include semua controller yang diperlukan
+
 include '../app/controllers/AdminController.php';
 include '../app/controllers/SekolahController.php';
 include '../app/controllers/SiswaController.php';
 
-// Buat instance objek controller
+
 $admin = new AdminController();
 $sekolah = new SekolahController();
 $siswa = new SiswaController();
 
-// Fungsi untuk membatasi akses ke dashboard tertentu
+
 function restrictToLoggedIn($role)
 {
     $sessionKey = $role . '_logged_in';
@@ -22,10 +22,10 @@ function restrictToLoggedIn($role)
     }
 }
 
-// Routing berdasarkan parameter 'page'
+
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
-            // Admin Routes
+            
         case 'login-admin':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $admin->login();
@@ -44,7 +44,7 @@ if (isset($_GET['page'])) {
             $admin->logout();
             break;
 
-            // Sekolah Routes
+            
         case 'login-sekolah':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $sekolah->login();
@@ -63,7 +63,7 @@ if (isset($_GET['page'])) {
             $sekolah->logout();
             break;
 
-            // Siswa Routes
+            
         case 'login-siswa':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $siswa->login();
@@ -71,23 +71,34 @@ if (isset($_GET['page'])) {
                 include '../resources/views/siswa/auth-siswa/login-siswa.php';
             }
             break;
-        case 'sign-up-siswa':
+        case 'register-siswa':
+            if (isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+                $siswa->saveMurid(); 
+            } else {
+                include '../resources/views/siswa/auth-siswa/register-siswa.php'; 
+            }
+            break;
+        case 'edit-profile-siswa':
+            restrictToLoggedIn('siswa');
+            include '../resources/views/siswa/auth-siswa/edit-profile-siswa.php'; 
+            break;
+        case 'sign-up-siswa': 
             include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
             break;
         case 'dashboard-siswa':
             restrictToLoggedIn('siswa');
-            $sekolah->getAllSchollData(); // Memanggil database untuk mengisi tabel
+            $sekolah->getAllSchollData(); 
             break;
         case 'logout-siswa':
             $siswa->logout();
             break;
 
-            // Default case jika page tidak dikenali
+            
         default:
             include '../resources/views/landing.php';
             break;
     }
 } else {
-    // Default: tampilkan landing page jika tidak ada parameter 'page'
+    
     include '../resources/views/landing.php';
 }

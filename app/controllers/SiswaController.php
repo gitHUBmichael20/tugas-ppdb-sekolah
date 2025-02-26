@@ -1,5 +1,6 @@
 <?php
-require_once '../app/models/SiswaModel.php';
+
+include('../app/models/siswaModel.php');
 
 class SiswaController
 {
@@ -8,6 +9,7 @@ class SiswaController
     public function __construct()
     {
         $this->siswaModel = new SiswaModel();
+        
     }
 
     public function login()
@@ -50,4 +52,28 @@ class SiswaController
         header("Location: ?page=login-siswa");
         exit();
     }
+
+    public function saveMurid() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'register') {
+            // Collect data from the form
+            $data = [
+                'NISN' => $_POST['NISN'],
+                'nama_murid' => $_POST['nama_murid'],
+                'alamat' => $_POST['alamat'],
+                'tanggal_lahir' => $_POST['tanggal_lahir'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT) // Hash the password
+            ];
+
+            // Call the model method to insert the data
+            if ($this->siswaModel->addSiswa($data)) { // Fixed: Added 'siswaModel' before 'addSiswa'
+                // Success: Redirect or show a message
+                $success = 'Register Success';
+                include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            } else {
+                $error = 'Register Error';
+                include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
+            }
+        }
+    }
+
 }
