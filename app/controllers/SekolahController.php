@@ -14,7 +14,7 @@ class SekolahController
         include '../resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
     }
 
-    public function getAllSchollData()
+    public function getAllSchoolData()
     {
         // Mengirim data ke frontend
         $sekolah = $this->sekolahModel->getAllSekolah();

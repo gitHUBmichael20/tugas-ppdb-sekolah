@@ -1,7 +1,7 @@
 <?php
 
 include('../app/models/siswaModel.php');
-include('../app/models/sekolahModel.php');
+// include('../app/models/sekolahModel.php');
 
 class SiswaController
 {
@@ -16,18 +16,14 @@ class SiswaController
 
     public function login()
     {
-
+        // No need for session_start() here if it’s in index.php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nisn = $_POST['NISN'];
             $password = $_POST['password'];
-
-
             $siswa = $this->siswaModel->getSiswaByNISN($nisn);
 
-
             if ($siswa && password_verify($password, $siswa['password'])) {
-
-                session_start();
+                // Set session variables for siswa role
                 $_SESSION['siswa_logged_in'] = true;
                 $_SESSION['siswa_nisn'] = $siswa['NISN'];
                 $_SESSION['siswa_nama'] = $siswa['nama_murid'];
@@ -35,16 +31,14 @@ class SiswaController
                 $_SESSION['siswa_rapor'] = $siswa['rapor_siswa'];
                 $_SESSION['siswa_tanggal_lahir'] = $siswa['tanggal_lahir'];
 
-
+                // Redirect to dashboard
                 header("Location: ?page=dashboard-siswa");
                 exit();
             } else {
-
                 $error = "NISN atau password salah!";
                 include '../resources/views/siswa/auth-siswa/login-siswa.php';
             }
         } else {
-
             include '../resources/views/siswa/auth-siswa/login-siswa.php';
         }
     }
@@ -103,7 +97,8 @@ class SiswaController
         }
     }
 
-    public function daftarsekolah() {
+    public function daftarsekolah()
+    {
         // Fetch all schools to display
         $sekolah = $this->sekolahModel->getAllSekolah();
 

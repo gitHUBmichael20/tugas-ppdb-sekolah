@@ -28,6 +28,7 @@ class AdminController
                 session_start();
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_id'] = $admin['admin_ID'];
+                $_SESSION['admin_nama'] = $admin['admin_nama'];
                 header('Location: index.php?page=dashboard-admin');
                 exit();
             } else {
@@ -41,10 +42,54 @@ class AdminController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_start();
         session_destroy();
         header('Location: ?page=login-admin');
+        exit();
+    }
+
+    public function listPendaftaran()
+    {
+        $pendaftaran = $this->adminModel->lihatPendaftaran();
+        include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+    }
+
+    public function editPendaftaran()
+    {
+        // Simple validation - only process what we need
+        if (empty($_POST['pendaftaran_id']) || empty($_POST['status'])) {
+            $_SESSION['error'] = "Data tidak lengkap";
+            header("Location: index.php?page=dashboard-admin");
+            exit();
+        }
+
+        // Get admin ID from session
+        $admin_ID = isset($_SESSION['admin_id']) ? $_SESSION['admin_id'] : 0;
+
+        // Prepare minimal data array for model - note the exact key names
+        $data = [
+            'status' => $_POST['status'],
+            'admin_ID' => $admin_ID,
+            'pendaftaran_id' => $_POST['pendaftaran_id']
+        ];
+
+        try {
+            // Call the model method
+            $result = $this->adminModel->editPendaftaran($data);
+
+            if ($result > 0) {
+                $_SESSION['success'] = "Status berhasil diubah menjadi " . htmlspecialchars($_POST['status']);
+            } else {
+                $_SESSION['error'] = "Tidak ada perubahan pada status";
+            }
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error: " . $e->getMessage();
+        }
+
+        // Redirect back to dashboard
+        header("Location: index.php?page=dashboard-admin");
         exit();
     }
 }
