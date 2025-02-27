@@ -31,7 +31,7 @@ class AdminModel
     public function editPendaftaran($data)
     {
         // Make sure column names match exactly with your database
-        $query = "UPDATE {$this->tabel} SET status = :status, admin_ID = :admin_ID WHERE pendaftaran_ID = :pendaftaran_id";
+        $query = "UPDATE pendaftaran SET status = :status, admin_ID = :admin_ID WHERE pendaftaran_ID = :pendaftaran_id";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             ':status' => $data['status'],
