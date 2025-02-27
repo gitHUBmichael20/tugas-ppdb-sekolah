@@ -12,7 +12,7 @@
         <!-- Form Siswa -->
         <div class="form-container">
             <h2 class="form-title">Lengkapi / Perbarui Data Anda</h2>
-            <form action="index.php?page=edit-profile-siswa&action=edit" method="POST">
+            <form action="?page=edit-profile-siswa&action=edit" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="NISN">NISN:</label>
                     <input type="text" id="NISN" name="NISN" maxlength="20" required value="<?= $_SESSION['siswa_nisn'] ?>">
@@ -28,7 +28,7 @@
                 <div class="form-group rapor-group">
                     <label for="rapor">Rapor Anda</label>
                     <div class="file-upload-wrapper">
-                        <input type="file" name="rapor" id="rapor" accept=".pdf" onchange="previewFile()">
+                        <input type="file" name="rapor_siswa" id="rapor" accept=".pdf" onchange="previewFile()">
                         <span class="file-upload-text">Pilih file PDF rapor</span>
                     </div>
                     <div class="file-preview" id="file-preview"></div>

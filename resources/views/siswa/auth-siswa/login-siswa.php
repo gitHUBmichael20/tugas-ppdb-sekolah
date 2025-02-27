@@ -33,7 +33,7 @@
                 </div>
                 <button type="submit" name="action" value="login">Login</button>
             </form>
-            <a href="?page=sign-up-siswa">
+            <a href="?page=register-siswa">
                 <button style="margin-top: 15px;" type="button">Doesn't Have an Account?</button>
             </a>
         </div>

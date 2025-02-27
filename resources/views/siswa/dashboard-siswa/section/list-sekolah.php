@@ -71,6 +71,11 @@
                 <option value="quota_desc">Quota (High-Low)</option>
             </select>
         </div>
+
+        <p>NISN: <?= $_SESSION['siswa_nisn']; ?></p>
+        <p>Nama: <?= $_SESSION['siswa_nama']; ?></p>
+        <p>Alamat: <?= $_SESSION['siswa_alamat']; ?></p>
+
         <div class="table-wrapper">
             <table id="schoolTable">
                 <thead>
@@ -88,15 +93,19 @@
                         <tr>
                             <td colspan="6">Tidak ada sekolah yang tersedia</td>
                         </tr>
-                    <?php elseif (count($sekolah) > 0) : ?>
-                        <?php foreach ($sekolah as $sekolah) : ?>
+                    <?php else : ?>
+                        <?php foreach ($sekolah as $school) : ?>
                             <tr>
-                                <td><?= $sekolah['id_sekolah']; ?></td>
-                                <td><?= $sekolah['nama_sekolah']; ?></td>
-                                <td><?= $sekolah['jenis']; ?></td>
-                                <td><?= $sekolah['email']; ?></td>
-                                <td><?= $sekolah['kouta']; ?></td>
-                                <td><a href="?page=daftar-sekolah&sekolah=<?= $sekolah['id_sekolah']; ?>"><button class="green-button">Daftar</button></a></td>
+                                <td><?= $school['id_sekolah']; ?></td>
+                                <td><?= $school['nama_sekolah']; ?></td>
+                                <td><?= $school['jenis']; ?></td>
+                                <td><?= $school['email']; ?></td>
+                                <td><?= $school['kouta']; ?></td>
+                                <td>
+                                    <a href="?page=daftar-sekolah&sekolah=<?= $school['id_sekolah']; ?>">
+                                        <button class="green-button">Daftar</button>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

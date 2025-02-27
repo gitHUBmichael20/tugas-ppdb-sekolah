@@ -1,17 +1,12 @@
 <?php
 
-session_start();
-
-
 include '../app/controllers/AdminController.php';
 include '../app/controllers/SekolahController.php';
 include '../app/controllers/SiswaController.php';
 
-
 $admin = new AdminController();
 $sekolah = new SekolahController();
 $siswa = new SiswaController();
-
 
 function restrictToLoggedIn($role)
 {
@@ -22,10 +17,9 @@ function restrictToLoggedIn($role)
     }
 }
 
-
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
-            
+            // Admin Routes
         case 'login-admin':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $admin->login();
@@ -44,7 +38,7 @@ if (isset($_GET['page'])) {
             $admin->logout();
             break;
 
-            
+            // Sekolah Routes
         case 'login-sekolah':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $sekolah->login();
@@ -53,7 +47,7 @@ if (isset($_GET['page'])) {
             }
             break;
         case 'register-sekolah':
-            if(isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sekolah->saveSekolah();
             } else {
                 include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
@@ -67,7 +61,7 @@ if (isset($_GET['page'])) {
             $sekolah->logout();
             break;
 
-            
+            // Siswa Routes
         case 'login-siswa':
             if (isset($_GET['action']) && $_GET['action'] == 'login') {
                 $siswa->login();
@@ -77,33 +71,36 @@ if (isset($_GET['page'])) {
             break;
         case 'register-siswa':
             if (isset($_GET['action']) && $_GET['action'] == 'register' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-                $siswa->saveMurid(); 
+                $siswa->saveMurid();
             } else {
-                include '../resources/views/siswa/auth-siswa/sign-up-siswa.php'; 
+                include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
             }
             break;
         case 'edit-profile-siswa':
             restrictToLoggedIn('siswa');
             if (isset($_GET['action']) && $_GET['action'] == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-                $siswa->updateMurid(); 
+                $siswa->updateMurid(); // This calls the fixed controller method with file upload handling
             } else {
-                include '../resources/views/siswa/dashboard-siswa/section/data-diri.php'; 
+                include '../resources/views/siswa/dashboard-siswa/section/data-diri.php';
             }
             break;
         case 'dashboard-siswa':
             restrictToLoggedIn('siswa');
-            $sekolah->getAllSchollData(); 
+            $sekolah->getAllSchollData(); // Note: Possible typo in "Scholl", should it be "School"?
+            break;
+        case 'daftar-sekolah':
+            restrictToLoggedIn('siswa');
+            $siswa->daftarsekolah();
             break;
         case 'logout-siswa':
             $siswa->logout();
             break;
 
-            
+            // Default Route
         default:
             include '../resources/views/landing.php';
             break;
     }
 } else {
-    
     include '../resources/views/landing.php';
 }
