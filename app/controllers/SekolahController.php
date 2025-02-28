@@ -10,7 +10,8 @@ class SekolahController
         $this->sekolahModel = new SekolahModel();
     }
 
-    public function index(){
+    public function index()
+    {
         include '../resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
     }
 
@@ -42,7 +43,7 @@ class SekolahController
                 exit();
             } else {
                 // Jika login gagal, set pesan error
-                $error = "ID Sekolah atau password salah!";
+                $error = "ID Sekolah atau password salah! 🔥🔥";
                 include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
             }
         } else {
@@ -59,7 +60,9 @@ class SekolahController
         exit();
     }
 
-    public function saveSekolah(){
+    public function saveSekolah()
+    {
+        // Siapkan data dari POST
         $data = [
             'id_sekolah' => $_POST['id_sekolah'],
             'nama_sekolah' => $_POST['nama_sekolah'],
@@ -70,10 +73,22 @@ class SekolahController
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
         ];
 
+        // Simpan data
         if ($this->sekolahModel->addSekolah($data)) {
-            $success = 'Register Success';
-            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            // Ambil role dari URL, default ke 'sekolah' jika tidak ada
+            $role = $_GET['role'] ?? 'sekolah';
+
+            // Tentukan halaman tujuan berdasarkan role
+            if ($role === 'admin') {
+                $_SESSION['success'] = "Data Sekolah berhasil ditambahkan oleh admin";
+                header('Location: index.php?page=dashboard-admin');
+            } else {
+                $success = "Data Sekolah berhasil diregistrasi oleh kamu !!";
+                include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            }
+            exit; // Pastikan berhenti setelah redirect atau include
         } else {
+            // Jika gagal, set error dan kembali ke form
             $error = 'Register Failed';
             include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
         }

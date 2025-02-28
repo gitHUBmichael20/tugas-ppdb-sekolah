@@ -70,7 +70,7 @@ class SiswaController
 
             // Tentukan halaman tujuan berdasarkan role
             if ($role === 'admin') {
-                $_SESSION['success'] = "Data berhasil ditambahkan oleh admin";
+                $_SESSION['success'] = "Data berhasil Murid ditambahkan oleh admin";
                 header('Location: index.php?page=dashboard-admin');
             } else {
                 $success = "Data berhasil diregistrasi oleh kamu !!";

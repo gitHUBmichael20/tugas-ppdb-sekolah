@@ -19,7 +19,7 @@
             <?php if (isset($error)) : ?>
                 <p style="color: red; text-align: center;"><?php echo $error; ?></p>
             <?php endif; ?>
-            <form action="index.php?page=register-sekolah&action=register" method="post">
+            <form action="index.php?page=register-sekolah&action=register&role=sekolah" method="post">
                 <div class="form-group">
                     <label for="id_sekolah">ID Sekolah</label>
                     <input type="text" id="id_sekolah" name="id_sekolah" required />

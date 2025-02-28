@@ -40,7 +40,7 @@
         <!-- Form Sekolah -->
         <div class="form-container">
             <h2 class="form-title">Form Data Sekolah</h2>
-            <form action="proses_sekolah.php" method="POST">
+            <form action="index.php?page=register-sekolah&action=register&role=admin" method="POST">
                 <div class="form-group">
                     <label for="id_sekolah">ID Sekolah:</label>
                     <input type="text" id="id_sekolah" name="id_sekolah" maxlength="20" required>
@@ -50,8 +50,12 @@
                     <input type="text" id="nama_sekolah" name="nama_sekolah" maxlength="100">
                 </div>
                 <div class="form-group">
-                    <label for="jenis">Jenis Sekolah:</label>
-                    <input type="text" id="jenis" name="jenis" maxlength="50">
+                    <label for="tanggal_lahir">Jenis Sekolah</label>
+                    <select name="jenis" id="jenis">
+                        <option disabled selected>Pilih Salah satu</option>
+                        <option value="SMA">SMA</option>
+                        <option value="SMK">SMK</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>

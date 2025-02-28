@@ -49,15 +49,15 @@
             <?php include('../resources/views/admin/dashboard-admin/section/siswa-terdaftar.php') ?>
         </div>
         <div id="data" class="content-section">
+            <h2>Form Penambahan Murid & Sekolah</h2>
+            <p>Fill out this form to add new student and school.</p>
             <?php if (isset($_SESSION['success'])) : ?>
-                <h2 style="color: green; text-align: center; font-size: 30px;">
+                <p style="color: #16C47F; font-weight:500; text-align: center; font-size: 20px;">
                     <?php
                     echo htmlspecialchars($_SESSION['success']);
                     ?>
-                </h2>
+                </p>
             <?php endif; ?>
-            <h2>Form Penambahan Murid & Sekolah</h2>
-            <p>Fill out this form to add new student and school.</p>
             <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
         </div>
         <div id="status" class="content-section">
