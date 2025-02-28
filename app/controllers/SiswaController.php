@@ -54,6 +54,7 @@ class SiswaController
 
     public function saveMurid()
     {
+        // Siapkan data dari POST
         $data = [
             'NISN' => $_POST['NISN'],
             'nama_murid' => $_POST['nama_murid'],
@@ -61,12 +62,25 @@ class SiswaController
             'tanggal_lahir' => $_POST['tanggal_lahir'],
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
         ];
+
+        // Simpan data
         if ($this->siswaModel->addSiswa($data)) {
-            $success = 'Register Success';
-            include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            // Ambil role dari URL, default ke 'siswa' jika tidak ada
+            $role = $_GET['role'] ?? 'siswa';
+
+            // Tentukan halaman tujuan berdasarkan role
+            if ($role === 'admin') {
+                $_SESSION['success'] = "Data berhasil ditambahkan oleh admin";
+                header('Location: index.php?page=dashboard-admin');
+            } else {
+                $success = "Data berhasil diregistrasi oleh kamu !!";
+                include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            }
+            exit; // Pastikan berhenti setelah redirect
         } else {
+            // Jika gagal, set error dan kembali ke form
             $error = 'Register Error';
-            include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
+            include 'index.php?page=register-siswa';
         }
     }
 

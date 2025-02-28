@@ -96,7 +96,7 @@ switch ($page) {
     case 'register-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
             $siswa->saveMurid();
-        } else {
+        }else {
             include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
         }
         break;

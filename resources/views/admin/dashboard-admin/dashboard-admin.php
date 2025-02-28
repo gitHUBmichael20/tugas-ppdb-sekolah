@@ -16,9 +16,11 @@
             flex: 1;
             padding: 20px;
         }
+
         .content-section {
             display: none;
         }
+
         .content-section.active {
             display: block;
         }
@@ -47,9 +49,16 @@
             <?php include('../resources/views/admin/dashboard-admin/section/siswa-terdaftar.php') ?>
         </div>
         <div id="data" class="content-section">
+            <?php if (isset($_SESSION['success'])) : ?>
+                <h2 style="color: green; text-align: center; font-size: 30px;">
+                    <?php
+                    echo htmlspecialchars($_SESSION['success']);
+                    ?>
+                </h2>
+            <?php endif; ?>
             <h2>Form Penambahan Murid & Sekolah</h2>
             <p>Fill out this form to add new student and school.</p>
-             <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
+            <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
         </div>
         <div id="status" class="content-section">
             <h2>Status Penerimaan</h2>

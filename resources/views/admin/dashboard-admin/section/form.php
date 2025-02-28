@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Siswa dan Sekolah</title>
     <link rel="stylesheet" href="../resources/css/form/form.css">
 </head>
+
 <body>
     <div class="content-form">
         <!-- Form Siswa -->
         <div class="form-container">
-            <h2 class="form-title">Form Pendaftaran Siswa</h2>
-            <form action="proses_siswa.php" method="POST">
+            <h2 class="form-title">Form Pendaftaran Siswa Baru</h2>
+            <form action="index.php?page=register-siswa&action=register&role=admin" method="POST">
                 <div class="form-group">
                     <label for="nisn">NISN:</label>
-                    <input type="text" id="nisn" name="nisn" maxlength="20" required>
+                    <input type="text" id="nisn" name="NISN" maxlength="20" required>
                 </div>
                 <div class="form-group">
                     <label for="nama_murid">Nama Murid:</label>
@@ -72,4 +74,5 @@
         </div>
     </div>
 </body>
+
 </html>
