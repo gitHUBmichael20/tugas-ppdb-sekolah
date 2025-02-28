@@ -28,7 +28,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : null;
 
 switch ($page) {
         // Admin Routes
-    case 'login-admin':
+    case 'login-admin': 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $admin->login();
         } else {

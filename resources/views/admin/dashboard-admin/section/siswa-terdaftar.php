@@ -8,7 +8,7 @@
 
 <body>
     <h2>Welcome, <?= htmlspecialchars($_SESSION['admin_nama']); ?> (ID: <?= htmlspecialchars($_SESSION['admin_id']); ?>)</h2>
-    
+
     <table>
         <thead>
             <tr>
@@ -33,13 +33,15 @@
                     <td data-label="id_sekolah"><?= htmlspecialchars($row['id_sekolah']); ?></td>
                     <td data-label="admin_ID"><?= htmlspecialchars($row['admin_ID'] ?? 'N/A'); ?></td>
                     <td data-label="action">
-                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;">
+                        <!-- Accept Form -->
+                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'accept', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="LULUS-TERPILIH">
                             <button type="submit" class="green-button">Terima</button>
                         </form>
-                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;">
+                        <!-- Reject Form -->
+                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'reject', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="DITOLAK">
@@ -50,6 +52,8 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+
 </body>
 
 </html>

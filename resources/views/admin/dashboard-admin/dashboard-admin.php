@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Dashboard Admin | <?= $_SESSION['admin_nama'] ?></title>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
     <link rel="stylesheet" href="../resources/css/table/table.css">
+    <script src="../resources/js/admin/alert-pendaftaran.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .main-content {
             flex: 1;
@@ -25,7 +27,7 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard Admin</div>
+        <div class="logo">Dashboard Admin <?= $_SESSION['admin_nama'] ?></div>
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid Mendaftar</a>
             <a href="#" data-section="data"><i class="fa-regular fa-address-card"></i>Tambah Murid & Sekolah</a>
