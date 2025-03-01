@@ -28,7 +28,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : null;
 
 switch ($page) {
         // Admin Routes
-    case 'login-admin': 
+    case 'login-admin':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $admin->login();
         } else {
@@ -40,9 +40,14 @@ switch ($page) {
         include '../resources/views/admin/auth-admin/sign-up-admin.php';
         break;
 
+
+        // Di bagian switch case
     case 'dashboard-admin':
         restrictToLoggedIn('admin');
-        $admin->listPendaftaran();
+        $pendaftaran = $admin->listPendaftaran();
+        $sekolahData = $admin->getAllSchoolData();
+        $siswaData = $admin->lihatSiswa();
+        include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
         break;
 
     case 'edit-pendaftaran':
@@ -96,7 +101,7 @@ switch ($page) {
     case 'register-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
             $siswa->saveMurid();
-        }else {
+        } else {
             include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
         }
         break;

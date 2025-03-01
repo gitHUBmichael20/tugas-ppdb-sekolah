@@ -19,6 +19,13 @@ class SiswaModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getAllSiswa(){
+        $query = "SELECT * FROM siswa";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function addSiswa($data, $file = null)
     {
         $storagePath = __DIR__ . '/../config/storage';

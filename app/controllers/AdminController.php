@@ -5,10 +5,14 @@ include('../app/models/adminModel.php');
 class AdminController
 {
     private $adminModel;
+    private $sekolahModel;
+    private $siswaModel;
 
     public function __construct()
     {
         $this->adminModel = new AdminModel();
+        $this->sekolahModel = new SekolahModel();
+        $this->siswaModel = new SiswaModel();
     }
 
     public function index()
@@ -50,10 +54,22 @@ class AdminController
         exit();
     }
 
+    public function getAllSchoolData()
+    {
+        // Mengirim data ke frontend
+        $sekolah = $this->sekolahModel->getAllSekolah();
+        return $sekolah;
+    }
+
     public function listPendaftaran()
     {
         $pendaftaran = $this->adminModel->lihatPendaftaran();
-        include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+        return $pendaftaran;
+    }
+
+    public function lihatSiswa(){
+        $siswaData = $this->siswaModel->getAllSiswa();
+        return $siswaData;
     }
 
     public function editPendaftaran()

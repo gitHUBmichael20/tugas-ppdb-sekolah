@@ -8,7 +8,12 @@
 
 <body>
     <h2>Welcome, <?= htmlspecialchars($_SESSION['admin_nama']); ?> (ID: <?= htmlspecialchars($_SESSION['admin_id']); ?>)</h2>
-
+    <?php
+    // echo "<pre>";
+    // var_dump($siswa);
+    // print_r($siswa);
+    // echo "</pre>";
+    ?>
     <table>
         <thead>
             <tr>
@@ -52,8 +57,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-
-
 </body>
 
 </html>

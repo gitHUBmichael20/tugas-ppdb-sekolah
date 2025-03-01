@@ -48,6 +48,7 @@
             <h2>Murid Mendaftar</h2>
             <?php include('../resources/views/admin/dashboard-admin/section/siswa-terdaftar.php') ?>
         </div>
+        
         <div id="data" class="content-section">
             <h2>Form Penambahan Murid & Sekolah</h2>
             <p>Fill out this form to add new student and school.</p>
@@ -60,12 +61,14 @@
             <?php endif; ?>
             <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
         </div>
+
         <div id="status" class="content-section">
             <h2>Kelola Akun PPDB | <span style="color: #F93827;"><?= $_SESSION['admin_nama'] ?></span></h2>
             <p>Silahkan Kelola akun yang ada di sistem PPDB.</p>
             <div style="margin-top: 20px;" class="kelola-akun">
                 <?php include '../resources/views/admin/dashboard-admin/section/kelola-akun.php' ?>
             </div>
+            
         </div>
     </main>
 

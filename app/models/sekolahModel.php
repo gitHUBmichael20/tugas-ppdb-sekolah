@@ -34,9 +34,16 @@ class SekolahModel
 
     public function addSekolah($data)
     {
-        $query = "INSERT INTO sekolah 
+        $query = "INSERT INTO $this->tabel 
                 Values (:id_sekolah, :nama_sekolah, :jenis, :email, :kouta, :lokasi, :password)";
         $stmt = $this->db->prepare($query);
         return $stmt->execute($data);
+    }
+
+    public function deleteSekolah($id){
+        $query = "DELETE FROM $this->tabel WHERE id_sekolah = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
