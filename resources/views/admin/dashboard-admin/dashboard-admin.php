@@ -33,7 +33,7 @@
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid Mendaftar</a>
             <a href="#" data-section="data"><i class="fa-regular fa-address-card"></i>Tambah Murid & Sekolah</a>
-            <a href="#" data-section="status"><i class="fa-solid fa-square-poll-horizontal"></i>Status Penerimaan</a>
+            <a href="#" data-section="status"><i class="fa-solid fa-square-poll-horizontal"></i>Kelola Akun PPDB</a>
         </nav>
         <a href="index.php?page=logout-admin">
             <button class="logout-btn">
@@ -61,8 +61,11 @@
             <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
         </div>
         <div id="status" class="content-section">
-            <h2>Status Penerimaan</h2>
-            <p>Your application status will be displayed here.</p>
+            <h2>Kelola Akun PPDB | <span style="color: #F93827;"><?= $_SESSION['admin_nama'] ?></span></h2>
+            <p>Silahkan Kelola akun yang ada di sistem PPDB.</p>
+            <div style="margin-top: 20px;" class="kelola-akun">
+                <?php include '../resources/views/admin/dashboard-admin/section/kelola-akun.php' ?>
+            </div>
         </div>
     </main>
 
