@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../resources/js/sweet-alert-ppdb/asking-action.js"></script>
 </head>
 
 <body>

@@ -48,50 +48,23 @@
             <h2>Murid Mendaftar</h2>
             <?php include('../resources/views/admin/dashboard-admin/section/siswa-terdaftar.php') ?>
         </div>
-        
+
         <div id="data" class="content-section">
             <h2>Form Penambahan Murid & Sekolah</h2>
             <p>Fill out this form to add new student and school.</p>
-            <?php if (isset($_SESSION['success'])) : ?>
-                <p style="color: #16C47F; font-weight:500; text-align: center; font-size: 20px;">
-                    <?php
-                    echo htmlspecialchars($_SESSION['success']);
-                    ?>
-                </p>
-            <?php endif; ?>
             <?php include('../resources/views/admin/dashboard-admin/section/form.php') ?>
         </div>
 
         <div id="status" class="content-section">
             <h2>Kelola Akun PPDB | <span style="color: #F93827;"><?= $_SESSION['admin_nama'] ?></span></h2>
-            
             <p>Silahkan Kelola akun yang ada di sistem PPDB.</p>
-
-            <?php if (isset($_SESSION['success-delete-akun'])) :?>
-                <p style="color: #16C47F; font-weight:500; text-align: center; font-size: 20px;">
-                    <?php
-                    echo htmlspecialchars($_SESSION['success-delete-akun']);
-                    unset($_SESSION['success-delete-akun']);
-                    ?>
-                </p>
-            <?php elseif (isset($_SESSION['error-delete-akun'])) :?>
-                <p style="color: #F93827; font-weight:500; text-align: center; font-size: 20px;">
-                    <?php
-                    echo htmlspecialchars($_SESSION['error-delete-akun']);
-                    unset($_SESSION['error-delete-akun']);
-                    ?>
-                </p>
-            <?php endif;?>
-
-
-
             <div style="margin-top: 20px;" class="kelola-akun">
                 <?php include '../resources/views/admin/dashboard-admin/section/kelola-akun.php' ?>
             </div>
-            
         </div>
     </main>
 
+    
     <script>
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(event) {
@@ -102,6 +75,24 @@
                 });
                 document.getElementById(section).classList.add('active');
             });
+        });
+
+        // Tampilkan pesan dari sesi PHP
+        document.addEventListener("DOMContentLoaded", function() {
+            <?php if (isset($_SESSION['success'])) : ?>
+                showAlert("<?= htmlspecialchars($_SESSION['success']); ?>", "success");
+                <?php unset($_SESSION['success']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['success-delete-akun'])) : ?>
+                showAlert("<?= htmlspecialchars($_SESSION['success-delete-akun']); ?>", "success");
+                <?php unset($_SESSION['success-delete-akun']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['error-delete-akun'])) : ?>
+                showAlert("<?= htmlspecialchars($_SESSION['error-delete-akun']); ?>", "error");
+                <?php unset($_SESSION['error-delete-akun']); ?>
+            <?php endif; ?>
         });
     </script>
 </body>
