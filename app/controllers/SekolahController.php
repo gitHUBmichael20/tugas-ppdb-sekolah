@@ -93,4 +93,20 @@ class SekolahController
             include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
         }
     }
+
+    public function deleteSekolah()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_sekolah = $_POST['id_sekolah'];
+            if ($this->sekolahModel->deleteSekolah($id_sekolah)) {
+                $_SESSION['success-delete-akun'] = "Data sekolah berhasil dihapus";
+            } else {
+                $_SESSION['error-delete-akun'] = "Data sekolah gagal dihapus atau tidak ditemukan";
+            }
+        } else {
+            $_SESSION['error-delete-akun'] = "Permintaan tidak valid";
+        }
+        header('Location: index.php?page=dashboard-admin');
+        exit;
+    }
 }

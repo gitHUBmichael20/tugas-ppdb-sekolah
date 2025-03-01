@@ -64,4 +64,11 @@ class SiswaModel
 
         return $stmt->execute();
     }
+
+    public function deleteSiswa($nisn){
+        $query = "DELETE FROM siswa WHERE NISN = :nisn";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':nisn', $nisn);
+        return $stmt->execute();
+    }
 }

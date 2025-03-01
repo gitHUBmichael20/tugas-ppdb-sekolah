@@ -1,7 +1,6 @@
 <?php
 
-include('../app/models/siswaModel.php');
-// include('../app/models/sekolahModel.php');
+include '../app/models/siswaModel.php';
 
 class SiswaController
 {
@@ -135,5 +134,21 @@ class SiswaController
 
         // Load the view with school data
         include '../resources/views/siswa/dashboard-siswa/section/daftar-sekolah.php';
+    }
+
+    public function deleteSiswa()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nisn = $_POST['NISN'];
+            if ($this->siswaModel->deleteSiswa($nisn)) {
+                $_SESSION['success-delete-akun'] = "Data Murid berhasil dihapus";
+            } else {
+                $_SESSION['error-delete-akun'] = "Data Murid gagal dihapus atau tidak ditemukan";
+            }
+        } else {
+            $_SESSION['error-delete-akun'] = "Permintaan tidak valid";
+        }
+        header('Location: index.php?page=dashboard-admin');
+        exit;
     }
 }

@@ -59,8 +59,18 @@ switch ($page) {
         }
         break;
 
-    case 'logout-admin':
-        $admin->logout();
+    case 'delete-akun':
+        restrictToLoggedIn('admin');
+
+        if (isset($_GET['action']) && $_GET['action'] === 'delete-siswa') {
+            $siswa->deleteSiswa();
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'delete-sekolah') {
+            $sekolah->deleteSekolah();
+        } else {
+            $_SESSION['error'] = "Data tidak ditemukan.";
+            header('Location: index.php?page=dashboard-admin');
+            exit;
+        }
         break;
 
         // Sekolah Routes

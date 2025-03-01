@@ -40,10 +40,10 @@ class SekolahModel
         return $stmt->execute($data);
     }
 
-    public function deleteSekolah($id){
-        $query = "DELETE FROM $this->tabel WHERE id_sekolah = :id";
+    public function deleteSekolah($id_sekolah){
+        $query = "DELETE FROM $this->tabel WHERE id_sekolah = :id_sekolah";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id_sekolah', $id_sekolah);
         return $stmt->execute();
     }
 }

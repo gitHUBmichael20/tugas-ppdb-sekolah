@@ -64,7 +64,27 @@
 
         <div id="status" class="content-section">
             <h2>Kelola Akun PPDB | <span style="color: #F93827;"><?= $_SESSION['admin_nama'] ?></span></h2>
+            
             <p>Silahkan Kelola akun yang ada di sistem PPDB.</p>
+
+            <?php if (isset($_SESSION['success-delete-akun'])) :?>
+                <p style="color: #16C47F; font-weight:500; text-align: center; font-size: 20px;">
+                    <?php
+                    echo htmlspecialchars($_SESSION['success-delete-akun']);
+                    unset($_SESSION['success-delete-akun']);
+                    ?>
+                </p>
+            <?php elseif (isset($_SESSION['error-delete-akun'])) :?>
+                <p style="color: #F93827; font-weight:500; text-align: center; font-size: 20px;">
+                    <?php
+                    echo htmlspecialchars($_SESSION['error-delete-akun']);
+                    unset($_SESSION['error-delete-akun']);
+                    ?>
+                </p>
+            <?php endif;?>
+
+
+
             <div style="margin-top: 20px;" class="kelola-akun">
                 <?php include '../resources/views/admin/dashboard-admin/section/kelola-akun.php' ?>
             </div>

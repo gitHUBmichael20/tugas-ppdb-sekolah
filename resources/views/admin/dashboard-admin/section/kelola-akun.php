@@ -16,7 +16,7 @@
     <div style="margin-top: 25px;" class="container murid-table">
         <h1 style="font-style: italic; color: #FB4141;">Tabel Siswa</h1>
         <div class="table-wrapper">
-            <table>
+            <table id="tabelSiswa">
                 <thead>
                     <tr>
                         <th>NISN</th>
@@ -44,7 +44,10 @@
                                 <td><?php if ($siswa['password']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></td>
                                 <td>
                                     <button class="green-button">Edit</button>
-                                    <button class="red-button">Delete</button>
+                                    <form method="POST" action="index.php?page=delete-akun&action=delete-siswa" style="display:inline;">
+                                        <input type="hidden" name="NISN" value="<?= htmlspecialchars($siswa['NISN']); ?>">
+                                        <button type="submit" class="red-button" onclick="return confirm('Yakin ingin menghapus siswa ini?');">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -57,7 +60,7 @@
     <div style="margin-top: 25px" class="container sekolah-table">
         <h1 style="font-style:italic; color: #FB4141;">Tabel Sekolah</h1>
         <div class="table-wrapper">
-            <table id="schoolTable">
+            <table id="tabelSekolah">
                 <thead>
                     <tr>
                         <th>ID Sekolah</th>
@@ -87,7 +90,10 @@
                                 <td><?php if ($school['password']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></td>
                                 <td>
                                     <button class="green-button">Edit</button>
-                                    <button class="red-button">Delete</button>
+                                    <form method="POST" action="index.php?page=delete-akun&action=delete-sekolah" style="display:inline;">
+                                        <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($school['id_sekolah']); ?>">
+                                        <button type="submit" class="red-button" onclick="return confirm('Yakin ingin menghapus siswa ini?');">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
