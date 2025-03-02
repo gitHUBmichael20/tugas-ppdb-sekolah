@@ -17,7 +17,7 @@ class AdminController
 
     public function index()
     {
-        include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+        include '../app/resources/views/admin/dashboard-admin/dashboard-admin.php';
     }
 
     public function login()
@@ -38,11 +38,11 @@ class AdminController
             } else {
                 // jika login gagal, set pesan error
                 $error = "ID Admin atau password salah!";
-                include '../resources/views/admin/auth-admin/login-admin.php';
+                include '../app/resources/views/admin/auth-admin/login-admin.php';
             }
         } else {
             // jika bukan post request, tampilkan form login
-            include '../resources/views/admin/auth-admin/login-admin.php';
+            include '../app/resources/views/admin/auth-admin/login-admin.php';
         }
     }
 

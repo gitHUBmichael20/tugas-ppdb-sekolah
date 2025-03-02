@@ -35,10 +35,10 @@ class SiswaController
                 exit();
             } else {
                 $error = "NISN atau password salah!";
-                include '../resources/views/siswa/auth-siswa/login-siswa.php';
+                include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
             }
         } else {
-            include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
         }
     }
 
@@ -73,7 +73,7 @@ class SiswaController
                 header('Location: index.php?page=dashboard-admin');
             } else {
                 $success = "Data berhasil diregistrasi oleh kamu !!";
-                include '../resources/views/siswa/auth-siswa/login-siswa.php';
+                include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
             }
             exit; // Pastikan berhenti setelah redirect
         } else {
@@ -133,7 +133,7 @@ class SiswaController
         }
 
         // Load the view with school data
-        include '../resources/views/siswa/dashboard-siswa/section/daftar-sekolah.php';
+        include '../app/resources/views/siswa/dashboard-siswa/section/daftar-sekolah.php';
     }
 
     public function deleteSiswa()

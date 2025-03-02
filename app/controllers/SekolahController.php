@@ -12,14 +12,14 @@ class SekolahController
 
     public function index()
     {
-        include '../resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
+        include '../app/resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
     }
 
     public function getAllSchoolData()
     {
         // Mengirim data ke frontend
         $sekolah = $this->sekolahModel->getAllSekolah();
-        include '../resources/views/siswa/dashboard-siswa/dashboard-siswa.php';
+        include '../app/resources/views/siswa/dashboard-siswa/dashboard-siswa.php';
     }
 
     public function login()
@@ -44,11 +44,11 @@ class SekolahController
             } else {
                 // Jika login gagal, set pesan error
                 $error = "ID Sekolah atau password salah! 🔥🔥";
-                include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+                include '../app/resources/views/sekolah/auth-sekolah/login-sekolah.php';
             }
         } else {
             // Jika bukan POST, tampilkan form login
-            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            include '../app/resources/views/sekolah/auth-sekolah/login-sekolah.php';
         }
     }
 
@@ -84,13 +84,13 @@ class SekolahController
                 header('Location: index.php?page=dashboard-admin');
             } else {
                 $success = "Data Sekolah berhasil diregistrasi oleh kamu !!";
-                include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+                include '../app/resources/views/sekolah/auth-sekolah/login-sekolah.php';
             }
             exit; // Pastikan berhenti setelah redirect atau include
         } else {
             // Jika gagal, set error dan kembali ke form
             $error = 'Register Failed';
-            include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+            include '../app/resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
         }
     }
 

@@ -32,12 +32,12 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $admin->login();
         } else {
-            include '../resources/views/admin/auth-admin/login-admin.php';
+            include '../app/resources/views/admin/auth-admin/login-admin.php';
         }
         break;
 
     case 'sign-up-admin':
-        include '../resources/views/admin/auth-admin/sign-up-admin.php';
+        include '../app/resources/views/admin/auth-admin/sign-up-admin.php';
         break;
 
 
@@ -47,7 +47,7 @@ switch ($page) {
         $pendaftaran = $admin->listPendaftaran();
         $sekolahData = $admin->getAllSchoolData();
         $siswaData = $admin->lihatSiswa();
-        include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+        include '../app/resources/views/admin/dashboard-admin/dashboard-admin.php';
         break;
 
     case 'edit-pendaftaran':
@@ -55,7 +55,7 @@ switch ($page) {
         if (isset($_POST['action']) && $_POST['action'] === 'edit') {
             $admin->editPendaftaran();
         } else {
-            include '../resources/views/admin/dashboard-admin/dashboard-admin.php';
+            include '../app/resources/views/admin/dashboard-admin/dashboard-admin.php';
         }
         break;
 
@@ -78,7 +78,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $sekolah->login();
         } else {
-            include '../resources/views/sekolah/auth-sekolah/login-sekolah.php';
+            include '../app/resources/views/sekolah/auth-sekolah/login-sekolah.php';
         }
         break;
 
@@ -86,7 +86,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
             $sekolah->saveSekolah();
         } else {
-            include '../resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
+            include '../app/resources/views/sekolah/auth-sekolah/sign-up-sekolah.php';
         }
         break;
 
@@ -104,7 +104,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $siswa->login();
         } else {
-            include '../resources/views/siswa/auth-siswa/login-siswa.php';
+            include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
         }
         break;
 
@@ -112,7 +112,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
             $siswa->saveMurid();
         } else {
-            include '../resources/views/siswa/auth-siswa/sign-up-siswa.php';
+            include '../app/resources/views/siswa/auth-siswa/sign-up-siswa.php';
         }
         break;
 
@@ -121,7 +121,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'edit') {
             $siswa->updateMurid();
         } else {
-            include '../resources/views/siswa/dashboard-siswa/section/data-diri.php';
+            include '../app/resources/views/siswa/dashboard-siswa/section/data-diri.php';
         }
         break;
 
@@ -141,6 +141,6 @@ switch ($page) {
 
         // Default Route
     default:
-        include '../resources/views/landing.php';
+        include '../app/resources/views/landing.php';
         break;
 }
