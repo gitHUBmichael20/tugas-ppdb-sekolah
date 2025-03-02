@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Siswa dan Sekolah</title>
-    <link rel="stylesheet" href="../resources/css/form/form.css">
+    <link rel="stylesheet" href="../app/resources/css/form/form.css">
 </head>
 
 <body>

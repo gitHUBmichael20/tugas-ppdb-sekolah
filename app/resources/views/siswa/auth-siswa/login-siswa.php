@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Siswa</title>
-    <link rel="stylesheet" href="../resources/css/auth/auth.css">
+    <link rel="stylesheet" href="../app/resources/css/auth/auth.css">
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
 </head>
 

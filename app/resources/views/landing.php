@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Project Penerimaan Siswa Baru 2025</title>
     <link rel="shortcut icon" href="../public/assets/logo/logo-website.png" type="image/x-icon">
-    <link rel="stylesheet" href="../resources/css/landing.css">
+    <link rel="stylesheet" href="../app/resources/css/landing.css">
 </head>
 
 <body>

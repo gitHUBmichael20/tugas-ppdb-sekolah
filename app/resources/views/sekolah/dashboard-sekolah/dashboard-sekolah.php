@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Sekolah</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
-    <link rel="stylesheet" href="../resources/css/table/table.css">
+    <link rel="stylesheet" href="../app/resources/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../app/resources/css/table/table.css">
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
@@ -41,7 +41,7 @@
     <main class="main-content">
         <div id="home" class="content-section active">
             <h2>Murid yang telah diterima</h2>
-            <?php include("../resources/views/sekolah/dashboard-sekolah/section/list-siswa.php") ?>
+            <?php include("../app/resources/views/sekolah/dashboard-sekolah/section/list-siswa.php") ?>
         </div>
         <div id="statistic" class="content-section">
             <h2>Statistik Penerimaan</h2>

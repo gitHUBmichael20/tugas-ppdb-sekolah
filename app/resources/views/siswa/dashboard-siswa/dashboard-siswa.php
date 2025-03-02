@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Siswa | <?= $_SESSION['siswa_nama'] ?></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../resources/css/dashboard/dashboard.css">
-    <link rel="stylesheet" href="../resources/css/table/table.css">
-    <link rel="stylesheet" href="../resources/css/form/form.css">
-    <link rel="stylesheet" href="../resources/css/status-ppdb/status-ppdb.css">
-    <script src="../resources/js/siswa/sorting-school.js"></script>
+    <link rel="stylesheet" href="../app/resources/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../app/resources/css/table/table.css">
+    <link rel="stylesheet" href="../app/resources/css/form/form.css">
+    <link rel="stylesheet" href="../app/resources/css/status-ppdb/status-ppdb.css">
+    <script src="../app/resources/js/siswa/sorting-school.js"></script>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
     <style>
         .main-content {
@@ -47,16 +47,16 @@
     <main class="main-content">
         <div id="home" class="content-section active">
             <h2>Pilihan Sekolah</h2>
-            <?php include("../resources/views/siswa/dashboard-siswa/section/list-sekolah.php") ?>
+            <?php include("../app/resources/views/siswa/dashboard-siswa/section/list-sekolah.php") ?>
         </div>
         <div id="data" class="content-section">
             <h2>Data Anda</h2>
-            <?php include("../resources/views/siswa/dashboard-siswa/section/data-diri.php") ?>
+            <?php include("../app/resources/views/siswa/dashboard-siswa/section/data-diri.php") ?>
         </div>
         <div id="status" class="content-section">
             <h2>Status Penerimaan</h2>
             <p>Your application status will be displayed here.</p>
-            <?php include('../resources/views/siswa/dashboard-siswa/section/status-penerimaan.php') ?>
+            <?php include('../app/resources/views/siswa/dashboard-siswa/section/status-penerimaan.php') ?>
         </div>
     </main>
 
