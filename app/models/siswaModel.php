@@ -19,7 +19,8 @@ class SiswaModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllSiswa(){
+    public function getAllSiswa()
+    {
         $query = "SELECT * FROM siswa";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -65,15 +66,16 @@ class SiswaModel
         return $stmt->execute();
     }
 
-    public function deleteSiswa($nisn){
+    public function deleteSiswa($nisn)
+    {
         $query = "DELETE FROM siswa WHERE NISN = :nisn";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':nisn', $nisn);
         return $stmt->execute();
     }
 
-    public function cekPendaftaran($nisn){
-        $query = "SELECT status from pendaftaran WHERE nisn_siswa = :nisn";
+    public function cekPendaftaran($nisn) {
+        $query = "SELECT status, id_sekolah, pendaftaran_ID FROM pendaftaran WHERE NISN_Siswa = :nisn";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':nisn' => $nisn]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

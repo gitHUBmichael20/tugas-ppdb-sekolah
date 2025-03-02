@@ -152,10 +152,20 @@ class SiswaController
         exit;
     }
 
-    public function hasilPenerimaan() {
+    public function hasilPenerimaan()
+    {
         $nisn = $_SESSION['siswa_nisn'];
         $hasilPenerimaan = $this->siswaModel->cekPendaftaran($nisn);
-        $_SESSION['status-ppdb'] = $hasilPenerimaan;
-        header('Location: index.php?page=dashboard-siswa');
+
+        if ($hasilPenerimaan && is_array($hasilPenerimaan)) {
+            $_SESSION['status-ppdb'] = $hasilPenerimaan['status'];
+            $_SESSION['id_sekolah-ppdb'] = $hasilPenerimaan['id_sekolah'];
+        } else {
+            $_SESSION['status-ppdb'] = 'SEDANG TAHAP PROSES';
+            $_SESSION['id_sekolah-ppdb'] = null;
+        }
+
+        header('Location: index.php?page=hasil-ppdb-siswa');
+        exit();
     }
 }

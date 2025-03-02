@@ -27,7 +27,7 @@ function restrictToLoggedIn($role)
 $page = isset($_GET['page']) ? $_GET['page'] : null;
 
 switch ($page) {
-        // Admin Routes
+    // Admin Routes
     case 'login-admin':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $admin->login();
@@ -41,7 +41,7 @@ switch ($page) {
         break;
 
 
-        // Di bagian switch case
+    // Di bagian switch case
     case 'dashboard-admin':
         restrictToLoggedIn('admin');
         $pendaftaran = $admin->listPendaftaran();
@@ -73,7 +73,7 @@ switch ($page) {
         }
         break;
 
-        // Sekolah Routes
+    // Sekolah Routes
     case 'login-sekolah':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $sekolah->login();
@@ -99,7 +99,7 @@ switch ($page) {
         $sekolah->logout();
         break;
 
-        // Siswa Routes
+    // Siswa Routes
     case 'login-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $siswa->login();
@@ -130,6 +130,12 @@ switch ($page) {
         $sekolah->getAllSchoolData();
         break;
 
+    case 'hasil-ppdb-siswa':
+        restrictToLoggedIn('siswa');
+        $siswa->hasilPenerimaan();
+        include '../app/resources/views/siswa/dashboard-siswa/section/status-penerimaan.php';
+        break;
+
     case 'daftar-sekolah':
         restrictToLoggedIn('siswa');
         $siswa->daftarsekolah();
@@ -139,7 +145,7 @@ switch ($page) {
         $siswa->logout();
         break;
 
-        // Default Route
+    // Default Route
     default:
         include '../app/resources/views/landing.php';
         break;
