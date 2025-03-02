@@ -1,7 +1,17 @@
 <div class="status-wrapper">
     <!-- Header Section -->
-    <div class="status-header">
-        <h1>SELAMAT ANDA DINYATAKAN LULUS SELEKSI PPDB 2025</h1>
+    <div class="status-header LULUS-TERPILIH">
+        <h1 class="judul-status">
+            <?php
+            $status = isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : null;
+            if ($status == 'LULUS TERPILIH'): ?>
+                <span>SELAMAT ANDA DINYATAKAN <strong>LULUS</strong> SELEKSI PPDB 2025</span>
+            <?php elseif ($status == 'DITOLAK'): ?>
+                <span>MAAF ANDA DINYATAKAN <strong>TIDAK LULUS</strong> PPDB 2025</span>
+            <?php else: ?>
+                <span>STATUS PENDAFTARAN ANDA: <strong>SEDANG TAHAP PROSES</strong></span>
+            <?php endif; ?>
+        </h1>
         <img class="logo-ppdb" src="./assets/logo/logo-website.png" alt="Logo PPDB">
     </div>
 
@@ -9,32 +19,38 @@
     <div class="status-body">
         <!-- Informasi Pribadi dan Sekolah -->
         <div class="info-item-siswa">
-            <strong>NISN – NOREG:</strong> <span class="placeholder"></span>
+            <strong>ID Pendaftaran</strong> <span class="placeholder"><?= $_SESSION['siswa_nisn'] ?></span>
         </div>
         <div class="info-item-siswa">
-            <strong>Tanggal Lahir:</strong> <span class="placeholder"></span>
+            <strong>NISN</strong> <span class="placeholder"><?= $_SESSION['siswa_nisn'] ?></span>
         </div>
         <div class="info-item-siswa">
-            <strong>Kabupaten/Kota:</strong> <span class="placeholder"></span>
+            <strong>Nama Murid:</strong> <span class="placeholder"><?= $_SESSION['siswa_nama'] ?></span>
         </div>
         <div class="info-item-siswa">
-            <strong>Provinsi:</strong> <span class="placeholder"></span>
-        </div>
-        <div class="info-item-siswa">
-            <strong>Asal Sekolah:</strong> <span class="placeholder"></span>
+            <strong>Sekolah Tujuan:</strong> <span class="placeholder"></span>
         </div>
 
         <!-- Kotak Instruksi -->
         <div class="instruction-box">
-            Silakan lakukan pendaftaran ulang. Informasi pendaftaran ulang di PPDB Jabar 2025 dapat dilihat pada link berikut:
-        </div>
+            <?php
+            $status = isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : null;
+            if ($status == 'LULUS TERPILIH'): ?>
+                <span>Silakan lakukan pendaftaran ulang. Informasi pendaftaran ulang di PPDB Jabar 2025 dapat dilihat pada link berikut:</span>
 
-        <!-- Tombol Pendaftaran -->
-        <a href="https://ppdbjabar2025.kemdikbud.go.id/" target="_blank" class="button">Daftarkan Di Sini</a>
+                <!-- Tombol Pendaftaran -->
+                <button href="https://ppdbjabar2025.kemdikbud.go.id/" target="_blank" class="button">Daftarkan Di Sini</button>
+
+            <?php elseif ($status == 'DITOLAK'): ?>
+                <span>Kegagalan bukanlah akhir, masih ada jalur lain untuk masuk ke sekolah impianmu. Keep Going !! 🤙🫵</span>
+            <?php else: ?>
+                <span>Harap bersabar, proses seleksi masih sedang berlangsung</span>
+            <?php endif; ?>
+        </div>
 
         <!-- Informasi Tambahan -->
         <p class="additional-info">
-            Status penerimaan Anda sebagai siswa baru akan ditetapkan setelah Anda melakukan verifikasi data akademik (rapor dan/atau portofolio). Silakan Anda mempersiapkan berkas-berkas yang diperlukan untuk memenuhi persyaratan penerimaan siswa baru di PPDB Jabar 2025.
+            Status penerimaan Anda sebagai siswa baru akan ditetapkan setelah Anda melakukan pendaftaran ulang. Silakan Anda mempersiapkan berkas-berkas yang diperlukan untuk memenuhi persyaratan penerimaan siswa baru di PPDB Jabar 2025.
         </p>
     </div>
 </div>

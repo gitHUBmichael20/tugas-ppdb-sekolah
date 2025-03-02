@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../app/resources/css/dashboard/dashboard.css">
     <link rel="stylesheet" href="../app/resources/css/table/table.css">
-    <script src="../app/resources/js/admin/alert-pendaftaran.js"></script>
+    <script src="../app/resources/js/sweet-alert-ppdb/message-ppdb.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .main-content {

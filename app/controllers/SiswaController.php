@@ -151,4 +151,11 @@ class SiswaController
         header('Location: index.php?page=dashboard-admin');
         exit;
     }
+
+    public function hasilPenerimaan() {
+        $nisn = $_SESSION['siswa_nisn'];
+        $hasilPenerimaan = $this->siswaModel->cekPendaftaran($nisn);
+        $_SESSION['status-ppdb'] = $hasilPenerimaan;
+        header('Location: index.php?page=dashboard-siswa');
+    }
 }

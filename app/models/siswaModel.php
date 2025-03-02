@@ -71,4 +71,11 @@ class SiswaModel
         $stmt->bindParam(':nisn', $nisn);
         return $stmt->execute();
     }
+
+    public function cekPendaftaran($nisn){
+        $query = "SELECT status from pendaftaran WHERE nisn_siswa = :nisn";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([':nisn' => $nisn]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
