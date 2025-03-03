@@ -74,8 +74,9 @@ class SiswaModel
         return $stmt->execute();
     }
 
-    public function cekPendaftaran($nisn) {
-        $query = "SELECT status, id_sekolah, pendaftaran_ID FROM pendaftaran WHERE NISN_Siswa = :nisn";
+    public function cekPendaftaran($nisn)
+    {
+        $query = "SELECT status, id_sekolah FROM pendaftaran WHERE NISN_Siswa = :nisn";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':nisn' => $nisn]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

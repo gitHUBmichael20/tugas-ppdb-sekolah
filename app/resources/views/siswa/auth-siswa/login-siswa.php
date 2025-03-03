@@ -18,7 +18,7 @@
             </video>
             <?php if (isset($success)) : ?>
                 <p style="color: green; text-align: center; font-size: 30px;"><?php echo $success; ?></p>
-                <?php endif; ?>
+            <?php endif; ?>
             <?php if (isset($error)) : ?>
                 <p style="color: red; text-align: center;"><?php echo $error; ?></p>
             <?php endif; ?>
@@ -38,6 +38,10 @@
             </a>
         </div>
     </div>
+    <a href="index.php" class="back-button">
+        <i class="fa-solid fa-house-chimney fa-sm"></i>
+        <span>Kembali ke Halaman Utama</span>
+    </a>
 </body>
 
 </html>

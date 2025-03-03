@@ -164,8 +164,5 @@ class SiswaController
             $_SESSION['status-ppdb'] = 'SEDANG TAHAP PROSES';
             $_SESSION['id_sekolah-ppdb'] = null;
         }
-
-        header('Location: index.php?page=hasil-ppdb-siswa');
-        exit();
     }
 }

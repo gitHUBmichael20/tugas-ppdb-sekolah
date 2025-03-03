@@ -32,6 +32,10 @@
             <a href="index.php?page=sign-up-admin"><button style="margin-top: 15px;" type="button">Doesn't Have an account?</button></a>
         </div>
     </div>
+    <a href="index.php" class="back-button">
+        <i class="fa-solid fa-house-chimney fa-sm"></i>
+        <span>Kembali ke Halaman Utama</span>
+    </a>
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+
 body {
     margin: 0;
     padding: 0;
@@ -88,6 +90,25 @@ button:hover {
 button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #7A73D1;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.back-button:hover {
+    background-color: #6A63B8;
 }
 
 #delete-button {

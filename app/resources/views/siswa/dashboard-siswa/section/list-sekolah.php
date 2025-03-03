@@ -57,6 +57,7 @@
 
 <body>
     <div class="container">
+        
         <div class="sort-container">
             <label for="sortSelect">Sort by: </label>
             <select id="sortSelect" onchange="sortTable()">

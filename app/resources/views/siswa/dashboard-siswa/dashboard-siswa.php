@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../app/resources/css/status-ppdb/status-ppdb.css">
     <script src="../app/resources/js/siswa/sorting-school.js"></script>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
+    
     <style>
         .main-content {
             flex: 1;

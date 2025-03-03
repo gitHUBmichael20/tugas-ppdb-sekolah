@@ -128,13 +128,9 @@ switch ($page) {
     case 'dashboard-siswa':
         restrictToLoggedIn('siswa');
         $sekolah->getAllSchoolData();
+        $siswa->hasilPenerimaan();
         break;
 
-    case 'hasil-ppdb-siswa':
-        restrictToLoggedIn('siswa');
-        $siswa->hasilPenerimaan();
-        include '../app/resources/views/siswa/dashboard-siswa/section/status-penerimaan.php';
-        break;
 
     case 'daftar-sekolah':
         restrictToLoggedIn('siswa');
