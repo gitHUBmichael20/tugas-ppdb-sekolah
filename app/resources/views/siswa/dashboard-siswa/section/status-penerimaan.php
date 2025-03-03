@@ -1,7 +1,6 @@
 <div class="status-wrapper">
-    <?php var_dump($_SESSION) ?> 
-    
-    <div class="status-locker">
+
+    <div class="status-locker" id="form-container">
         <div class="locker-title">
             <img class="logo-ppdb" src="./assets/logo/logo-website.png" alt="Logo PPDB">
             <h1 class="judul-status" style="color: #007BFF;">HASIL SELEKSI PPDB JABAR 2025</h1>
@@ -29,16 +28,16 @@
     $showStatus = isset($_POST['cek-ppdb']) && !empty($_POST['nisn']);
     if ($showStatus): ?>
         <div class="status-main-content">
-            <div class="status-main-content" style="<?php echo $showStatus ? 'display: block;' : 'display: none;'; ?>">
+            <div class="status-main-content" id="status-result" style="<?php echo $showStatus ? 'display: block;' : 'display: none;'; ?>">
                 <!-- Header Section -->
-                <div class="status-header LULUS-TERPILIH">
+                <div class="status-header <?php echo isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : ''; ?>">
                     <h1 class="judul-status" style="color: #F5F5F5">
                         <?php
                         $status = isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : null;
                         if ($status == 'LULUS-TERPILIH'): ?>
                             <span>SELAMAT ANDA DINYATAKAN <strong>LULUS</strong> SELEKSI PPDB 2025</span>
                         <?php elseif ($status == 'DITOLAK'): ?>
-                            <span>MAAF ANDA DINYATAKAN <strong>TIDAK LULUS</strong> PPDB 2025</span>
+                            <span>MAAF ANDA DINYATAKAN <strong>TIDAK LULUS</strong> PPDB 2025 😂😂🫵</span>
                         <?php else: ?>
                             <span>STATUS PENDAFTARAN ANDA: <strong>SEDANG TAHAP PROSES</strong></span>
                         <?php endif; ?>
@@ -86,3 +85,15 @@
         </div>
     <?php endif; ?>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusResult = document.getElementById('status-result');
+        const formContainer = document.getElementById('form-container');
+
+        // Hide form if status result is present
+        if (statusResult) {
+            formContainer.style.display = 'none';
+        }
+    });
+</script>
