@@ -157,11 +157,13 @@ class SiswaController
         $nisn = $_SESSION['siswa_nisn'];
         $hasilPenerimaan = $this->siswaModel->cekPendaftaran($nisn);
 
-        if ($hasilPenerimaan && is_array($hasilPenerimaan)) {
+        // Cek apakah hasilPenerimaan ada dan merupakan array yang tidak kosong
+        if ($hasilPenerimaan && is_array($hasilPenerimaan) && !empty($hasilPenerimaan)) {
             $_SESSION['status-ppdb'] = $hasilPenerimaan['status'];
             $_SESSION['id_sekolah-ppdb'] = $hasilPenerimaan['id_sekolah'];
         } else {
-            $_SESSION['status-ppdb'] = 'SEDANG TAHAP PROSES';
+            // Kondisi ketika data tidak ditemukan (empty set), status menjadi 'BELUM-DAFTAR'
+            $_SESSION['status-ppdb'] = 'BELUM-DAFTAR';
             $_SESSION['id_sekolah-ppdb'] = null;
         }
     }

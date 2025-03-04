@@ -57,7 +57,12 @@
 
 <body>
     <div class="container">
-        
+        <?php var_dump($_SESSION); ?>
+        <?php if (isset($_SESSION['status-ppdb']) && $_SESSION['status-ppdb'] === 'BELUM-DAFTAR') : ?>
+            <h1 style="color: #A0C878"><?= $_SESSION['siswa_nama']; ?> | Belum Daftar</h1>
+        <?php else: ?>
+            <h1 style="color: #E50046"><?= $_SESSION['siswa_nama']; ?> | <?= $_SESSION['status-ppdb']; ?></h1>
+        <?php endif; ?>
         <div class="sort-container">
             <label for="sortSelect">Sort by: </label>
             <select id="sortSelect" onchange="sortTable()">
@@ -72,10 +77,6 @@
                 <option value="quota_desc">Quota (High-Low)</option>
             </select>
         </div>
-
-        <p>NISN: <?= $_SESSION['siswa_nisn']; ?></p>
-        <p>Nama: <?= $_SESSION['siswa_nama']; ?></p>
-        <p>Alamat: <?= $_SESSION['siswa_alamat']; ?></p>
 
         <div class="table-wrapper">
             <table id="schoolTable">
@@ -104,7 +105,10 @@
                                 <td><?= $school['kouta']; ?></td>
                                 <td>
                                     <a href="?page=daftar-sekolah&sekolah=<?= $school['id_sekolah']; ?>">
-                                        <button class="green-button">Daftar</button>
+                                        <button class="green-button"
+                                            <?php if (isset($_SESSION['status-ppdb']) && $_SESSION['status-ppdb'] !== 'BELUM-DAFTAR') echo 'disabled style="background-color: #727D73;"'; ?>>
+                                            Daftar
+                                        </button>
                                     </a>
                                 </td>
                             </tr>
