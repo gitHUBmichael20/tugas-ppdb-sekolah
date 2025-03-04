@@ -7,6 +7,7 @@
     <title>Website Project Penerimaan Siswa Baru 2025</title>
     <link rel="shortcut icon" href="../public/assets/logo/logo-website.png" type="image/x-icon">
     <link rel="stylesheet" href="../app/resources/css/landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -26,7 +27,7 @@
             <img src="./assets/images/background-hero.jpg" alt="background-1">
         </div>
         <div class="hero-content">
-            <h1>Find the best solution for your future now</h1>
+            <h1 class="typing">Find the best solution for your future now</h1>
             <p>You can find the best school in Western Java here, make sure you choose the best one.</p>
             <a href="#" class="cta-button">Get Started</a>
         </div>
@@ -74,6 +75,8 @@
             <p>&copy; 2025 PPDB JABAR. Semua hak dilindungi.</p>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>
