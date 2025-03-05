@@ -13,7 +13,10 @@
 <body>
     <nav class="navbar">
         <div class="navbar-content">
-            <div class="logo">PPDB JABAR 2025</div>
+            <div class="logo">
+                <img src="./assets/logo/logo-website.png" alt="logo-website" class="logo-icon">
+                <div class="logo-text">PPDB JABAR 2025</div>
+            </div>
             <div class="nav-links">
                 <a href="index.php?page=dashboard-admin">Admin PPDB</a>
                 <a href="index.php?page=dashboard-sekolah">Sekolah</a>
@@ -25,6 +28,8 @@
     <section class="hero">
         <div class="hero-background">
             <img src="./assets/images/background-hero.jpg" alt="background-1">
+            <img src="./assets/images/background-hero-2.jpg" alt="background-2">
+            <img src="./assets/images/background-hero-3.jpg" alt="background-3">
         </div>
         <div class="hero-content">
             <h1 class="typing">Find the best solution for your future now</h1>
@@ -72,7 +77,9 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 PPDB JABAR. Semua hak dilindungi.</p>
+            <a href="mailto:carlosimbolon23@gmail.com" style="text-decoration: none; color:white;">
+                <p>&copy; 2025 Michael Teguh Carlo Simbolon | Contact me 👋</p>
+            </a>
         </div>
     </footer>
 

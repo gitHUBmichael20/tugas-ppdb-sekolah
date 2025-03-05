@@ -11,7 +11,7 @@ body {
 }
 
 .navbar {
-  padding: 1.5rem 5%;
+  padding: 1rem 5%;
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -29,16 +29,27 @@ body {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem
+}
+
+.logo-text {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2563eb;
+}
+
+.logo-icon {
+  width: 3em;
 }
 
 .nav-links a {
   margin-left: 2rem;
   text-decoration: none;
   color: #444;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 18px;
   transition: color 0.3s;
 }
 
