@@ -7,6 +7,7 @@
     <title>Website Project Penerimaan Siswa Baru 2025</title>
     <link rel="shortcut icon" href="../public/assets/logo/logo-website.png" type="image/x-icon">
     <link rel="stylesheet" href="../app/resources/css/landing.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
@@ -26,10 +27,18 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-background">
-            <img src="./assets/images/background-hero.jpg" alt="background-1">
-            <img src="./assets/images/background-hero-2.jpg" alt="background-2">
-            <img src="./assets/images/background-hero-3.jpg" alt="background-3">
+        <div class="hero-background swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./assets/images/background-hero.jpg" alt="background-1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./assets/images/background-hero-2.jpg" alt="background-2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./assets/images/background-hero-3.jpg" alt="background-3">
+                </div>
+            </div>
         </div>
         <div class="hero-content">
             <h1 class="typing">Find the best solution for your future now</h1>
@@ -56,6 +65,9 @@
     </section>
 
     <footer class="footer">
+        <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <i class="fa-solid fa-arrow-up fa-2xl" style="color: #B197FC"></i>
+        </div>
         <div class="footer-content">
             <div class="footer-section">
                 <h4>PPDB JABAR 2025</h4>
@@ -84,6 +96,26 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false,
+                },
+                speed: 1000,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        });
+    </script>
 </body>
 
 </html>
