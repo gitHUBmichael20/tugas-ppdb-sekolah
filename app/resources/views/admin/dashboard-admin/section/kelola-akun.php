@@ -22,23 +22,23 @@
             <form action="index.php?page=register-siswa&action=register&role=admin" method="POST">
                 <div class="form-group">
                     <label for="nisn">NISN:</label>
-                    <input type="text" id="nisn" name="NISN" maxlength="20" required value="1234567890">
+                    <input type="text" id="nisn" name="NISN" maxlength="20" required value="">
                 </div>
                 <div class="form-group">
                     <label for="nama_murid">Nama Murid:</label>
-                    <input type="text" id="nama_murid" name="nama_murid" maxlength="100" value="Budi Santoso">
+                    <input type="text" id="nama_murid" name="nama_murid" maxlength="100" value=">
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat:</label>
-                    <textarea id="alamat" name="alamat" maxlength="255">Jl. Merdeka No. 123, Jakarta</textarea>
+                    <textarea id="alamat" name="alamat" maxlength="255"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tanggal_lahir">Tanggal Lahir:</label>
-                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="2008-05-15">
+                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="">
                 </div>
                 <div class="form-group">
                     <label for="password_siswa">Password:</label>
-                    <input type="password" id="password_siswa" name="password" maxlength="255" value="password123">
+                    <input type="password" id="password_siswa" name="password" maxlength="255" value="">
                 </div>
                 <button type="submit" class="submit-btn">Simpan Data Siswa</button>
                 <button type="button" class="red-button" onclick="closeModal()">Tutup</button>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="modal-window-sekolah" style="display:none; width: 30em; max-width: 30em; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 999;">
-        <div class="form-container" >
+        <div class="form-container">
             <h2 class="form-title">Form Data Sekolah</h2>
             <form action="index.php?page=register-sekolah&action=register&role=admin" method="POST">
                 <div class="form-group">
@@ -117,7 +117,13 @@
                                 <td><?php if ($siswa['rapor_siswa']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></td>
                                 <td><span style="font-weight: 600; "><?php if ($siswa['password']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></span></td>
                                 <td id="hapus-akun-siswa">
-                                    <button class="green-button" onclick="openModalSiswa()">Edit</button>
+                                    <button class="green-button" onclick="openModalSiswa(
+                                        '<?= htmlspecialchars($siswa['NISN'], ENT_QUOTES) ?>',
+                                        '<?= htmlspecialchars($siswa['nama_murid'], ENT_QUOTES) ?>',
+                                        '<?= htmlspecialchars($siswa['alamat'] ?? '', ENT_QUOTES) ?>',
+                                        '<?= htmlspecialchars($siswa['tanggal_lahir'] ?? '', ENT_QUOTES) ?>',
+                                        '<?= htmlspecialchars($siswa['password'] ?? '', ENT_QUOTES) ?>'
+                                        )">Edit</button>
                                     <form id="deleteSiswa<?= htmlspecialchars($siswa['NISN']); ?>" method="POST" action="index.php?page=delete-akun&action=delete-siswa" style="display:inline;">
                                         <input type="hidden" name="NISN" value="<?= htmlspecialchars($siswa['NISN']); ?>">
                                         <button type="button" class="red-button" onclick="confirmDelete('deleteSiswa<?= htmlspecialchars($siswa['NISN']); ?>', 'Yakin ingin menghapus siswa ini?')">Delete</button>
@@ -163,7 +169,15 @@
                                 <td><?= htmlspecialchars($school['lokasi']); ?></td>
                                 <td><?php if ($school['password']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></td>
                                 <td id="hapus-akun-sekolah">
-                                    <button class="green-button" onclick="openModalSekolah()">Edit</button>
+                                    <button class="green-button" onclick="openModalSekolah(
+                                    '<?= htmlspecialchars($school['id_sekolah'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['nama_sekolah'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['jenis'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['email'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['kouta'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['lokasi'], ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($school['password'], ENT_QUOTES) ?>'
+                                )">Edit</button>
                                     <form id="deleteSekolah<?= htmlspecialchars($school['id_sekolah']); ?>" method="POST" action="index.php?page=delete-akun&action=delete-sekolah" style="display:inline;">
                                         <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($school['id_sekolah']); ?>">
                                         <button type="button" class="red-button" onclick="confirmDelete('deleteSekolah<?= htmlspecialchars($school['id_sekolah']); ?>', 'Yakin ingin menghapus akun dari sekolah ini?')">Delete</button>
@@ -197,16 +211,33 @@
             }
         });
 
-        function openModalSiswa() {
-            document.querySelector('.modal-window-siswa').style.display = 'block';
+        function openModalSiswa(nisn, nama, alamat, tglLahir, password) {
+            const modal = document.querySelector('.modal-window-siswa');
+            modal.querySelector('#nisn').value = nisn;
+            modal.querySelector('#nama_murid').value = nama;
+            modal.querySelector('#alamat').value = alamat;
+            modal.querySelector('#tanggal_lahir').value = tglLahir;
+            modal.querySelector('#password_siswa').value = password;
+            modal.querySelector('.form-title').textContent = `Edit Siswa | ${nama}`;
+            modal.style.display = 'block';
             document.querySelector('.modal-backdrop').style.display = 'block';
         }
 
-        function openModalSekolah() {
-            document.querySelector('.modal-window-sekolah').style.display = 'block';
+        function openModalSekolah(id, nama, jenis, email, kouta, lokasi, password) {
+            const modal = document.querySelector('.modal-window-sekolah');
+            modal.querySelector('#id_sekolah').value = id;
+            modal.querySelector('#nama_sekolah').value = nama;
+            modal.querySelector('#jenis').value = jenis;
+            modal.querySelector('#email').value = email;
+            modal.querySelector('#kouta').value = kouta;
+            modal.querySelector('#lokasi').value = lokasi;
+            modal.querySelector('#password_sekolah').value = password;
+            modal.querySelector('.form-title').textContent = `Edit Sekolah | ${nama}`;
+            modal.style.display = 'block';
             document.querySelector('.modal-backdrop').style.display = 'block';
         }
 
+        // Close modal 
         function closeModal() {
             document.querySelector('.modal-window-siswa').style.display = 'none';
             document.querySelector('.modal-window-sekolah').style.display = 'none';

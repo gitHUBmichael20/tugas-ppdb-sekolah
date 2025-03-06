@@ -25,7 +25,10 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard Admin</div>
+    <div class="sidebar-header">
+            <div class="logo">Dashboard Sekolah</div>
+            <i id="toggle-sidebar" class="fa-solid fa-down-left-and-up-right-to-center fa-rotate-180 fa-lg"></i>
+        </div>
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid diterima</a>
             <a href="#" data-section="statistic"><i class="fa-solid fa-square-poll-horizontal"></i>Statistik Penerimaan</a>

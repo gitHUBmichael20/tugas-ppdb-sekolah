@@ -31,7 +31,10 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard Panel Siswa</div>
+        <div class="sidebar-header">
+            <div class="logo">Dashboard Panel Siswa</div>
+            <i id="toggle-sidebar" class="fa-solid fa-down-left-and-up-right-to-center fa-rotate-180 fa-lg"></i>
+        </div>
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Pilihan Sekolah</a>
             <a href="#" data-section="data"><i class="fas fa-file"></i>Data Anda</a>

@@ -29,7 +29,10 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard Admin <?= $_SESSION['admin_nama'] ?></div>
+        <div class="sidebar-header">
+            <div class="logo">Dashboard Admin <?= $_SESSION['admin_nama'] ?></div>
+            <i id="toggle-sidebar" class="fa-solid fa-down-left-and-up-right-to-center fa-rotate-180 fa-lg"></i>
+        </div>
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid Mendaftar</a>
             <a href="#" data-section="data"><i class="fa-regular fa-address-card"></i>Tambah Murid & Sekolah</a>
@@ -64,7 +67,6 @@
         </div>
     </main>
 
-    
     <script>
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(event) {
@@ -77,7 +79,6 @@
             });
         });
 
-        // Tampilkan pesan dari sesi PHP
         document.addEventListener("DOMContentLoaded", function() {
             <?php if (isset($_SESSION['success'])) : ?>
                 showAlert("<?= htmlspecialchars($_SESSION['success']); ?>", "success");
