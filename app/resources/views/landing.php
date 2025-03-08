@@ -64,6 +64,21 @@
         </div>
     </section>
 
+    <section class="faq-section">
+        <details class="faq-item">
+            <summary>Kapan proses PPDB akan dimulai?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda laborum ipsum laudantium temporibus commodi, culpa dignissimos ducimus, ex libero nulla rem. Fugit vitae exercitationem reprehenderit!</p>
+        </details>
+        <details class="faq-item">
+            <summary>Apakah proses PPDB memakan biaya?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sed magnam, quas quam necessitatibus nisi!</p>
+        </details>
+        <details class="faq-item">
+            <summary>Bagaimana cara mendapatkan informasi terkini?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam accusantium perspiciatis dicta voluptas tempore, veniam delectus.</p>
+        </details>
+    </section>
+
     <footer class="footer">
         <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
             <i class="fa-solid fa-arrow-up fa-2xl" style="color: #B197FC"></i>

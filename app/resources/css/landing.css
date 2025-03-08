@@ -197,6 +197,41 @@ body {
   color: #64748b;
 }
 
+/* Bagian FAQ FREQUENTLY ASKED QUESTIONS */
+
+.faq-section {
+  max-width: 65%;
+  margin: 20px auto;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.faq-item summary {
+  padding: 12px;
+  cursor: pointer;
+  background: #f5f7fa;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.faq-item summary:hover {
+  background: #ebedf5;
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 12px;
+  background: #fff;
+}
+
+.faq-item[open] summary {
+  border-bottom: 1px solid #ddd;
+}
+
 .footer {
   background: #1e293b;
   color: white;
