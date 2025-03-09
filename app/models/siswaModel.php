@@ -81,4 +81,11 @@ class SiswaModel
         $stmt->execute([':nisn' => $nisn]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function cekHasilPenerimaan($nisn) {
+        $query = "SELECT hasil_ppdb, id_sekolah FROM pengumuman_ppdb WHERE NISN_Siswa = :nisn";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([':nisn' => $nisn]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

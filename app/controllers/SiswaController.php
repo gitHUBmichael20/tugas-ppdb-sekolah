@@ -152,7 +152,7 @@ class SiswaController
         exit;
     }
 
-    public function hasilPenerimaan()
+    public function cekPendaftaranPPDB()
     {
         $nisn = $_SESSION['siswa_nisn'];
         $hasilPenerimaan = $this->siswaModel->cekPendaftaran($nisn);
@@ -165,6 +165,19 @@ class SiswaController
             // Kondisi ketika data tidak ditemukan (empty set), status menjadi 'BELUM-DAFTAR'
             $_SESSION['status-ppdb'] = 'BELUM-DAFTAR';
             $_SESSION['id_sekolah-ppdb'] = null;
+        }
+    }
+
+    public function cekHasilPPDB() {
+        $nisn = $_SESSION['siswa_nisn'];
+        $hasilPPDB = $this->siswaModel->cekHasilPenerimaan($nisn);
+
+        if ($hasilPPDB && is_array($hasilPPDB) && !empty($hasilPPDB)) {
+            $_SESSION['hasil-ppdb'] = $hasilPPDB['hasil_ppdb'];
+            $_SESSION['id_sekolah-ppdb'] = $hasilPPDB['id_sekolah'];
+        } else {
+            $_SESSION['hasil-ppdb'] = 'BELUM-TERSEDIA';
+            $_SESSION['id_sekolah-ppdb'] = 'BELUM-TERSEDIA';
         }
     }
 }

@@ -128,7 +128,8 @@ switch ($page) {
     case 'dashboard-siswa':
         restrictToLoggedIn('siswa');
         $sekolah->getAllSchoolData();
-        $siswa->hasilPenerimaan();
+        $siswa->cekPendaftaranPPDB();
+        $siswa->cekHasilPPDB();
         break;
 
 
