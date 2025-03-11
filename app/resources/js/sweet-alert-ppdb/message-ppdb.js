@@ -1,4 +1,3 @@
-// Fungsi reusable untuk menampilkan alert
 function showAlert(message, type = "success") {
   Swal.fire({
     text: message,
@@ -9,4 +8,3 @@ function showAlert(message, type = "success") {
     timer: 5000,
   });
 }
-

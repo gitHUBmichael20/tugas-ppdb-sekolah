@@ -57,12 +57,12 @@
 
 <body>
     <div class="container">
-        <?php var_dump($_SESSION); ?>
         <?php if (isset($_SESSION['status-ppdb']) && $_SESSION['status-ppdb'] === 'BELUM-DAFTAR') : ?>
-            <h1 style="color: #A0C878"><?= $_SESSION['siswa_nama']; ?> | Belum Daftar</h1>
+            <h1 style="color: #5CB338"><?= $_SESSION['siswa_nama']; ?> | Belum Daftar</h1>
         <?php else: ?>
             <h1 style="color: #E50046"><?= $_SESSION['siswa_nama']; ?> | <?= $_SESSION['status-ppdb']; ?></h1>
         <?php endif; ?>
+        <!-- <h1 style="color: #E50046"><?= $_SESSION['hasil-ppdb']; ?></h1> -->
         <div class="sort-container">
             <label for="sortSelect">Sort by: </label>
             <select id="sortSelect" onchange="sortTable()">

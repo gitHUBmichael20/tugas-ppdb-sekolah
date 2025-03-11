@@ -74,8 +74,8 @@ tbody tr:hover {
   }
 }
 
-/* Styling untuk tombol generik */
 .green-button,
+.yellow-button,
 .red-button {
     padding: 8px 15px;
     border: none;
@@ -83,37 +83,24 @@ tbody tr:hover {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 5px; /* Jarak antar tombol */
-}
-
-/* Styling spesifik untuk tombol Terima */
-.green-button {
-    background-color: #28a745; /* Hijau */
     color: #fff;
+    margin: 5px;
 }
 
-.green-button:hover {
-    background-color: #218838; /* Hijau lebih gelap saat hover */
-}
+.green-button {background-color: #28a745;}
+.green-button:hover {background-color: #218838;}
+.red-button {background-color: #dc3545;}
+.red-button:hover {background-color: #c82333;}
+.yellow-button {background-color: #FFC145;}
+.yellow-button:hover {background-color: #b6b244;}
 
-/* Styling spesifik untuk tombol Tolak */
-.red-button {
-    background-color: #dc3545; /* Merah */
-    color: #fff;
-}
-
-.red-button:hover {
-    background-color: #c82333; /* Merah lebih gelap saat hover */
-}
-
-/* Responsivitas untuk tabel */
 @media (max-width: 600px) {
     .green-button,
     .red-button {
         padding: 6px 10px;
         font-size: 12px;
-        display: block; /* Tombol jadi block di layar kecil */
-        width: 100%; /* Lebar penuh di layar kecil */
-        margin: 5px 0; /* Jarak vertikal */
+        display: block;
+        width: 100%;
+        margin: 5px 0;
     }
 }

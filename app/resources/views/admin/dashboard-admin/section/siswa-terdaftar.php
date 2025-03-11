@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../app/resources/js/sweet-alert-ppdb/asking-action.js"></script>
+    <script src="../app/resources/js/admin/penerimaan-siswa.js"></script>
 </head>
 
 <body>
     <h2>Welcome, <?= htmlspecialchars($_SESSION['admin_nama']); ?> (ID: <?= htmlspecialchars($_SESSION['admin_id']); ?>)</h2>
-    
+
     <table>
         <thead>
             <tr>
@@ -35,18 +35,26 @@
                     <td data-label="admin_ID"><?= htmlspecialchars($row['admin_ID'] ?? 'N/A'); ?></td>
                     <td data-label="action">
                         <!-- Accept Form -->
-                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'accept', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                        <form action="index.php?page=kelola-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'accept', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="LULUS-TERPILIH">
                             <button type="submit" class="green-button">Terima</button>
                         </form>
                         <!-- Reject Form -->
-                        <form action="index.php?page=edit-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'reject', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                        <form action="index.php?page=kelola-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'reject', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="DITOLAK">
                             <button type="submit" class="red-button">Tolak</button>
+                        </form>
+
+                        <!-- Verifikasi Siswa -->
+                        <form action="index.php?page=kelola-pendaftaran&action=verifikasi" method="post" style="display: inline;" onsubmit="return confirmAction(event, 'verifikasi', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                            <input type="hidden" name="action" value="verifikasi">
+                            <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
+                            <input type="hidden" name="status" value="TERVERIFIKASI">
+                            <button type="submit" class="yellow-button">Verifikasi Siswa</button>
                         </form>
                     </td>
                 </tr>

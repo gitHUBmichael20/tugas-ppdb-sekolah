@@ -55,7 +55,7 @@ class SiswaModel
     public function daftarSekolah($data)
     {
         $query = "INSERT INTO pendaftaran (waktu, status, rapor_siswa, NISN_Siswa, id_sekolah, admin_ID) 
-                  VALUES (:waktu, 'terdaftar', :rapor_siswa, :NISN_Siswa, :id_sekolah, NULL)";
+                  VALUES (:waktu, 'TERDAFTAR', :rapor_siswa, :NISN_Siswa, :id_sekolah, NULL)";
         $stmt = $this->db->prepare($query);
 
         $stmt->bindParam(':rapor_siswa', $data['rapor_siswa']);

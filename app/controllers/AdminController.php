@@ -96,9 +96,9 @@ class AdminController
             $result = $this->adminModel->editPendaftaran($data);
 
             if ($result > 0) {
-                $_SESSION['success'] = "Status berhasil diubah menjadi " . htmlspecialchars($_POST['status']);
+                $_SESSION['success'] = "Status berhasil diverifikasi menjadi " . htmlspecialchars($_POST['status']);
             } else {
-                $_SESSION['error'] = "Tidak ada perubahan pada status";
+                $_SESSION['error'] = "Gagal melakukan verifikasi pendaftaran murid";
             }
         } catch (Exception $e) {
             $_SESSION['error'] = "Error: " . $e->getMessage();
