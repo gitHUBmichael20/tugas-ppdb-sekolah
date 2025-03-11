@@ -72,7 +72,7 @@ class AdminController
         return $siswaData;
     }
 
-    public function editPendaftaran()
+    public function editStatusPendaftaran()
     {
         // Simple validation - only process what we need
         if (empty($_POST['pendaftaran_id']) || empty($_POST['status'])) {
@@ -93,7 +93,7 @@ class AdminController
 
         try {
             // Call the model method
-            $result = $this->adminModel->editPendaftaran($data);
+            $result = $this->adminModel->editStatusPendaftaran($data);
 
             if ($result > 0) {
                 $_SESSION['success'] = "Status berhasil diverifikasi menjadi " . htmlspecialchars($_POST['status']);
@@ -107,5 +107,25 @@ class AdminController
         // Redirect back to dashboard
         header("Location: index.php?page=dashboard-admin");
         exit();
+    }
+
+    public function hasilPenerimaan() {
+        $data = [
+            'pendaftaran_id' => $_SESSION['pendaftaran_id'],
+            'hasil_ppdb' => $_POST['hasil_ppdb'],
+            'NISN_siswa' => $_SESSION['NISN_siswa'],
+            'id_sekolah' => $_SESSION['id_sekolah']
+        ];
+
+        try {
+            $this->adminModel->hasilPenerimaan($data);
+            $_SESSION['success'] = "Hasil PPDB berhasil disimpan";
+            header("Location: index.php?page=dashboard-admin");
+            exit();
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error: ". $e->getMessage();
+            header("Location: index.php?page=dashboard-admin");
+            exit();
+        }
     }
 }

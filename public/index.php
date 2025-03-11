@@ -53,7 +53,7 @@ switch ($page) {
     case 'kelola-pendaftaran':
         restrictToLoggedIn('admin');
         if (isset($_POST['action']) && $_POST['action'] === 'verifikasi') {
-            $admin->editPendaftaran();
+            $admin->editStatusPendaftaran();
         } else {
             include '../app/resources/views/admin/dashboard-admin/dashboard-admin.php';
         }
@@ -61,7 +61,8 @@ switch ($page) {
 
     case 'edit-penerimaan':
         restrictToLoggedIn('admin');
-        
+        $admin->hasilPenerimaan();
+        break;
 
     case 'delete-akun':
         restrictToLoggedIn('admin');

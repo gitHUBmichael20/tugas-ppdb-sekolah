@@ -18,6 +18,7 @@
                 <th>Status</th>
                 <th>Rapor Siswa</th>
                 <th>NISN</th>
+                <th>Hasil PPDB</th>
                 <th>ID Sekolah</th>
                 <th>ID Admin</th>
                 <th>Action</th>
@@ -31,20 +32,19 @@
                     <td data-label="status"><?= htmlspecialchars($row['status']); ?></td>
                     <td data-label="rapor_siswa"><?= htmlspecialchars($row['rapor_siswa'] ?? 'N/A'); ?></td>
                     <td data-label="NISN_Siswa"><?= htmlspecialchars($row['NISN_Siswa']); ?></td>
+                    <td data-label="hasil_ppdb" style="color: #205781; font-weight: 600"><?= htmlspecialchars($row['hasil_ppdb'] ?? 'N/A')?></td>
                     <td data-label="id_sekolah"><?= htmlspecialchars($row['id_sekolah']); ?></td>
                     <td data-label="admin_ID"><?= htmlspecialchars($row['admin_ID'] ?? 'N/A'); ?></td>
                     <td data-label="action">
+
                         <!-- Accept Form -->
-                        <form action="index.php?page=kelola-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'accept', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
-                            <input type="hidden" name="status" value="LULUS-TERPILIH">
+                        <form action="index.php?page=edit-penerimaan" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'accept', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                            <input type="hidden" name="hasil-ppdb" value="LULUS-TERPILIH">
                             <button type="submit" class="green-button">Terima</button>
                         </form>
+
                         <!-- Reject Form -->
-                        <form action="index.php?page=kelola-pendaftaran&action=edit" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'reject', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
+                        <form action="index.php?page=edit-penerimaan" method="POST" style="display: inline;" onsubmit="return confirmAction(event, 'reject', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="status" value="DITOLAK">
                             <button type="submit" class="red-button">Tolak</button>
                         </form>
