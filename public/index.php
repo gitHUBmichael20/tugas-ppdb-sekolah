@@ -61,7 +61,15 @@ switch ($page) {
 
     case 'edit-penerimaan':
         restrictToLoggedIn('admin');
-        $admin->hasilPenerimaan();
+        if (isset($_POST['action']) && $_POST['action'] === 'accept') {
+            $admin->hasilPenerimaan();
+        } elseif (isset($_POST['action']) && $_POST['action'] === 'reject') {
+            $admin->hasilPenerimaan();
+        } else {
+            $_SESSION['error'] = "Invalid action specified.";
+            header("Location: index.php?page=dashboard-admin");
+            exit();
+        }
         break;
 
     case 'delete-akun':
@@ -126,7 +134,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'edit') {
             $siswa->updateMurid();
         } else {
-            include '../app/resources/views/siswa/dashboard-siswa/section/data-diri.php';
+            header("Location: ?page=dashboard-siswa");
         }
         break;
 

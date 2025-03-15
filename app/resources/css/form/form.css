@@ -1,6 +1,6 @@
 .content-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row !important;
   justify-content: center;
   align-items: center;
   height: fit-content;
@@ -13,7 +13,8 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 55%;
+  min-width: 25em;
+  min-height: 10em;
   margin: 0 auto 30px;
 }
 

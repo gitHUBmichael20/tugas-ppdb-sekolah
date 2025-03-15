@@ -67,7 +67,8 @@ class AdminController
         return $pendaftaran;
     }
 
-    public function lihatSiswa(){
+    public function lihatSiswa()
+    {
         $siswaData = $this->siswaModel->getAllSiswa();
         return $siswaData;
     }
@@ -109,12 +110,13 @@ class AdminController
         exit();
     }
 
-    public function hasilPenerimaan() {
+    public function hasilPenerimaan()
+    {
         $data = [
-            'pendaftaran_id' => $_SESSION['pendaftaran_id'],
+            'pendaftaran_id' => $_POST['pendaftaran_id'],
             'hasil_ppdb' => $_POST['hasil_ppdb'],
-            'NISN_siswa' => $_SESSION['NISN_siswa'],
-            'id_sekolah' => $_SESSION['id_sekolah']
+            'NISN_siswa' => $_POST['NISN_siswa'],
+            'id_sekolah' => $_POST['id_sekolah']
         ];
 
         try {
@@ -123,9 +125,9 @@ class AdminController
             header("Location: index.php?page=dashboard-admin");
             exit();
         } catch (Exception $e) {
-            $_SESSION['error'] = "Error: ". $e->getMessage();
-            header("Location: index.php?page=dashboard-admin");
-            exit();
+            $_SESSION['error'] = "Error: " . $e->getMessage();
         }
+        header("Location: index.php?page=dashboard-admin");
+        exit();
     }
 }

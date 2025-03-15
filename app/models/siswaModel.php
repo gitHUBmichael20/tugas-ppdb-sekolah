@@ -29,7 +29,7 @@ class SiswaModel
 
     public function addSiswa($data, $file = null)
     {
-        $storagePath = __DIR__ . '../storage';
+        $storagePath = __DIR__ . '../app/storage';
 
         // Handle file upload if it exists
         if ($file && isset($file['rapor_siswa']) && $file['rapor_siswa']['name'] !== '') {
@@ -82,7 +82,8 @@ class SiswaModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function cekHasilPenerimaan($nisn) {
+    public function cekHasilPenerimaan($nisn)
+    {
         $query = "SELECT hasil_ppdb, id_sekolah FROM pengumuman_ppdb WHERE NISN_Siswa = :nisn";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':nisn' => $nisn]);

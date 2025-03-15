@@ -4,7 +4,7 @@
         <h1 style="color: #E50046"><?= $_SESSION['hasil-ppdb']; ?></h1>
     <?php else: ?>
 
-        <div class="status-locker" id="form-container">
+        <div class="status-locker" id="form-container" style="height: 35em;">
             <div class="locker-title">
                 <img class="logo-ppdb" src="./assets/logo/logo-website.png" alt="Logo PPDB">
                 <h1 class="judul-status" style="color: #007BFF;">HASIL SELEKSI PPDB JABAR 2025</h1>
@@ -34,10 +34,10 @@
             <div class="status-main-content">
                 <div class="status-main-content" id="status-result" style="<?php echo $showStatus ? 'display: block;' : 'display: none;'; ?>">
                     <!-- Header Section -->
-                    <div class="status-header <?php echo isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : ''; ?>">
+                    <div class="status-header <?php echo isset($_SESSION['hasil-ppdb']) ? $_SESSION['hasil-ppdb'] : ''; ?>">
                         <h1 class="judul-status" style="color: #F5F5F5">
                             <?php
-                            $status = isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : null;
+                            $status = isset($_SESSION['hasil-ppdb']) ? $_SESSION['hasil-ppdb'] : null;
                             if ($status == 'LULUS-TERPILIH'): ?>
                                 <span>SELAMAT ANDA DINYATAKAN <strong>LULUS</strong> SELEKSI PPDB 2025</span>
                             <?php elseif ($status == 'DITOLAK'): ?>

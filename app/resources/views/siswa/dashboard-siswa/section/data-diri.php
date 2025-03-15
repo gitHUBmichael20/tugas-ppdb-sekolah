@@ -10,12 +10,13 @@
 <body>
     <div class="content-form">
         <!-- Form Siswa -->
-        <div class="form-container">
+        <div class="form-container" style="width: 55em !important;">
             <h2 class="form-title">Lengkapi / Perbarui Data Anda</h2>
-            <form action="?page=edit-profile-siswa&action=edit" method="POST" enctype="multipart/form-data">
+            <form action="index.php?page=edit-profile-siswa&action=edit" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
+                    <input type="action" name="edit" value="edit" hidden>
                     <label for="NISN">NISN:</label>
-                    <input type="text" id="NISN" name="NISN" maxlength="20" required value="<?= $_SESSION['siswa_nisn'] ?>">
+                    <input type="text" id="NISN" name="NISN" maxlength="20" required value="<?= $_SESSION['siswa_nisn'] ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nama_murid">Nama Murid:</label>

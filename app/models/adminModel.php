@@ -43,8 +43,8 @@ class AdminModel
 
     public function hasilPenerimaan($data)
     {
-        $query = "INSERT INTO pengumuman_ppdb (pendaftaran_ID, hasil_ppdb, tanggal_pengumuman, NISN_siswa, id_sekolah) 
-                  VALUES (:pendaftaran_id, :hasil_ppdb, CURDATE(), :NISN_siswa, :id_sekolah)";
+        $query = "INSERT INTO pengumuman_ppdb (pendaftaran_ID, hasil_ppdb, NISN_siswa, id_sekolah) 
+                  VALUES (:pendaftaran_id, :hasil_ppdb, :NISN_siswa, :id_sekolah)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             ':pendaftaran_id' => $data['pendaftaran_id'],
