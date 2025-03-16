@@ -36,7 +36,8 @@
         <nav class="nav-links">
             <a href="#" data-section="home"><i class="fas fa-home"></i>Murid Mendaftar</a>
             <a href="#" data-section="data"><i class="fa-regular fa-address-card"></i>Tambah Murid & Sekolah</a>
-            <a href="#" data-section="status"><i class="fa-solid fa-square-poll-horizontal"></i>Kelola Akun PPDB</a>
+            <a href="#" data-section="status"><i class="fa-solid fa-list-check fa-lg"></i>Kelola Akun PPDB</a>
+            <a href="#" data-section="statistic"><i class="fa-solid fa-square-poll-horizontal"></i>Statistik Penerimaan</a>
         </nav>
         <a href="index.php?page=logout-admin">
             <button class="logout-btn">
@@ -63,6 +64,14 @@
             <p>Silahkan Kelola akun yang ada di sistem PPDB.</p>
             <div style="margin-top: 20px;" class="kelola-akun">
                 <?php include '../app/resources/views/admin/dashboard-admin/section/kelola-akun.php' ?>
+            </div>
+        </div>
+
+        <div id="statistic" class="content-section">
+            <h2>Statistik Penerimaan</h2>
+            <p>Silahkan Lihat Statistik Penerimaan PPDB. Data ditampilkan secara real-time.</p>
+            <div style="margin-top: 20px;" class="statistik-penerimaan">
+                <?php include('../app/resources/views/admin/dashboard-admin/section/statistik-ppdb.php')?>
             </div>
         </div>
     </main>

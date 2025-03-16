@@ -37,7 +37,8 @@ class AdminController
                 exit();
             } else {
                 // jika login gagal, set pesan error
-                $error = "ID Admin atau password salah!";
+                // $error = "ID Admin atau password salah!";
+                $_SESSION['error'] = "ID Admin atau password salah!";
                 include '../app/resources/views/admin/auth-admin/login-admin.php';
             }
         } else {
@@ -127,6 +128,21 @@ class AdminController
         } catch (Exception $e) {
             $_SESSION['error'] = "Error: " . $e->getMessage();
         }
+        header("Location: index.php?page=dashboard-admin");
+        exit();
+    }
+
+    public function showPendaftarTerbanyak()
+    {
+        $result = $this->adminModel->cekJumlahPendaftarSekolah();
+        if ($result) {
+            $nama_sekolah = $result['nama_sekolah'];
+            $jumlah_pendaftar = $result['jumlah_pendaftar'];
+        } else {
+            $nama_sekolah = "Tidak ada data";
+            $jumlah_pendaftar = 0;
+        }
+
         header("Location: index.php?page=dashboard-admin");
         exit();
     }

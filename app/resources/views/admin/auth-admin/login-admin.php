@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page Sederhana</title>
     <link rel="stylesheet" href="../app/resources/css/auth/auth.css">
+    <script src="../app/resources/js/sweet-alert-ppdb/message-ppdb.js"></script>
     <link rel="shortcut icon" href="./assets/logo/logo-website.png" type="image/x-icon">
 </head>
 

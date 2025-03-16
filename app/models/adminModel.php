@@ -54,4 +54,12 @@ class AdminModel
         ]);
         return $stmt->rowCount();
     }
+
+    public function cekJumlahPendaftarSekolah()
+    {
+        $query = "SELECT sek.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar FROM sekolah sek LEFT JOIN pendaftaran p ON sek.id_sekolah = p.id_sekolah GROUP BY sek.id_sekolah, sek.nama_sekolah ORDER jumlah_pendaftar DESC LIMIT 1;";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
