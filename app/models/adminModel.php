@@ -57,7 +57,16 @@ class AdminModel
 
     public function cekJumlahPendaftarSekolah()
     {
-        $query = "SELECT sek.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar FROM sekolah sek LEFT JOIN pendaftaran p ON sek.id_sekolah = p.id_sekolah GROUP BY sek.id_sekolah, sek.nama_sekolah ORDER jumlah_pendaftar DESC LIMIT 1;";
+        $query = "SELECT 
+    sek.nama_sekolah, 
+    sek.kouta AS kuota, 
+    COUNT(p.pendaftaran_ID) AS jumlah_pendaftar, 
+    (sek.kouta - COUNT(p.pendaftaran_ID)) AS sisa_kuota,
+    ROUND((COUNT(p.pendaftaran_ID) / sek.kouta) * 100, 2) AS persentase_keketatan
+    FROM sekolah sek
+    LEFT JOIN pendaftaran p ON sek.id_sekolah = p.id_sekolah
+    GROUP BY sek.id_sekolah, sek.nama_sekolah, sek.kouta
+    ORDER BY jumlah_pendaftar DESC;";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);

@@ -21,8 +21,25 @@ class SiswaSeeder
 
     private function generateRandomName()
     {
-        $namaDepan = ['Ahmad', 'Budi', 'Citra', 'Dewi', 'Eko', 'Fajar', 'Gita', 'Hani', 'Indra', 'Joko'];
-        $namaBelakang = ['Santoso', 'Wijaya', 'Lestari', 'Pratama', 'Kusuma', 'Putra', 'Sari', 'Rahayu', 'Nugroho', 'Setiawan'];
+$namaDepan = [
+    'Aisha', 'Hiroshi', 'Priya', 'Hans', 'Sophie', 'Dmitri', 'Rachel', 'Luca', 'Mateo', 'Fatima',
+    'Kenji', 'Arjun', 'Klaus', 'Amelie', 'Yuri', 'Sarah', 'Giovanni', 'Sofia', 'Hassan', 'Sakura',
+    'Rajesh', 'Liesel', 'Pierre', 'Natasha', 'David', 'Antonio', 'Camila', 'Omar', 'Yuna', 'Vikram',
+    'Fritz', 'Claire', 'Alexei', 'Leah', 'Marco', 'Isabella', 'Zain', 'Haruto', 'Anika', 'Javier',
+    'Nour', 'Takashi', 'Sanjay', 'Greta', 'Julien', 'Olga', 'Isaac', 'Lorenzo', 'Valentina', 'Bilal',
+    'Kaori', 'Rohan', 'Wolfgang', 'Chloé', 'Mikhail', 'Esther', 'Rafael', 'Amina', 'Daichi', 'Meera',
+    'Diego', 'Samir', 'Ayaka', 'Dev', 'Heidi', 'Louis', 'Anya', 'Jonah', 'Emilio', 'Nadia'
+];
+
+$namaBelakang = [
+    'Takahashi', 'Patel', 'Müller', 'Leclerc', 'Ivanov', 'Kapoor', 'Rosenberg', 'Ortiz', 'Schneider', 'Yamamoto',
+    'Smith', 'Pratama', 'Santoso', 'Wijaya', 'Lestari', 'Kusuma', 'Putra', 'Sari', 'Rahayu', 'Nugroho',
+    'Setiawan', 'Takahashi', 'Patel', 'Müller', 'Leclerc', 'Ivanov', 'Kapoor', 'Rosenberg', 'Ortiz', 'Schneider',
+    'Yamamoto', 'Smith', 'Pratama', 'Santoso', 'Wijaya', 'Lestari', 'Kusuma', 'Putra', 'Sari', 'Rahayu',
+    'Nugroho', 'Setiawan', 'Takahashi', 'Patel', 'Müller', 'Leclerc', 'Ivanov', 'Kapoor', 'Rosenberg', 'Ortiz',
+    'Schneider', 'Yamamoto', 'Smith', 'Pratama', 'Santoso', 'Wijaya', 'Lestari', 'Kusuma', 'Putra', 'Sari',
+    'Rahayu', 'Nugroho', 'Setiawan', 'Takahashi', 'Patel', 'Müller', 'Leclerc', 'Ivanov', 'Kapoor', 'Rosenberg'
+];
         
         $maxAttempts = 100; // Batas percobaan untuk menghindari infinite loop
         $attempt = 0;
