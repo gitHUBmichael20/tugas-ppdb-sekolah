@@ -22,7 +22,10 @@ class AdminModel
 
     public function lihatPendaftaran()
     {
-        $query = "SELECT p.*, pp.hasil_ppdb FROM pendaftaran p LEFT JOIN pengumuman_ppdb pp ON p.pendaftaran_ID = pp.pendaftaran_ID;";
+        $query = "SELECT p.*, pp.hasil_ppdb, s.nama_murid 
+                FROM pendaftaran p 
+                LEFT JOIN pengumuman_ppdb pp ON p.pendaftaran_ID = pp.pendaftaran_ID 
+                LEFT JOIN siswa s ON p.NISN_Siswa = s.NISN;";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

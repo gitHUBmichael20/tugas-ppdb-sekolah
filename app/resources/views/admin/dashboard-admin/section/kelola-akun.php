@@ -18,7 +18,7 @@
 
     <div class="modal-window-siswa" style="display:none; width: 30em; max-width: 30em; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 999;">
         <div class="form-container">
-            <h2 class="form-title">Edit Siswa | Budi Santoso</h2>
+            <h2 class="form-title">Edit Siswa | Nama Siswa</h2>
             <form action="index.php?page=register-siswa&action=register&role=admin" method="POST">
                 <div class="form-group">
                     <label for="nisn">NISN:</label>
@@ -28,7 +28,7 @@
                     <label for="nama_murid">Nama Murid:</label>
                     <input type="text" id="nama_murid" name="nama_murid" maxlength="100" value=">
                 </div>
-                <div class="form-group">
+                <div class=" form-group">
                     <label for="alamat">Alamat:</label>
                     <textarea id="alamat" name="alamat" maxlength="255"></textarea>
                 </div>
@@ -90,6 +90,11 @@
     <div style="margin-top: 25px;" class="container murid-table">
         <h1 style="font-style: italic; color: #FB4141;">Tabel Siswa</h1>
         <div class="table-wrapper">
+            <div class="pagination-container" style="margin-top: 20px; text-align: center;">
+                <button id="back-btn" class="pagination-btn" style="background-color: #FB4141; color: white; padding: 8px 15px; border: none; border-radius: 4px; margin-right: 10px; cursor: pointer; font-weight: bold;">BACK</button>
+                <span id="page-info" style="margin: 0 15px; font-weight: bold;">Halaman <span id="current-page">1</span> dari <span id="total-pages">1</span></span>
+                <button id="next-btn" class="pagination-btn" style="background-color: #FB4141; color: white; padding: 8px 15px; border: none; border-radius: 4px; margin-left: 10px; cursor: pointer; font-weight: bold;">NEXT</button>
+            </div>
             <table id="tabelSiswa">
                 <thead>
                     <tr>
@@ -140,6 +145,11 @@
     <div style="margin-top: 25px" class="container sekolah-table">
         <h1 style="font-style:italic; color: #FB4141;">Tabel Sekolah</h1>
         <div class="table-wrapper">
+            <div class="pagination-container" style="margin-top: 20px; text-align: center;">
+                <button id="back-btn" class="pagination-btn" style="background-color: #FB4141; color: white; padding: 8px 15px; border: none; border-radius: 4px; margin-right: 10px; cursor: pointer; font-weight: bold;">BACK</button>
+                <span id="page-info" style="margin: 0 15px; font-weight: bold;">Halaman <span id="current-page">1</span> dari <span id="total-pages">1</span></span>
+                <button id="next-btn" class="pagination-btn" style="background-color: #FB4141; color: white; padding: 8px 15px; border: none; border-radius: 4px; margin-left: 10px; cursor: pointer; font-weight: bold;">NEXT</button>
+            </div>
             <table id="tabelSekolah">
                 <thead>
                     <tr>
@@ -244,6 +254,82 @@
             document.querySelector('.modal-backdrop').style.display = 'none';
         }
         document.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+
+        // Pagination variables
+        let currentPage = 1;
+        let rowsPerPage = 10;
+        let totalPages = 1;
+
+        // Function to paginate table
+        function paginateTable(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+
+            const rows = table.querySelectorAll('tbody tr');
+            if (rows.length === 0) return;
+
+            // Calculate total pages
+            totalPages = Math.ceil(rows.length / rowsPerPage);
+            document.getElementById('total-pages').textContent = totalPages;
+            document.getElementById('current-page').textContent = currentPage;
+
+            // Show/hide rows based on current page
+            rows.forEach((row, index) => {
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage - 1;
+
+                if (index >= start && index <= end) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Update button states
+            updatePaginationButtons();
+        }
+
+        // Update button states based on current page
+        function updatePaginationButtons() {
+            const backBtn = document.getElementById('back-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            backBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            // Visual feedback for disabled buttons
+            backBtn.style.opacity = backBtn.disabled ? '0.5' : '1';
+            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+        }
+
+        // Event listeners for pagination buttons
+        document.getElementById('back-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                const activeTable = document.querySelector('#view').value === 'table-siswa' ? 'tabelSiswa' : 'tabelSekolah';
+                paginateTable(activeTable);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                const activeTable = document.querySelector('#view').value === 'table-siswa' ? 'tabelSiswa' : 'tabelSekolah';
+                paginateTable(activeTable);
+            }
+        });
+
+        // Initialize pagination when view changes
+        viewSelect.addEventListener('change', function() {
+            currentPage = 1; // Reset to first page when changing view
+            const activeTable = this.value === 'table-siswa' ? 'tabelSiswa' : 'tabelSekolah';
+            paginateTable(activeTable);
+        });
+
+        // Initialize pagination on page load
+        window.addEventListener('load', function() {
+            paginateTable('tabelSiswa');
+        });
     </script>
 </body>
 

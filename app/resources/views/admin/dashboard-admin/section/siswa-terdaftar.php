@@ -10,11 +10,17 @@
 <body>
     <h2>Welcome, <?= htmlspecialchars($_SESSION['admin_nama']); ?> (ID: <?= htmlspecialchars($_SESSION['admin_id']); ?>)</h2>
 
-    <table>
+    <div id="pagination" style="margin-top: 25px;">
+        <button id="prevButton" style="margin: 0 5px; padding: 5px 10px;">Previous</button>
+        <button id="nextButton" style="opacity: 0.5; margin: 0 5px; padding: 5px 10px;">Next</button>
+    </div>
+
+    <table class="penerimaan-siswa-table">
         <thead>
             <tr>
                 <th>ID Pendaftaran</th>
                 <th>Waktu</th>
+                <th>Nama Murid</th>
                 <th>Status</th>
                 <th>Rapor Siswa</th>
                 <th>NISN</th>
@@ -29,10 +35,11 @@
                 <tr>
                     <td data-label="pendaftaran_ID"><?= htmlspecialchars($row['pendaftaran_ID']); ?></td>
                     <td data-label="waktu"><?= htmlspecialchars($row['waktu']); ?></td>
-                    <td data-label="status"><?= htmlspecialchars($row['status']); ?></td>
+                    <td data-label="nama_murid"><?= htmlspecialchars($row['nama_murid']); ?></td>
+                    <td data-label="status"><span style="font-weight: 600; color: #205781; background-color: #FFF3CD; padding: 4px;"><?= htmlspecialchars($row['status']); ?></span></td>
                     <td data-label="rapor_siswa"><?= htmlspecialchars($row['rapor_siswa'] ?? 'N/A'); ?></td>
                     <td data-label="NISN_Siswa"><?= htmlspecialchars($row['NISN_Siswa']); ?></td>
-                    <td data-label="hasil_ppdb" style="color: #205781; font-weight: 600"><?= htmlspecialchars($row['hasil_ppdb'] ?? 'N/A') ?></td>
+                    <td data-label="hasil_ppdb"><span style="background-color: #FFF3CD; color: #205781; font-weight: 600; padding: 4px;"><?= htmlspecialchars($row['hasil_ppdb'] ?? 'N/A') ?></span></td>
                     <td data-label="id_sekolah"><?= htmlspecialchars($row['id_sekolah']); ?></td>
                     <td data-label="admin_ID"><?= htmlspecialchars($row['admin_ID'] ?? 'N/A'); ?></td>
                     <td data-label="action">
@@ -58,7 +65,7 @@
                         </form>
 
                         <!-- Verifikasi Siswa -->
-                        <form action="index.php?page=kelola-pendaftaran&action=verifikasi" method="post" style="display: inline;" onsubmit="return confirmAction(event, 'verifikasi', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                        <form action="index.php?page=kelola-pendaftaran&action=verifikasi" method="post" style="display:inline;" onsubmit="return confirmAction(event, 'verifikasi', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="reject">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="TERVERIFIKASI">
@@ -69,6 +76,36 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <div id="pagination" style="margin-top: 25px;">
+        <button id="prevButton" style="margin: 0 5px; padding: 5px 10px;">Previous</button>
+        <button id="nextButton" style="margin: 0 5px; padding: 5px 10px;">Next</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rows = document.querySelectorAll('.penerimaan-siswa-table tbody tr');
+            const perPage = 10;
+            const totalPages = Math.ceil(rows.length / perPage);
+            const prev = document.getElementById('prevButton');
+            const next = document.getElementById('nextButton');
+            let page = 1;
+            const showPage = p => {
+                const start = (p - 1) * perPage;
+                rows.forEach((r, i) => r.style.display = (i >= start && i < start + perPage) ? '' : 'none');
+                prev.disabled = p === 1;
+                next.disabled = p === totalPages;
+            };
+            prev.onclick = () => {
+                if (page > 1) showPage(--page);
+            };
+            next.onclick = () => {
+                if (page < totalPages) showPage(++page);
+            };
+            showPage(page);
+        });
+    </script>
+
 </body>
 
 </html>
