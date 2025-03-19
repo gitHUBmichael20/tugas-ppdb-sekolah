@@ -51,7 +51,11 @@
                             <input type="hidden" name="hasil_ppdb" value="LULUS-TERPILIH">
                             <input type="hidden" name="NISN_siswa" value="<?= htmlspecialchars($row['NISN_Siswa']); ?>">
                             <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($row['id_sekolah']); ?>">
-                            <button type="submit" class="green-button">Terima</button>
+                            <?php if ($row['hasil_ppdb'] !== null): ?>
+                                <button type="submit" disabled class="grey-button" style="padding: 6px;">Tolak</button>
+                            <?php else: ?>
+                                <button type="submit" class="green-button">Tolak</button>
+                            <?php endif; ?>
                         </form>
 
                         <!-- Reject Form -->
@@ -61,17 +65,25 @@
                             <input type="hidden" name="hasil_ppdb" value="DITOLAK">
                             <input type="hidden" name="NISN_siswa" value="<?= htmlspecialchars($row['NISN_Siswa']); ?>">
                             <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($row['id_sekolah']); ?>">
-                            <button type="submit" class="red-button">Tolak</button>
+                            <?php if ($row['hasil_ppdb'] !== null): ?>
+                                <button type="submit" disabled class="grey-button" style="padding: 6px;">Tolak</button>
+                            <?php else: ?>
+                                <button type="submit" class="red-button">Tolak</button>
+                            <?php endif; ?>
                         </form>
 
                         <!-- Verifikasi Siswa -->
-                        <form action="index.php?page=kelola-pendaftaran&action=verifikasi" method="post" style="display:inline;" onsubmit="return confirmAction(event, 'verifikasi', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
+                        <form action="index.php?page=kelola-pendaftaran&action=verifikasi" method="post" style="display: inline;" onsubmit="return confirmAction(event, 'verifikasi', '<?= htmlspecialchars($row['pendaftaran_ID']); ?>')">
                             <input type="hidden" name="action" value="verifikasi">
                             <input type="hidden" name="pendaftaran_id" value="<?= htmlspecialchars($row['pendaftaran_ID']); ?>">
                             <input type="hidden" name="status" value="TERVERIFIKASI">
                             <input type="hidden" name="NISN_siswa" value="<?= htmlspecialchars($row['NISN_Siswa']); ?>">
                             <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($row['id_sekolah']); ?>">
-                            <button type="submit" class="yellow-button">Verifikasi Siswa</button>
+                            <?php if ($row['status'] !== 'TERVERIFIKASI'): ?>
+                                <button type="submit" class="yellow-button">Verifikasi Siswa</button>
+                            <?php else: ?>
+                                <button type="submit" class="gray-button" disabled style="padding: 6px;">Verifikasi Siswa</button>
+                            <?php endif; ?>
                         </form>
                     </td>
                 </tr>
