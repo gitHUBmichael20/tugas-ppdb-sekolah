@@ -71,8 +71,8 @@
         <?php endif; ?>
     </div>
 
-    <h3>Perbandingan antara kouta sekolah, peminat, dan siswa yang lulus (dengan chart batang)</h3>
-    
+    <h3>Perbandingan antara kouta sekolah, peminat, dan siswa yang lulus (dengan chart batang)</h3> mewing
+
 
 
 </body>
