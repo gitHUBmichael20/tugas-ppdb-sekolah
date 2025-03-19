@@ -132,18 +132,20 @@ class AdminController
         exit();
     }
 
-    public function showPendaftarTerbanyak()
-    {
-        $result = $this->adminModel->cekJumlahPendaftarSekolah();
-        if ($result) {
-            $nama_sekolah = $result['nama_sekolah'];
-            $jumlah_pendaftar = $result['jumlah_pendaftar'];
-        } else {
-            $nama_sekolah = "Tidak ada data";
-            $jumlah_pendaftar = 0;
-        }
-
-        header("Location: index.php?page=dashboard-admin");
-        exit();
+    public function keketatanSekolah() {
+        $_SESSION['keketatanSekolah'] = $this->adminModel->keketatanSekolah();
+        return $_SESSION['keketatanSekolah'];
     }
+
+    public function minatSekolah() {
+        $_SESSION['minatSekolah'] = $this->adminModel->minatSekolah();
+        return $_SESSION['minatSekolah'];
+    }
+
+    public function perbandinganPPDB() {
+        $_SESSION['perbandinganPPDB'] = $this->adminModel->perbandinganPPDB();
+        return $_SESSION['perbandinganPPDB'];
+    }
+
+
 }

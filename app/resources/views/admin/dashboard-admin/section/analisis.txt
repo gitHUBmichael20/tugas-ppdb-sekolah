@@ -1,0 +1,124 @@
+I'll create SQL queries for each of your requirements based on the database schema you provided. These queries will help you analyze the PPDB (Penerimaan Peserta Didik Baru) data.
+
+### 1. Persentase Keketatan Sekolah
+
+```sql
+SELECT
+    s.nama_sekolah,
+    ROUND((COUNT(p.pendaftaran_ID) / s.kouta) * 100, 2) AS persentase_keketatan
+FROM
+    sekolah s
+LEFT JOIN
+    pendaftaran p ON s.id_sekolah = p.id_sekolah
+GROUP BY
+    s.id_sekolah, s.nama_sekolah, s.kouta
+ORDER BY
+    persentase_keketatan DESC;
+```
+
+### 2. 5 Sekolah dengan Minat Tertinggi
+
+```sql
+SELECT 
+    s.id_sekolah,
+    s.nama_sekolah,
+    COUNT(p.pendaftaran_ID) AS jumlah_pendaftar
+FROM 
+    sekolah s
+LEFT JOIN 
+    pendaftaran p ON s.id_sekolah = p.id_sekolah
+GROUP BY 
+    s.id_sekolah, s.nama_sekolah
+ORDER BY 
+    jumlah_pendaftar DESC
+LIMIT 5;
+```
+
+### 3. 5 Sekolah dengan Minat Terendah
+
+```sql
+SELECT 
+    s.id_sekolah,
+    s.nama_sekolah,
+    COUNT(p.pendaftaran_ID) AS jumlah_pendaftar
+FROM 
+    sekolah s
+LEFT JOIN 
+    pendaftaran p ON s.id_sekolah = p.id_sekolah
+GROUP BY 
+    s.id_sekolah, s.nama_sekolah
+ORDER BY 
+    jumlah_pendaftar ASC
+LIMIT 5;
+```
+
+### 4. Perbandingan antara Kuota Sekolah dengan Peminat (untuk Chart Batang)
+
+```sql
+SELECT 
+    s.id_sekolah,
+    s.nama_sekolah,
+    s.kouta AS kuota_sekolah,
+    COUNT(p.pendaftaran_ID) AS jumlah_pendaftar
+FROM 
+    sekolah s
+LEFT JOIN 
+    pendaftaran p ON s.id_sekolah = p.id_sekolah
+GROUP BY 
+    s.id_sekolah, s.nama_sekolah, s.kouta
+ORDER BY 
+    s.nama_sekolah;
+```
+
+### 5. Tren Waktu Pendaftaran (Dalam Bulan)
+
+```sql
+SELECT 
+    DATE_FORMAT(waktu, '%Y-%m') AS bulan,
+    COUNT(pendaftaran_ID) AS jumlah_pendaftar
+FROM 
+    pendaftaran
+WHERE 
+    waktu IS NOT NULL
+GROUP BY 
+    DATE_FORMAT(waktu, '%Y-%m')
+ORDER BY 
+    bulan;
+```
+
+### 6. Siswa yang Memiliki Akun namun Tidak Mendaftar
+
+```sql
+SELECT 
+    s.NISN,
+    s.nama_murid,
+    s.alamat,
+    s.tanggal_lahir
+FROM 
+    siswa s
+LEFT JOIN 
+    pendaftaran p ON s.NISN = p.NISN_Siswa
+WHERE 
+    p.pendaftaran_ID IS NULL;
+```
+
+### 7. Perbandingan antara Siswa yang Akun-nya TERVERIFIKASI dan Tidak
+
+Assuming that the verification status is stored in the 'status' column of the pendaftaran table:
+
+```sql
+SELECT 
+    CASE 
+        WHEN p.status = 'TERVERIFIKASI' THEN 'Terverifikasi'
+        ELSE 'Tidak Terverifikasi'
+    END AS status_verifikasi,
+    COUNT(DISTINCT s.NISN) AS jumlah_siswa
+FROM 
+    siswa s
+LEFT JOIN 
+    pendaftaran p ON s.NISN = p.NISN_Siswa
+GROUP BY 
+    status_verifikasi;
+```
+
+These queries should provide the data you need for your analysis. You can modify them as needed based on your specific requirements or if the database structure has specific details I might have missed.

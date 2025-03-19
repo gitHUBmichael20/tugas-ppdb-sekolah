@@ -47,6 +47,9 @@ switch ($page) {
         $pendaftaran = $admin->listPendaftaran();
         $sekolahData = $admin->getAllSchoolData();
         $siswaData = $admin->lihatSiswa();
+        $keketatanSekolah = $admin->keketatanSekolah();
+        $minatSekolah = $admin->minatSekolah();
+        $perbandinganPPDB = $admin->perbandinganPPDB();
         include '../app/resources/views/admin/dashboard-admin/dashboard-admin.php';
         break;
 
