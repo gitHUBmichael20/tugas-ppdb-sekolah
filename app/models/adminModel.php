@@ -88,7 +88,8 @@ UNION ALL
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function perbandinganPPDB() {
+    public function perbandinganPPDB()
+    {
         $query = "SELECT 
     (SELECT SUM(kouta) FROM sekolah) AS total_kuota,
     (SELECT COUNT(*) FROM pendaftaran WHERE status = 'TERVERIFIKASI') AS total_terverifikasi,
@@ -97,5 +98,11 @@ UNION ALL
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function tutupTabelPendaftaran() {
+        $query =  "REVOKE SELECT ON ppdb_backend.pengumuman_ppdb, INSERT ON ppdb_backend.pendaftaran FROM 'siswa'@'localhost';";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
     }
 }

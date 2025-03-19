@@ -132,20 +132,21 @@ class AdminController
         exit();
     }
 
-    public function keketatanSekolah() {
+    public function keketatanSekolah()
+    {
         $_SESSION['keketatanSekolah'] = $this->adminModel->keketatanSekolah();
         return $_SESSION['keketatanSekolah'];
     }
 
-    public function minatSekolah() {
+    public function minatSekolah()
+    {
         $_SESSION['minatSekolah'] = $this->adminModel->minatSekolah();
         return $_SESSION['minatSekolah'];
     }
 
-    public function perbandinganPPDB() {
+    public function perbandinganPPDB()
+    {
         $_SESSION['perbandinganPPDB'] = $this->adminModel->perbandinganPPDB();
         return $_SESSION['perbandinganPPDB'];
     }
-
-
 }
