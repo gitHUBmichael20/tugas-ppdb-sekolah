@@ -10,11 +10,6 @@ class SekolahController
         $this->sekolahModel = new SekolahModel();
     }
 
-    public function index()
-    {
-        include '../app/resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
-    }
-
     public function getAllSchoolData()
     {
         // Mengirim data ke frontend
@@ -36,11 +31,8 @@ class SekolahController
                 // Jika login berhasil, simpan data ke session
                 session_start();
                 $_SESSION['sekolah_logged_in'] = true;
-                $_SESSION['sekolah_id'] = $sekolah['id_sekolah']; // Sesuaikan dengan nama kolom di database
-
-                // Redirect ke dashboard sekolah (bukan dashboard-siswa)
-                header('Location: ?page=dashboard-sekolah');
-                exit();
+                $_SESSION['sekolah_id'] = $sekolah['id_sekolah'];
+                $_SESSION['nama_sekolah'] = $sekolah['nama_sekolah'];
             } else {
                 // Jika login gagal, set pesan error
                 $error = "ID Sekolah atau password salah! 🔥🔥";
@@ -108,5 +100,10 @@ class SekolahController
         }
         header('Location: index.php?page=dashboard-admin');
         exit;
+    }
+
+    public function cekSiswaTerdaftar() {
+        $dataSiswa = $this->sekolahModel->siswaTerpilih($_SESSION['sekolah_id']);
+        return $dataSiswa;
     }
 }

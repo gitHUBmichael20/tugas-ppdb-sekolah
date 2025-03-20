@@ -40,14 +40,31 @@ class SekolahModel
         return $stmt->execute($data);
     }
 
-    public function deleteSekolah($id_sekolah){
+    public function deleteSekolah($id_sekolah)
+    {
         $query = "DELETE FROM $this->tabel WHERE id_sekolah = :id_sekolah";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id_sekolah', $id_sekolah);
         return $stmt->execute();
     }
 
-    public function siswaTerpilih() {
-        $query = "select * from pengumuman_ppdb where id_sekolah = 'SKL9633'";
+    public function siswaTerpilih($id_sekolah)
+    {
+        $query = "SELECT p.pengumuman_ID, p.pendaftaran_ID, p.hasil_ppdb, p.NISN_siswa, s.nama_murid, s.rapor_siswa FROM pengumuman_ppdb p INNER JOIN siswa s ON p.NISN_siswa = s.NISN WHERE p.id_sekolah = :id_sekolah AND p.hasil_ppdb = 'LULUS-DITERIMA';";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id_sekolah', $id_sekolah);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function analisaSekolah ($id_sekolah) {
+        $query = "SELECT 
+    GetTotalPendaftar(:id_sekolah) AS total_pendaftar,
+    GetPendaftarDiterima(:id_sekolah) AS pendaftar_diterima,
+    GetPendaftarDitolak(:id_sekolah) AS pendaftar_ditolak;";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':id_sekolah', $id_sekolah);
+    $stmt->execute();
     }
 }

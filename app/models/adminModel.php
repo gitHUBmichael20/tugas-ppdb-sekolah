@@ -60,17 +60,7 @@ class AdminModel
 
     public function keketatanSekolah()
     {
-        $query = "SELECT
-    s.nama_sekolah,
-    ROUND((COUNT(p.pendaftaran_ID) / s.kouta) * 100, 2) AS persentase_keketatan
-    FROM
-    sekolah s
-    LEFT JOIN
-    pendaftaran p ON s.id_sekolah = p.id_sekolah
-    GROUP BY
-    s.id_sekolah, s.nama_sekolah, s.kouta
-    ORDER BY
-    persentase_keketatan DESC;";
+        $query = "SELECT s.nama_sekolah, ROUND((COUNT(p.pendaftaran_ID) / s.kouta) * 100, 2) AS persentase_keketatan FROM sekolah s LEFT JOIN pendaftaran p ON s.id_sekolah = p.id_sekolah GROUP BY s.id_sekolah, s.nama_sekolah, s.kouta ORDER BY persentase_keketatan DESC;";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -78,11 +68,7 @@ class AdminModel
 
     public function minatSekolah()
     {
-        $query = "
-        (SELECT s.id_sekolah, s.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar, 'TINGKAT-TINGGI' AS kategori FROM sekolah s LEFT JOIN pendaftaran p ON s.id_sekolah = p.id_sekolah GROUP BY s.id_sekolah, s.nama_sekolah ORDER BY jumlah_pendaftar DESC LIMIT 5)
-UNION ALL
-(SELECT s.id_sekolah, s.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar, 'TINGKAT-RENDAH' AS kategori FROM sekolah s LEFT JOIN pendaftaran p ON s.id_sekolah = p.id_sekolah GROUP BY s.id_sekolah, s.nama_sekolah ORDER BY jumlah_pendaftar ASC LIMIT 5);
-        ";
+        $query = "(SELECT s.id_sekolah, s.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar, 'TINGKAT-TINGGI' AS kategori FROM sekolah s LEFT JOIN pendaftaran p ON s.id_sekolah = p.id_sekolah GROUP BY s.id_sekolah, s.nama_sekolah ORDER BY jumlah_pendaftar DESC LIMIT 5) UNION ALL (SELECT s.id_sekolah, s.nama_sekolah, COUNT(p.pendaftaran_ID) AS jumlah_pendaftar, 'TINGKAT-RENDAH' AS kategori FROM sekolah s LEFT JOIN pendaftaran p ON s.id_sekolah = p.id_sekolah GROUP BY s.id_sekolah, s.nama_sekolah ORDER BY jumlah_pendaftar ASC LIMIT 5);";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -90,11 +76,7 @@ UNION ALL
 
     public function perbandinganPPDB()
     {
-        $query = "SELECT 
-    (SELECT SUM(kouta) FROM sekolah) AS total_kuota,
-    (SELECT COUNT(*) FROM pendaftaran WHERE status = 'TERVERIFIKASI') AS total_terverifikasi,
-(SELECT COUNT(*) FROM pendaftaran) AS siswa_mendaftar,
-    (SELECT COUNT(*) FROM pengumuman_ppdb WHERE hasil_ppdb = 'LULUS-DITERIMA') AS total_lulus_terpilih;";
+        $query = "SELECT (SELECT SUM(kouta) FROM sekolah) AS total_kuota, (SELECT COUNT(*) FROM pendaftaran WHERE status = 'TERVERIFIKASI') AS total_terverifikasi, (SELECT COUNT(*) FROM pendaftaran) AS siswa_mendaftar, (SELECT COUNT(*) FROM pengumuman_ppdb WHERE hasil_ppdb = 'LULUS-DITERIMA') AS total_lulus_terpilih;";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);

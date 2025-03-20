@@ -107,10 +107,11 @@ switch ($page) {
         }
         break;
 
-    case 'dashboard-sekolah':
-        restrictToLoggedIn('sekolah');
-        $sekolah->index();
-        break;
+        case 'dashboard-sekolah':
+            restrictToLoggedIn('sekolah');
+            $siswaTerpilih = $sekolah->cekSiswaTerdaftar();
+            include '../app/resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
+            break;
 
     case 'logout-sekolah':
         $sekolah->logout();
