@@ -39,9 +39,6 @@ switch ($page) {
     case 'sign-up-admin':
         include '../app/resources/views/admin/auth-admin/sign-up-admin.php';
         break;
-
-
-    // Di bagian switch case
     case 'dashboard-admin':
         restrictToLoggedIn('admin');
         $pendaftaran = $admin->listPendaftaran();
@@ -88,6 +85,10 @@ switch ($page) {
             exit;
         }
         break;
+    case 'logout-admin':
+        $admin->logout();
+        break;
+
 
     // Sekolah Routes
     case 'login-sekolah':
@@ -115,7 +116,8 @@ switch ($page) {
         $sekolah->logout();
         break;
 
-    // Siswa Routes
+
+     // Siswa Routes
     case 'login-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $siswa->login();
@@ -158,7 +160,8 @@ switch ($page) {
         $siswa->logout();
         break;
 
-    // Default Route
+
+        // Default Route
     default:
         include '../app/resources/views/landing.php';
         break;

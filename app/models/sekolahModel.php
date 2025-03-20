@@ -46,4 +46,8 @@ class SekolahModel
         $stmt->bindParam(':id_sekolah', $id_sekolah);
         return $stmt->execute();
     }
+
+    public function siswaTerpilih() {
+        $query = "select * from pengumuman_ppdb where id_sekolah = 'SKL9633'";
+    }
 }

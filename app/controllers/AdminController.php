@@ -50,8 +50,9 @@ class AdminController
     public function logout()
     {
         session_start();
+        session_unset();
         session_destroy();
-        header('Location: ?page=login-admin');
+        header("Location: ?page=login-admin");
         exit();
     }
 

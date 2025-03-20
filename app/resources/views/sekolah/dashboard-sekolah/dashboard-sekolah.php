@@ -41,6 +41,8 @@
         </a>
     </div>
 
+    <?php var_dump($_SESSION)?>
+
     <main class="main-content">
         <div id="home" class="content-section active">
             <h2>Murid yang telah diterima</h2>
