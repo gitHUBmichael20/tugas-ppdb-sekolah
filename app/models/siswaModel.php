@@ -29,44 +29,55 @@ class SiswaModel
 
     public function addSiswa($data, $file = null)
     {
-        $storagePath = __DIR__ . '/../app/storage';
+        // Path absolut ke folder storage
+        $storagePath = 'D:/laragon/laragon/www/tugas-ppdb-sekolah/app/storage';
 
-        // Ambil NISN dari $data
+        // Cek apakah folder ada dan dapat ditulis
+        if (!is_dir($storagePath)) {
+            throw new Exception("Folder storage tidak ditemukan: " . $storagePath);
+        }
+        if (!is_writable($storagePath)) {
+            throw new Exception("Folder storage tidak dapat ditulis: " . $storagePath);
+        }
+
         $nisn = $data['NISN'] ?? null;
 
-        // Cek apakah siswa dengan NISN ini sudah ada di database
+        // Cek apakah siswa sudah ada
         $queryCheck = "SELECT COUNT(*) FROM siswa WHERE NISN = :nisn";
         $stmtCheck = $this->db->prepare($queryCheck);
         $stmtCheck->execute([':nisn' => $nisn]);
         $exists = $stmtCheck->fetchColumn() > 0;
 
         if (!$exists) {
-            // Registrasi: Siswa belum ada, lakukan INSERT
-            $data['rapor_siswa'] = null; // Rapor wajib null saat registrasi
-
+            // Registrasi: Siswa belum ada
+            $data['rapor_siswa'] = null;
             $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password) 
                   VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
             $stmt = $this->db->prepare($query);
             return $stmt->execute($data);
         } else {
-            // Update: Siswa sudah ada, lakukan UPDATE
+            // Update: Siswa sudah ada
             if ($file && isset($file['rapor_siswa']) && $file['rapor_siswa']['name'] !== '') {
                 $raporFile = $file['rapor_siswa'];
-                $fileName = uniqid() . '_' . basename($raporFile['name']);
-                $targetFile = $storagePath . '/' . $fileName;
+                if ($raporFile['error'] !== UPLOAD_ERR_OK) {
+                    throw new Exception("Error upload file: " . $raporFile['error']);
+                }
+                $fileExtension = pathinfo($raporFile['name'], PATHINFO_EXTENSION);
+                $fileName = $nisn . '_RAPOR_FINALE_PPDB.' . $fileExtension;
+                $targetFile = $storagePath . DIRECTORY_SEPARATOR . $fileName;
 
                 if (move_uploaded_file($raporFile['tmp_name'], $targetFile)) {
-                    $data['rapor_siswa'] = $fileName; // Simpan nama file baru
+                    $data['rapor_siswa'] = $fileName;
                 } else {
-                    throw new Exception("Gagal mengunggah file rapor siswa.");
+                    throw new PDOException("Gagal mengunggah file rapor siswa dari " . $raporFile['tmp_name'] . " ke " . $targetFile);
                 }
             }
 
-            // Bangun SET clause untuk query UPDATE
+            // Bangun query UPDATE
             $setClause = '';
             $params = [];
             foreach ($data as $key => $value) {
-                if ($value !== null) { // Hanya sertakan nilai yang tidak null
+                if ($value !== null) {
                     $setClause .= "$key = :$key, ";
                     $params[":$key"] = $value;
                 }
@@ -74,7 +85,7 @@ class SiswaModel
             $setClause = rtrim($setClause, ', ');
 
             if (empty($setClause)) {
-                return true; // Tidak ada yang perlu diupdate
+                return true;
             }
 
             $query = "UPDATE siswa SET $setClause WHERE NISN = :nisn";

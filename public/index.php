@@ -141,8 +141,13 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'edit') {
             $siswa->updateMurid();
         } else {
-            include '../app/resources/views/siswa/edit-profile.php'; // Tampilkan form
+            include '../app/resources/views/siswa/dashboard-siswa/dashboard-siswa.php';
         }
+        break;
+
+    case 'open-rapor-siswa':
+        restrictToLoggedIn('siswa');
+        $siswa->bukaRaporSiswa();
         break;
 
     case 'dashboard-siswa':

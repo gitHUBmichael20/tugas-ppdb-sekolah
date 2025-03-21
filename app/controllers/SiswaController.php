@@ -66,7 +66,7 @@ class SiswaController
         if ($this->siswaModel->addSiswa($data)) { // Tidak perlu $file karena rapor null
             $role = $_GET['role'] ?? 'siswa';
             if ($role === 'admin') {
-                $_SESSION['success'] = "Data berhasil Murid ditambahkan oleh admin";
+                $_SESSION['success'] = "Data Murid berhasil ditambahkan oleh admin";
                 header('Location: index.php?page=dashboard-admin');
             } else {
                 $success = "Data berhasil diregistrasi oleh kamu !!";
@@ -90,18 +90,37 @@ class SiswaController
         ];
 
         try {
-            if ($this->siswaModel->addSiswa($data, $_FILES)) { // Passing $data dan $_FILES
-                $success = 'Update Success';
-                header("Location: ?page=edit-profile-siswa");
+            // Validasi file rapor (hanya PDF)
+            if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
+                $fileExtension = strtolower(pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION));
+                if ($fileExtension !== 'pdf') {
+                    throw new Exception("Hanya file PDF yang diperbolehkan untuk rapor.");
+                }
+            }
+
+            if ($this->siswaModel->addSiswa($data, $_FILES)) {
+                $_SESSION['siswa_nama'] = $data['nama_murid'];
+                $_SESSION['siswa_alamat'] = $data['alamat'];
+                $_SESSION['siswa_tanggal_lahir'] = $data['tanggal_lahir'];
+                if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
+                    $fileExtension = pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION);
+                    $fileName = $data['NISN'] . '_RAPOR_FINALE_PPDB.' . $fileExtension;
+                    $_SESSION['siswa_rapor_siswa'] = $fileName;
+                } elseif (!isset($_SESSION['siswa_rapor_siswa'])) {
+                    $_SESSION['siswa_rapor_siswa'] = null;
+                }
+
+                $_SESSION['success'] = 'Update Success';
+                header("Location: ?page=dashboard-siswa");
                 exit();
             } else {
-                $error = 'Update Error';
-                header("Location: ?page=edit-profile-siswa");
+                $_SESSION['error'] = 'Update Error';
+                header("Location: ?page=dashboard-siswa");
                 exit();
             }
         } catch (Exception $e) {
-            $error = 'Update Error: ' . $e->getMessage();
-            header("Location: ?page=edit-profile-siswa");
+            $_SESSION['error'] = 'Update Error: ' . $e->getMessage();
+            header("Location: ?page=dashboard-siswa");
             exit();
         }
     }
@@ -176,5 +195,67 @@ class SiswaController
             $_SESSION['hasil-ppdb'] = 'BELUM-TERSEDIA';
             $_SESSION['id_sekolah-ppdb'] = 'BELUM-TERSEDIA';
         }
+    }
+
+    public function bukaRaporSiswa()
+    {
+        // Ambil NISN dari parameter GET
+        $nisn = $_GET['nisn'] ?? null;
+
+        // Pastikan NISN ada di parameter dan sesuai dengan session siswa
+        if (!$nisn || !isset($_SESSION['siswa_nisn']) || $nisn !== $_SESSION['siswa_nisn']) {
+            $_SESSION['error'] = 'Akses tidak sah atau NISN tidak valid.';
+            header("Location: ?page=dashboard-siswa");
+            exit();
+        }
+
+        // Pastikan session siswa ada dan ambil nama file rapor
+        if (!isset($_SESSION['siswa_rapor_siswa']) || empty($_SESSION['siswa_rapor_siswa'])) {
+            $_SESSION['error'] = 'Tidak ada rapor yang tersedia untuk dibuka.';
+            header("Location: ?page=dashboard-siswa");
+            exit();
+        }
+
+        // Path ke file rapor
+        $fileName = $_SESSION['siswa_rapor_siswa'];
+        $filePath = __DIR__ . '/../storage/' . $fileName; // Sesuaikan dengan struktur folder Anda
+
+        // Cek apakah file ada
+        if (!file_exists($filePath)) {
+            $_SESSION['error'] = 'File rapor tidak ditemukan di server.';
+            header("Location: ?page=dashboard-siswa");
+            exit();
+        }
+
+        // Ambil ekstensi file untuk set header yang tepat
+        $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+        // Atur header berdasarkan tipe file
+        switch ($fileExtension) {
+            case 'pdf':
+                header('Content-Type: application/pdf');
+                break;
+            case 'jpg':
+            case 'jpeg':
+                header('Content-Type: image/jpeg');
+                break;
+            case 'png':
+                header('Content-Type: image/png');
+                break;
+            default:
+                // Jika tipe file tidak didukung, paksa download
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+                readfile($filePath);
+                exit();
+        }
+
+        // Tampilkan file inline untuk tipe yang didukung
+        header('Content-Disposition: inline; filename="' . basename($filePath) . '"');
+        header('Content-Length: ' . filesize($filePath));
+
+        // Baca dan kirim file ke browser
+        readfile($filePath);
+        exit();
     }
 }
