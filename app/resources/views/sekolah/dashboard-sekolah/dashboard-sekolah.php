@@ -48,8 +48,7 @@
             <?php include("../app/resources/views/sekolah/dashboard-sekolah/section/list-siswa.php") ?>
         </div>
         <div id="statistic" class="content-section">
-            <h2>Statistik Penerimaan</h2>
-            <p>Your application status will be displayed here.</p>
+            <?php include("../app/resources/views/sekolah/dashboard-sekolah/section/analisa-sekolah.php") ?>
         </div>
     </main>
 

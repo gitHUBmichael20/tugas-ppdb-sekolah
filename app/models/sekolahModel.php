@@ -66,5 +66,7 @@ class SekolahModel
     $stmt = $this->db->prepare($query);
     $stmt->bindParam(':id_sekolah', $id_sekolah);
     $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
     }
 }

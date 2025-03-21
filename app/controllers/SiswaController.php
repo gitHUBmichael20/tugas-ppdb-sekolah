@@ -51,7 +51,7 @@ class SiswaController
         exit();
     }
 
-    public function saveMurid()
+    public function registerAkunSiswa()
     {
         // Siapkan data dari POST
         $data = [
@@ -63,11 +63,8 @@ class SiswaController
         ];
 
         // Simpan data
-        if ($this->siswaModel->addSiswa($data)) {
-            // Ambil role dari URL, default ke 'siswa' jika tidak ada
+        if ($this->siswaModel->addSiswa($data)) { // Tidak perlu $file karena rapor null
             $role = $_GET['role'] ?? 'siswa';
-
-            // Tentukan halaman tujuan berdasarkan role
             if ($role === 'admin') {
                 $_SESSION['success'] = "Data berhasil Murid ditambahkan oleh admin";
                 header('Location: index.php?page=dashboard-admin');
@@ -75,9 +72,8 @@ class SiswaController
                 $success = "Data berhasil diregistrasi oleh kamu !!";
                 include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
             }
-            exit; // Pastikan berhenti setelah redirect
+            exit;
         } else {
-            // Jika gagal, set error dan kembali ke form
             $error = 'Register Error';
             include 'index.php?page=register-siswa';
         }
@@ -94,18 +90,18 @@ class SiswaController
         ];
 
         try {
-            if ($this->siswaModel->addSiswa($data, $_FILES)) {
+            if ($this->siswaModel->addSiswa($data, $_FILES)) { // Passing $data dan $_FILES
                 $success = 'Update Success';
-                header("Location:?page=edit-profile-siswa");
+                header("Location: ?page=edit-profile-siswa");
                 exit();
             } else {
                 $error = 'Update Error';
-                header("Location:?page=edit-profile-siswa");
+                header("Location: ?page=edit-profile-siswa");
                 exit();
             }
         } catch (Exception $e) {
             $error = 'Update Error: ' . $e->getMessage();
-            header("Location:?page=edit-profile-siswa");
+            header("Location: ?page=edit-profile-siswa");
             exit();
         }
     }
@@ -168,7 +164,8 @@ class SiswaController
         }
     }
 
-    public function cekHasilPPDB() {
+    public function cekHasilPPDB()
+    {
         $nisn = $_SESSION['siswa_nisn'];
         $hasilPPDB = $this->siswaModel->cekHasilPenerimaan($nisn);
 

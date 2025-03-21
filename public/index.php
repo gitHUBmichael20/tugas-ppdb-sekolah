@@ -107,18 +107,19 @@ switch ($page) {
         }
         break;
 
-        case 'dashboard-sekolah':
-            restrictToLoggedIn('sekolah');
-            $siswaTerpilih = $sekolah->cekSiswaTerdaftar();
-            include '../app/resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
-            break;
+    case 'dashboard-sekolah':
+        restrictToLoggedIn('sekolah');
+        $siswaTerpilih = $sekolah->cekSiswaTerdaftar();
+        $analisaSekolah = $sekolah->analisaSekolah();
+        include '../app/resources/views/sekolah/dashboard-sekolah/dashboard-sekolah.php';
+        break;
 
     case 'logout-sekolah':
         $sekolah->logout();
         break;
 
 
-     // Siswa Routes
+    // Siswa Routes
     case 'login-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
             $siswa->login();
@@ -129,7 +130,7 @@ switch ($page) {
 
     case 'register-siswa':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
-            $siswa->saveMurid();
+            $siswa->registerAkunSiswa();
         } else {
             include '../app/resources/views/siswa/auth-siswa/sign-up-siswa.php';
         }
@@ -140,7 +141,7 @@ switch ($page) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'edit') {
             $siswa->updateMurid();
         } else {
-            header("Location: ?page=dashboard-siswa");
+            include '../app/resources/views/siswa/edit-profile.php'; // Tampilkan form
         }
         break;
 
@@ -162,7 +163,7 @@ switch ($page) {
         break;
 
 
-        // Default Route
+    // Default Route
     default:
         include '../app/resources/views/landing.php';
         break;
