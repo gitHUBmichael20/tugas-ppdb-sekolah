@@ -45,6 +45,24 @@ $subjects = [
     'Agama'
 ];
 
+// Define semester periods (each semester has a specific date)
+$semesterDates = [
+    1 => '12 Desember 2021',
+    2 => '15 Juni 2022',
+    3 => '22 Desember 2022',
+    4 => '18 Juni 2023',
+    5 => '20 Desember 2023'
+];
+
+// Academic years for each semester
+$academicYears = [
+    1 => '2021/2022 Ganjil',
+    2 => '2021/2022 Genap',
+    3 => '2022/2023 Ganjil',
+    4 => '2022/2023 Genap',
+    5 => '2023/2024 Ganjil'
+];
+
 // Process each student
 foreach ($students as $student) {
     $nisn = $student['NISN'];
@@ -55,65 +73,163 @@ foreach ($students as $student) {
     // Randomly select a school
     $school = $schools[array_rand($schools)];
 
-    // Generate PDF using FPDF
-    $pdf = new FPDF();
-    $pdf->AddPage();
-
-    // Header: Report Card Title and School with Times New Roman Bold
-    $pdf->SetFont('Times', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Hasil Belajar untuk ' . $nama_murid, 0, 1, 'C');
-    $pdf->SetFont('Times', '', 12);
-    $pdf->Cell(0, 10, 'Sekolah: ' . $school, 0, 1, 'C');
-    $pdf->Ln(10);
+    // Generate PDF using FPDF in portrait orientation
+    $pdf = new FPDF('P', 'mm', 'A4');
+    $pdf->SetMargins(10, 10, 10);
 
     // Generate data for 5 semesters
     for ($semester = 1; $semester <= 5; $semester++) {
-        if ($semester > 1) {
-            $pdf->AddPage(); // Start each semester on a new page
-        }
-        $pdf->SetFont('Times', 'B', 14);
-        $pdf->Cell(0, 10, 'Semester ' . $semester, 0, 1);
-        $pdf->SetFont('Times', '', 12);
+        // Page 1: Academic Grades and Character Assessment
+        $pdf->AddPage();
 
-        // Table Header with Indonesian terms
-        $pdf->Cell(60, 10, 'Mata Pelajaran', 1);
-        $pdf->Cell(40, 10, 'Nilai Tugas', 1);
-        $pdf->Cell(40, 10, 'Nilai Ujian', 1);
-        $pdf->Cell(40, 10, 'Nilai Akhir', 1);
+        // Header: Semester and Academic Year
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(0, 10, 'SEMESTER ' . $semester . ' - TAHUN PELAJARAN ' . $academicYears[$semester], 0, 1, 'C');
+        $pdf->Ln(5);
+
+        // Student Information
+        $pdf->SetFont('Times', '', 11);
+        $pdf->Cell(30, 8, 'Nama Siswa', 0);
+        $pdf->Cell(5, 8, ':', 0);
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->Cell(100, 8, $nama_murid, 0);
         $pdf->Ln();
 
-        // Table Rows with Random Grades and Calculate Average
-        $totalFinal = 0;
-        $subjectCount = count($subjects);
-        foreach ($subjects as $subject) {
-            $assignment = rand(0, 100);
-            $exam = rand(0, 100);
-            $final = rand(0, 100);
-            $totalFinal += $final;
-            $pdf->Cell(60, 10, $subject, 1);
-            $pdf->Cell(40, 10, $assignment, 1);
-            $pdf->Cell(40, 10, $exam, 1);
-            $pdf->Cell(40, 10, $final, 1);
-            $pdf->Ln();
+        $pdf->SetFont('Times', '', 11);
+        $pdf->Cell(30, 8, 'NISN', 0);
+        $pdf->Cell(5, 8, ':', 0);
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->Cell(50, 8, $nisn, 0);
+
+        $pdf->SetFont('Times', '', 11);
+        $pdf->SetX(110);
+        $pdf->Cell(40, 8, 'Tanggal Rapor', 0);
+        $pdf->Cell(5, 8, ':', 0);
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->Cell(45, 8, $semesterDates[$semester], 0);
+        $pdf->Ln(15);
+
+        // Table Header
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->SetFillColor(230, 230, 230);
+        $pdf->Cell(10, 8, 'No', 1, 0, 'C', true);
+        $pdf->Cell(60, 8, 'Mata Pelajaran', 1, 0, 'C', true);
+        $pdf->Cell(25, 8, 'Pengetahuan', 1, 0, 'C', true);
+        $pdf->Cell(25, 8, 'Keterampilan', 1, 0, 'C', true);
+        $pdf->Cell(25, 8, 'Sikap', 1, 0, 'C', true);
+        $pdf->Cell(45, 8, 'Keterangan', 1, 1, 'C', true);
+
+        // Define grade categories
+        $gradeCategory = [
+            '90-100' => 'Sangat Baik',
+            '80-89' => 'Baik',
+            '70-79' => 'Cukup',
+            '69-69' => 'Perlu Perbaikan'
+        ];
+
+        // Table Rows with Random Grades (all above 68)
+        $totalPengetahuan = 0;
+        $totalKeterampilan = 0;
+        $totalSikap = 0;
+
+        $pdf->SetFont('Times', '', 11);
+        foreach ($subjects as $index => $subject) {
+            // Ensuring all grades are above 68
+            $pengetahuan = rand(69, 100);
+            $keterampilan = rand(69, 100);
+            $sikap = rand(69, 100);
+
+            $totalPengetahuan += $pengetahuan;
+            $totalKeterampilan += $keterampilan;
+            $totalSikap += $sikap;
+
+            // Determine grade category
+            $avgGrade = round(($pengetahuan + $keterampilan + $sikap) / 3);
+            $kategori = '';
+            foreach ($gradeCategory as $range => $label) {
+                list($min, $max) = explode('-', $range);
+                if ($avgGrade >= $min && $avgGrade <= $max) {
+                    $kategori = $label;
+                    break;
+                }
+            }
+
+            // Alternate row colors
+            $fillColor = ($index % 2 == 0) ? false : true;
+            if ($fillColor) {
+                $pdf->SetFillColor(245, 245, 245);
+            }
+
+            $pdf->Cell(10, 7, $index + 1, 1, 0, 'C', $fillColor);
+            $pdf->Cell(60, 7, $subject, 1, 0, 'L', $fillColor);
+            $pdf->Cell(25, 7, $pengetahuan, 1, 0, 'C', $fillColor);
+            $pdf->Cell(25, 7, $keterampilan, 1, 0, 'C', $fillColor);
+            $pdf->Cell(25, 7, $sikap, 1, 0, 'C', $fillColor);
+            $pdf->Cell(45, 7, $kategori, 1, 1, 'C', $fillColor);
         }
 
-        // Calculate and display average score
-        $average = $totalFinal / $subjectCount;
-        $pdf->Ln(5);
-        $pdf->SetFont('Times', 'B', 12);
-        $pdf->Cell(140, 10, 'Rata-rata Nilai Semester:', 0);
-        $pdf->SetFont('Times', '', 12);
-        $pdf->Cell(40, 10, number_format($average, 2), 0);
-        $pdf->Ln(10);
-    }
+        // Calculate averages
+        $subjectCount = count($subjects);
+        $avgPengetahuan = $totalPengetahuan / $subjectCount;
+        $avgKeterampilan = $totalKeterampilan / $subjectCount;
+        $avgSikap = $totalSikap / $subjectCount;
+        $totalAvg = ($avgPengetahuan + $avgKeterampilan + $avgSikap) / 3;
 
-    // Signature Section with Indonesian terms
-    $pdf->Ln(10);
-    $pdf->SetFont('Times', '', 12);
-    $pdf->Cell(0, 10, 'Tanggal: ' . date('d F Y'), 0, 1); // Dynamic date
-    $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Kepala Sekolah: _______________________________', 0, 1);
-    $pdf->Cell(0, 10, 'Wali Kelas: _______________________________', 0, 1);
+        // Display averages
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->SetFillColor(230, 230, 230);
+        $pdf->Cell(70, 7, 'Rata-rata', 1, 0, 'R', true);
+        $pdf->Cell(25, 7, number_format($avgPengetahuan, 2), 1, 0, 'C', true);
+        $pdf->Cell(25, 7, number_format($avgKeterampilan, 2), 1, 0, 'C', true);
+        $pdf->Cell(25, 7, number_format($avgSikap, 2), 1, 0, 'C', true);
+        $pdf->Cell(45, 7, number_format($totalAvg, 2), 1, 1, 'C', true);
+
+        // Page 2: Attendance, Class Teacher’s Notes, and Signatures
+        $pdf->AddPage();
+
+        // Attendance Section
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(0, 10, 'KEHADIRAN', 0, 1);
+        $pdf->SetFont('Times', '', 11);
+        $pdf->Cell(60, 8, 'Sakit', 0, 0);
+        $pdf->Cell(5, 8, ':', 0, 0);
+        $pdf->Cell(20, 8, rand(0, 3) . ' hari', 0, 1);
+        $pdf->Cell(60, 8, 'Izin', 0, 0);
+        $pdf->Cell(5, 8, ':', 0, 0);
+        $pdf->Cell(20, 8, rand(0, 2) . ' hari', 0, 1);
+        $pdf->Cell(60, 8, 'Tanpa Keterangan', 0, 0);
+        $pdf->Cell(5, 8, ':', 0, 0);
+        $pdf->Cell(20, 8, '0 hari', 0, 1);
+        $pdf->Ln(10);
+
+        // Class Teacher’s Notes (Lorem Ipsum)
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(0, 10, 'CATATAN WALI KELAS', 0, 1);
+        $pdf->SetFont('Times', '', 11);
+        $comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+        $pdf->MultiCell(0, 8, $comment, 1);
+        $pdf->Ln(15);
+
+        // Signature Section
+        $pdf->SetFont('Times', '', 11);
+        $pdf->Cell(95, 8, 'Mengetahui,', 0, 0, 'C');
+        $pdf->Cell(95, 8, $semesterDates[$semester], 0, 1, 'C');
+        $pdf->Cell(95, 8, 'Orang Tua/Wali', 0, 0, 'C');
+        $pdf->Cell(95, 8, 'Wali Kelas', 0, 1, 'C');
+        $pdf->Ln(15);
+        $pdf->Cell(95, 8, '(.............................)', 0, 0, 'C');
+        $pdf->Cell(95, 8, 'Lorem Ipsum, S.Pd.', 0, 1, 'C');
+        $pdf->Cell(95, 8, '', 0, 0, 'C');
+        $pdf->Cell(95, 8, 'NIP. 1234567890123456', 0, 1, 'C');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->Cell(0, 8, 'Mengetahui,', 0, 1, 'C');
+        $pdf->Cell(0, 8, 'Kepala Sekolah', 0, 1, 'C');
+        $pdf->Ln(15);
+        $pdf->SetFont('Times', 'B', 11);
+        $pdf->Cell(0, 8, 'Dr. Lorem Ipsum, M.Pd.', 0, 1, 'C');
+        $pdf->Cell(0, 8, 'NIP. 1234567890123456', 0, 1, 'C');
+    }
 
     // Save PDF to file
     $pdf->Output('F', $fullPath);
@@ -126,3 +242,6 @@ foreach ($students as $student) {
 
 // Output success message in Indonesian
 echo "Berhasil menghasilkan laporan hasil belajar untuk semua siswa.\n";
+echo "Rapor telah dibuat dalam dua halaman per semester.\n";
+echo "Halaman pertama: Nilai Mata Pelajaran dan Nilai Karakter.\n";
+echo "Halaman kedua: Kehadiran, Catatan Wali Kelas, dan Tanda Tangan.\n";
