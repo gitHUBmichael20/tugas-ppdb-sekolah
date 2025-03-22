@@ -29,10 +29,8 @@ class SiswaModel
 
     public function addSiswa($data, $file = null)
     {
-        // Path absolut ke folder storage
         $storagePath = 'D:/laragon/laragon/www/tugas-ppdb-sekolah/app/storage';
 
-        // Cek apakah folder ada dan dapat ditulis
         if (!is_dir($storagePath)) {
             throw new Exception("Folder storage tidak ditemukan: " . $storagePath);
         }
@@ -42,21 +40,18 @@ class SiswaModel
 
         $nisn = $data['NISN'] ?? null;
 
-        // Cek apakah siswa sudah ada
         $queryCheck = "SELECT COUNT(*) FROM siswa WHERE NISN = :nisn";
         $stmtCheck = $this->db->prepare($queryCheck);
         $stmtCheck->execute([':nisn' => $nisn]);
         $exists = $stmtCheck->fetchColumn() > 0;
 
         if (!$exists) {
-            // Registrasi: Siswa belum ada
             $data['rapor_siswa'] = null;
             $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password) 
                   VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
             $stmt = $this->db->prepare($query);
             return $stmt->execute($data);
         } else {
-            // Update: Siswa sudah ada
             if ($file && isset($file['rapor_siswa']) && $file['rapor_siswa']['name'] !== '') {
                 $raporFile = $file['rapor_siswa'];
                 if ($raporFile['error'] !== UPLOAD_ERR_OK) {
@@ -73,7 +68,6 @@ class SiswaModel
                 }
             }
 
-            // Bangun query UPDATE
             $setClause = '';
             $params = [];
             foreach ($data as $key => $value) {
