@@ -22,7 +22,7 @@ class AdminModel
 
     public function lihatPendaftaran()
     {
-        $query = "SELECT p.*, pp.hasil_ppdb, s.nama_murid 
+        $query = "SELECT p.*, pp.hasil_ppdb, s.nama_murid, s.rapor_siswa 
                 FROM pendaftaran p 
                 LEFT JOIN pengumuman_ppdb pp ON p.pendaftaran_ID = pp.pendaftaran_ID 
                 LEFT JOIN siswa s ON p.NISN_Siswa = s.NISN;";

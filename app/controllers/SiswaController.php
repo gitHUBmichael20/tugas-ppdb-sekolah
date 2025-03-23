@@ -105,7 +105,7 @@ class SiswaController
                 if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
                     $fileExtension = pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION);
                     $fileName = $data['NISN'] . '_RAPOR_FINALE_PPDB.' . $fileExtension;
-                    $_SESSION['siswa_rapor_siswa'] = $fileName;
+                    $_SESSION['siswa_rapor_siswa'] = $fileName; // Nama file tetap disimpan di session
                 } elseif (!isset($_SESSION['siswa_rapor_siswa'])) {
                     $_SESSION['siswa_rapor_siswa'] = null;
                 }
@@ -199,63 +199,25 @@ class SiswaController
 
     public function bukaRaporSiswa()
     {
-        // Ambil NISN dari parameter GET
-        $nisn = $_GET['nisn'] ?? null;
+        // Sanitize NISN input
+        $nisn = $_GET['nisn'] ?? '';
+        $nisn = filter_var($nisn, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        // Pastikan NISN ada di parameter dan sesuai dengan session siswa
-        if (!$nisn || !isset($_SESSION['siswa_nisn']) || $nisn !== $_SESSION['siswa_nisn']) {
-            $_SESSION['error'] = 'Akses tidak sah atau NISN tidak valid.';
-            header("Location: ?page=dashboard-siswa");
-            exit();
+        // Validate NISN
+        if (empty($nisn)) {
+            die('NISN tidak valid.');
         }
 
-        // Pastikan session siswa ada dan ambil nama file rapor
-        if (!isset($_SESSION['siswa_rapor_siswa']) || empty($_SESSION['siswa_rapor_siswa'])) {
-            $_SESSION['error'] = 'Tidak ada rapor yang tersedia untuk dibuka.';
-            header("Location: ?page=dashboard-siswa");
-            exit();
-        }
+        // Define file path
+        $fileName = $nisn . '_RAPOR_FINALE_PPDB.pdf';
+        $basePath = '../app/storage/';
+        $fullPath = $basePath . $fileName;
 
-        // Path ke file rapor
-        $fileName = $_SESSION['siswa_rapor_siswa'];
-        $filePath = __DIR__ . '/../storage/' . $fileName; // Sesuaikan dengan struktur folder Anda
+        // Check if file exists
+        $fileExists = file_exists($fullPath) && is_readable($fullPath);
 
-        // Cek apakah file ada
-        if (!file_exists($filePath)) {
-            $_SESSION['error'] = 'File rapor tidak ditemukan di server.';
-            header("Location: ?page=dashboard-siswa");
-            exit();
-        }
-
-        // Ambil ekstensi file untuk set header yang tepat
-        $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
-        // Atur header berdasarkan tipe file
-        switch ($fileExtension) {
-            case 'pdf':
-                header('Content-Type: application/pdf');
-                break;
-            case 'jpg':
-            case 'jpeg':
-                header('Content-Type: image/jpeg');
-                break;
-            case 'png':
-                header('Content-Type: image/png');
-                break;
-            default:
-                // Jika tipe file tidak didukung, paksa download
-                header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
-                readfile($filePath);
-                exit();
-        }
-
-        // Tampilkan file inline untuk tipe yang didukung
-        header('Content-Disposition: inline; filename="' . basename($filePath) . '"');
-        header('Content-Length: ' . filesize($filePath));
-
-        // Baca dan kirim file ke browser
-        readfile($filePath);
-        exit();
+        // Load view with data
+        require_once '../app/resources/views/siswa/rapor-siswa.php';
+        exit;
     }
 }

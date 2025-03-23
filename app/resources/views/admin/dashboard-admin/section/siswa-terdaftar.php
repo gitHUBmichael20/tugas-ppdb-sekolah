@@ -37,7 +37,17 @@
                     <td data-label="waktu"><?= htmlspecialchars($row['waktu']); ?></td>
                     <td data-label="nama_murid"><?= htmlspecialchars($row['nama_murid']); ?></td>
                     <td data-label="status"><span style="font-weight: 600; color: #205781; background-color: #FFF3CD; padding: 4px;"><?= htmlspecialchars($row['status']); ?></span></td>
-                    <td data-label="rapor_siswa"><?= htmlspecialchars($row['rapor_siswa'] ?? 'N/A'); ?></td>
+                    <td data-label="rapor_siswa">
+                        <?php if (!empty($row['rapor_siswa'])): ?>
+                            <a href="?page=buka-rapor-siswa&nisn=<?= urlencode($row['NISN_Siswa']) ?>"
+                                class="green-button"
+                                target="_blank">
+                                Cek
+                            </a>
+                        <?php else: ?>
+                            N/A
+                        <?php endif; ?>
+                    </td>
                     <td data-label="NISN_Siswa"><?= htmlspecialchars($row['NISN_Siswa']); ?></td>
                     <td data-label="hasil_ppdb"><span style="background-color: #FFF3CD; color: #205781; font-weight: 600; padding: 4px;"><?= htmlspecialchars($row['hasil_ppdb'] ?? 'N/A') ?></span></td>
                     <td data-label="id_sekolah"><?= htmlspecialchars($row['id_sekolah']); ?></td>
@@ -90,11 +100,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-
-    <div id="pagination" style="margin-top: 25px;">
-        <button id="prevButton" style="margin: 0 5px; padding: 5px 10px;">Previous</button>
-        <button id="nextButton" style="margin: 0 5px; padding: 5px 10px;">Next</button>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

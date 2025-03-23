@@ -234,10 +234,18 @@ foreach ($students as $student) {
     // Save PDF to file
     $pdf->Output('F', $fullPath);
 
-    // Update the siswa table with the filename
-    $updateQuery = "UPDATE siswa SET rapor_siswa = :filename WHERE NISN = :nisn";
+    // Read the binary content of the PDF file
+    $raporData = file_get_contents($fullPath);
+    if ($raporData === false) {
+        die("Gagal membaca konten file: " . $fullPath);
+    }
+
+    // Update the siswa table with the binary data
+    $updateQuery = "UPDATE siswa SET rapor_siswa = :raporData WHERE NISN = :nisn";
     $updateStmt = $pdo->prepare($updateQuery);
-    $updateStmt->execute([':filename' => $filename, ':nisn' => $nisn]);
+    $updateStmt->bindParam(':raporData', $raporData, PDO::PARAM_LOB);
+    $updateStmt->bindParam(':nisn', $nisn, PDO::PARAM_STR);
+    $updateStmt->execute();
 }
 
 // Output success message in Indonesian

@@ -146,7 +146,6 @@ switch ($page) {
         break;
 
     case 'open-rapor-siswa':
-        restrictToLoggedIn('siswa');
         $siswa->bukaRaporSiswa();
         break;
 

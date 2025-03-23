@@ -46,12 +46,14 @@ class SiswaModel
         $exists = $stmtCheck->fetchColumn() > 0;
 
         if (!$exists) {
+            // Untuk siswa baru, set rapor_siswa ke null
             $data['rapor_siswa'] = null;
             $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password) 
                   VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
             $stmt = $this->db->prepare($query);
             return $stmt->execute($data);
         } else {
+            // Untuk siswa yang sudah ada
             if ($file && isset($file['rapor_siswa']) && $file['rapor_siswa']['name'] !== '') {
                 $raporFile = $file['rapor_siswa'];
                 if ($raporFile['error'] !== UPLOAD_ERR_OK) {
@@ -61,13 +63,20 @@ class SiswaModel
                 $fileName = $nisn . '_RAPOR_FINALE_PPDB.' . $fileExtension;
                 $targetFile = $storagePath . DIRECTORY_SEPARATOR . $fileName;
 
+                // Pindahkan file ke folder storage
                 if (move_uploaded_file($raporFile['tmp_name'], $targetFile)) {
-                    $data['rapor_siswa'] = $fileName;
+                    // Baca konten file sebagai data biner
+                    $raporData = file_get_contents($targetFile);
+                    if ($raporData === false) {
+                        throw new PDOException("Gagal membaca konten file: " . $targetFile);
+                    }
+                    $data['rapor_siswa'] = $raporData;
                 } else {
                     throw new PDOException("Gagal mengunggah file rapor siswa dari " . $raporFile['tmp_name'] . " ke " . $targetFile);
                 }
             }
 
+            // Bangun set clause untuk update
             $setClause = '';
             $params = [];
             foreach ($data as $key => $value) {
@@ -86,6 +95,7 @@ class SiswaModel
             $params[':nisn'] = $nisn;
 
             $stmt = $this->db->prepare($query);
+            // Eksekusi dengan parameter (PDO akan menangani data biner sebagai string secara default)
             return $stmt->execute($params);
         }
     }
