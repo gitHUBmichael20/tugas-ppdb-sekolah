@@ -7,7 +7,7 @@
 <body>
     <div class="container">
         <h2>Murid yang telah diterima oleh sekolah <?= htmlspecialchars($_SESSION['nama_sekolah']) ?></h2>
-        <?= htmlspecialchars($_SESSION['sekolah_id'])?>
+        <?= htmlspecialchars($_SESSION['sekolah_id']) ?>
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -30,11 +30,11 @@
                                 <td><?= htmlspecialchars($row['nama_murid']); ?></td>
                                 <td><?= htmlspecialchars($row['NISN_siswa']); ?></td>
                                 <td><?= htmlspecialchars($row['hasil_ppdb']); ?></td>
-                                <td>
+                                <td data-label="rapor_siswa">
                                     <?php if (!empty($row['rapor_siswa'])): ?>
-                                        <a href="data:application/pdf;base64,<?= base64_encode($row['rapor_siswa']); ?>" download="rapor_<?= $row['NISN_siswa']; ?>.pdf">Unduh Rapor</a>
+                                        <a style="text-decoration: none;" class="green-button" href="data:application/pdf;base64,<?= base64_encode($row['rapor_siswa']); ?>" target="_blank">View</a>
                                     <?php else: ?>
-                                        Tidak Ada
+                                        N/A
                                     <?php endif; ?>
                                 </td>
                             </tr>

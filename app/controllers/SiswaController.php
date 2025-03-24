@@ -15,14 +15,14 @@ class SiswaController
 
     public function login()
     {
-        // No need for session_start() here if it’s in index.php
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nisn = $_POST['NISN'];
             $password = $_POST['password'];
             $siswa = $this->siswaModel->getSiswaByNISN($nisn);
 
             if ($siswa && password_verify($password, $siswa['password'])) {
-                // Set session variables for siswa role
+
                 $_SESSION['siswa_logged_in'] = true;
                 $_SESSION['siswa_nisn'] = $siswa['NISN'];
                 $_SESSION['siswa_nama'] = $siswa['nama_murid'];
@@ -30,7 +30,7 @@ class SiswaController
                 $_SESSION['siswa_rapor'] = $siswa['rapor_siswa'];
                 $_SESSION['siswa_tanggal_lahir'] = $siswa['tanggal_lahir'];
 
-                // Redirect to dashboard
+
                 header("Location: ?page=dashboard-siswa");
                 exit();
             } else {
@@ -53,7 +53,7 @@ class SiswaController
 
     public function registerAkunSiswa()
     {
-        // Siapkan data dari POST
+
         $data = [
             'NISN' => $_POST['NISN'],
             'nama_murid' => $_POST['nama_murid'],
@@ -62,8 +62,8 @@ class SiswaController
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
         ];
 
-        // Simpan data
-        if ($this->siswaModel->addSiswa($data)) { // Tidak perlu $file karena rapor null
+
+        if ($this->siswaModel->addSiswa($data)) {
             $role = $_GET['role'] ?? 'siswa';
             if ($role === 'admin') {
                 $_SESSION['success'] = "Data Murid berhasil ditambahkan oleh admin";
@@ -90,7 +90,7 @@ class SiswaController
         ];
 
         try {
-            // Validasi file rapor (hanya PDF)
+
             if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
                 $fileExtension = strtolower(pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION));
                 if ($fileExtension !== 'pdf') {
@@ -105,7 +105,7 @@ class SiswaController
                 if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
                     $fileExtension = pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION);
                     $fileName = $data['NISN'] . '_RAPOR_FINALE_PPDB.' . $fileExtension;
-                    $_SESSION['siswa_rapor_siswa'] = $fileName; // Nama file tetap disimpan di session
+                    $_SESSION['siswa_rapor_siswa'] = $fileName;
                 } elseif (!isset($_SESSION['siswa_rapor_siswa'])) {
                     $_SESSION['siswa_rapor_siswa'] = null;
                 }
@@ -127,27 +127,21 @@ class SiswaController
 
     public function daftarsekolah()
     {
-        // Fetch all schools to display
-        $sekolah = $this->sekolahModel->getAllSekolah();
 
-        // Handle registration request
+        $sekolah = $this->sekolahModel->getAllSekolah();
         if (isset($_GET['sekolah'])) {
             $data = [
-                'waktu' => date('Y-m-d'), // Current date
-                'NISN_Siswa' => $_SESSION['siswa_nisn'], // From session
-                'id_sekolah' => $_GET['sekolah'] // From URL parameter
+                'waktu' => date('Y-m-d'),
+                'NISN_Siswa' => $_SESSION['siswa_nisn'],
+                'id_sekolah' => $_GET['sekolah']
             ];
 
             if ($this->siswaModel->daftarSekolah($data)) {
-                // Success message or redirect
                 echo "<script>alert('Berhasil mendaftar sekolah!'); window.location='?page=dashboard-siswa';</script>";
             } else {
-                // Error message
                 echo "<script>alert('Gagal mendaftar sekolah!');</script>";
             }
         }
-
-        // Load the view with school data
         include '../app/resources/views/siswa/dashboard-siswa/section/daftar-sekolah.php';
     }
 
@@ -171,13 +165,11 @@ class SiswaController
     {
         $nisn = $_SESSION['siswa_nisn'];
         $hasilPenerimaan = $this->siswaModel->cekPendaftaran($nisn);
-
-        // Cek apakah hasilPenerimaan ada dan merupakan array yang tidak kosong
         if ($hasilPenerimaan && is_array($hasilPenerimaan) && !empty($hasilPenerimaan)) {
             $_SESSION['status-ppdb'] = $hasilPenerimaan['status'];
             $_SESSION['id_sekolah-ppdb'] = $hasilPenerimaan['id_sekolah'];
         } else {
-            // Kondisi ketika data tidak ditemukan (empty set), status menjadi 'BELUM-DAFTAR'
+
             $_SESSION['status-ppdb'] = 'BELUM-DAFTAR';
             $_SESSION['id_sekolah-ppdb'] = null;
         }
@@ -195,29 +187,5 @@ class SiswaController
             $_SESSION['hasil-ppdb'] = 'BELUM-TERSEDIA';
             $_SESSION['id_sekolah-ppdb'] = 'BELUM-TERSEDIA';
         }
-    }
-
-    public function bukaRaporSiswa()
-    {
-        // Sanitize NISN input
-        $nisn = $_GET['nisn'] ?? '';
-        $nisn = filter_var($nisn, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        // Validate NISN
-        if (empty($nisn)) {
-            die('NISN tidak valid.');
-        }
-
-        // Define file path
-        $fileName = $nisn . '_RAPOR_FINALE_PPDB.pdf';
-        $basePath = '../app/storage/';
-        $fullPath = $basePath . $fileName;
-
-        // Check if file exists
-        $fileExists = file_exists($fullPath) && is_readable($fullPath);
-
-        // Load view with data
-        require_once '../app/resources/views/siswa/rapor-siswa.php';
-        exit;
     }
 }

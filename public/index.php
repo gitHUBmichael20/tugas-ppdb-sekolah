@@ -145,10 +145,6 @@ switch ($page) {
         }
         break;
 
-    case 'open-rapor-siswa':
-        $siswa->bukaRaporSiswa();
-        break;
-
     case 'dashboard-siswa':
         restrictToLoggedIn('siswa');
         $sekolah->getAllSchoolData();

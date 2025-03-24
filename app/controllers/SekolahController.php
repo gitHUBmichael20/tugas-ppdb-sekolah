@@ -46,7 +46,6 @@ class SekolahController
 
     public function logout()
     {
-        session_start();
         session_destroy();
         header('Location: ?page=login-sekolah'); // Perbaiki sintaks header
         exit();
@@ -102,12 +101,15 @@ class SekolahController
         exit;
     }
 
-    public function cekSiswaTerdaftar() {
+    public function cekSiswaTerdaftar()
+    {
         $dataSiswa = $this->sekolahModel->siswaTerpilih($_SESSION['sekolah_id']);
         return $dataSiswa;
     }
 
-    public function analisaSekolah() {
+
+    public function analisaSekolah()
+    {
         $analisaSekolah = $this->sekolahModel->analisaSekolah($_SESSION['sekolah_id']);
         return $analisaSekolah;
     }

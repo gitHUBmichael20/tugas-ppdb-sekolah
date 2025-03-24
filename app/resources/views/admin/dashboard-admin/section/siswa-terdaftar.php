@@ -39,11 +39,7 @@
                     <td data-label="status"><span style="font-weight: 600; color: #205781; background-color: #FFF3CD; padding: 4px;"><?= htmlspecialchars($row['status']); ?></span></td>
                     <td data-label="rapor_siswa">
                         <?php if (!empty($row['rapor_siswa'])): ?>
-                            <a href="?page=buka-rapor-siswa&nisn=<?= urlencode($row['NISN_Siswa']) ?>"
-                                class="green-button"
-                                target="_blank">
-                                Cek
-                            </a>
+                            <a style="text-decoration: none;" class="green-button" href="data:application/pdf;base64,<?= base64_encode($row['rapor_siswa']); ?>" target="_blank">View</a>
                         <?php else: ?>
                             N/A
                         <?php endif; ?>
