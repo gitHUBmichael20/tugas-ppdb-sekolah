@@ -60,14 +60,10 @@
                             <strong>Nama Murid:</strong>
                             <span class="placeholder"><?= $_SESSION['siswa_nama'] ?></span>
                         </div>
-                        <!-- <div class="info-item-siswa">
-                        <strong>Sekolah Tujuan:</strong>
-                        <span class="placeholder"><?php echo $_SESSION['id_sekolah-ppdb']; ?></span>
-                    </div> -->
                         <!-- Kotak Instruksi -->
                         <div class="instruction-box">
                             <?php
-                            $status = isset($_SESSION['status-ppdb']) ? $_SESSION['status-ppdb'] : null;
+                            $status = isset($_SESSION['hasil-ppdb']) ? $_SESSION['hasil-ppdb'] : null;
                             if ($status == 'LULUS-TERPILIH'): ?>
                                 <div class="daftar-ulang" style="gap: 15px;">
                                     <span>Silakan lakukan pendaftaran ulang. Informasi pendaftaran ulang di PPDB Jabar 2025 dapat dilihat pada link berikut:</span>

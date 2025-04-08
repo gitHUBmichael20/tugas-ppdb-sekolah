@@ -34,16 +34,12 @@
                 </div>
                 <div class="form-group rapor-group">
                     <label for="rapor">Rapor Anda</label>
-                    <?php if (!empty($_SESSION['siswa_rapor_siswa'])): ?>
-                        <p>Rapor saat ini: <a href="?page=open-rapor-siswa&nisn=<?= urlencode($_SESSION['siswa_nisn']) ?>" target="_blank"><?= $_SESSION['siswa_rapor_siswa'] ?></a></p>
-                    <?php else: ?>
-                        <p>Belum ada rapor.</p>
-                    <?php endif; ?>
+                    <p>SUDAH ADA RAPOR</p>
                     <div class="file-upload-wrapper">
-                        <input type="file" name="rapor_siswa" id="rapor" accept=".pdf" onchange="previewFile()">
+                        <input type="file" name="rapor_siswa" id="rapor" accept=".pdf" onchange="displayFileName()">
                         <span class="file-upload-text">Pilih file PDF rapor</span>
                     </div>
-                    <div class="file-preview" id="file-preview"></div>
+                    <div class="file-name" id="file-name"></div>
                 </div>
                 <div class="form-group">
                     <label for="tanggal_lahir">Tanggal Lahir:</label>
@@ -59,25 +55,16 @@
     </div>
 
     <script>
-        function previewFile() {
-            const fileInput = document.getElementById('rapor');
-            const preview = document.getElementById('file-preview');
-            const file = fileInput.files[0];
-            preview.innerHTML = ''; // Reset pratinjau
-
-            if (file) {
-                if (file.type === 'application/pdf') {
-                    const fileName = file.name;
-                    const fileSize = Math.round(file.size / 1024); // KB
-                    const previewText = document.createElement('p');
-                    previewText.textContent = `File yang dipilih: ${fileName} (${fileSize} KB)`;
-                    preview.appendChild(previewText);
-                } else {
-                    const errorText = document.createElement('p');
-                    errorText.textContent = 'Harap pilih file PDF yang valid.';
-                    errorText.style.color = '#e74c3c';
-                    preview.appendChild(errorText);
-                }
+        function displayFileName() {
+            const input = document.getElementById('rapor');
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files && input.files.length > 0) {
+                const fileName = input.files[0].name;
+                fileNameDisplay.textContent = `File terpilih: ${fileName}`;
+                fileNameDisplay.style.color = '#205781';
+                fileNameDisplay.style.marginTop = '5px';
+            } else {
+                fileNameDisplay.textContent = '';
             }
         }
     </script>

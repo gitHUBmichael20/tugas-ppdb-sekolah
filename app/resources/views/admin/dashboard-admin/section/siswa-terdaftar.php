@@ -38,8 +38,8 @@
                     <td data-label="nama_murid"><?= htmlspecialchars($row['nama_murid']); ?></td>
                     <td data-label="status"><span style="font-weight: 600; color: #205781; background-color: #FFF3CD; padding: 4px;"><?= htmlspecialchars($row['status']); ?></span></td>
                     <td data-label="rapor_siswa">
-                        <?php if (!empty($row['rapor_siswa'])): ?>
-                            <a style="text-decoration: none;" class="green-button" href="data:application/pdf;base64,<?= base64_encode($row['rapor_siswa']); ?>" target="_blank">View</a>
+                        <?php if (!empty($row['rapor_siswa']) && strpos($row['rapor_siswa'], '%PDF') === 0): ?>
+                            <a style="text-decoration: none;" class="green-button" href="javascript:void(0)" onclick="openPDF('<?php echo base64_encode($row['rapor_siswa']); ?>')">View</a>
                         <?php else: ?>
                             N/A
                         <?php endif; ?>
@@ -58,9 +58,9 @@
                             <input type="hidden" name="NISN_siswa" value="<?= htmlspecialchars($row['NISN_Siswa']); ?>">
                             <input type="hidden" name="id_sekolah" value="<?= htmlspecialchars($row['id_sekolah']); ?>">
                             <?php if ($row['hasil_ppdb'] !== null): ?>
-                                <button type="submit" disabled class="grey-button" style="padding: 6px;">Tolak</button>
+                                <button type="submit" disabled class="grey-button" style="padding: 6px;">Terima</button>
                             <?php else: ?>
-                                <button type="submit" class="green-button">Tolak</button>
+                                <button type="submit" class="green-button">Terima</button>
                             <?php endif; ?>
                         </form>
 
@@ -119,6 +119,22 @@
             };
             showPage(page);
         });
+    </script>
+    <script>
+        function openPDF(base64Data) {
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {
+                type: 'application/pdf'
+            });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+            URL.revokeObjectURL(url); // Bersihin memori
+        }
     </script>
 
 </body>

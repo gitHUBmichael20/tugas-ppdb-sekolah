@@ -51,7 +51,7 @@
 
     <main class="main-content">
         <div id="home" class="content-section active">
-            <?php var_dump($_SESSION)?>
+            <!-- <?php var_dump($_SESSION)?> -->
             <br>
             <h2>Pilihan Sekolah</h2>
             <?php include("../app/resources/views/siswa/dashboard-siswa/section/list-sekolah.php") ?>
