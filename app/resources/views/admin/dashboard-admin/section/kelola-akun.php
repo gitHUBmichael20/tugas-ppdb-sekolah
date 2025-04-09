@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password_siswa">Password:</label>
-                    <input type="password" id="password_siswa" name="password" maxlength="255" value="">
+                    <input type="password" disabled id="password_siswa" name="password" maxlength="255" value="">
                 </div>
                 <button type="submit" class="submit-btn">Simpan Data Siswa</button>
                 <button type="button" class="red-button" onclick="closeModal()">Tutup</button>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password_sekolah">Password:</label>
-                    <input type="password" id="password_sekolah" name="password" maxlength="50">
+                    <input type="password" disabled id="password_sekolah" name="password" maxlength="50">
                 </div>
                 <button type="submit" class="submit-btn">Simpan Data Sekolah</button>
             </form>

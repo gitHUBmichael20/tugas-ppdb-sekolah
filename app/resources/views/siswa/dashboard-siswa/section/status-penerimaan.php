@@ -43,9 +43,8 @@
                             <?php elseif ($status == 'DITOLAK'): ?>
                                 <span>MAAF ANDA DINYATAKAN <strong>TIDAK LULUS</strong> PPDB 2025 😂😂🫵</span>
                             <?php else: ?>
-                                <span>STATUS PENDAFTARAN ANDA: <strong>SEDANG TAHAP PROSES</strong></span>
+                                <span style="color: #FEBA17">STATUS PENDAFTARAN ANDA: <strong>SEDANG TAHAP PROSES</strong></span>
                             <?php endif; ?>
-
                         </h1>
                         <img class="logo-ppdb" src="./assets/logo/logo-website.png" alt="Logo PPDB">
                     </div>
@@ -73,7 +72,7 @@
                             <?php elseif ($status == 'DITOLAK'): ?>
                                 <span>Kegagalan bukanlah akhir, masih ada jalur lain untuk masuk ke sekolah impianmu. Keep Going !! 🤙🫵</span>
                             <?php else: ?>
-                                <span style="color: black;">Harap bersabar, proses seleksi masih sedang berlangsung</span>
+                                <span style="color: #FEBA17;">Harap bersabar, proses seleksi masih sedang berlangsung</span>
                             <?php endif; ?>
                         </div>
                         <!-- Informasi Tambahan -->
