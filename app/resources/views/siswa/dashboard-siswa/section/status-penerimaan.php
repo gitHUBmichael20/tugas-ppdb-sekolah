@@ -38,7 +38,7 @@
                         <h1 class="judul-status" style="color: #F5F5F5">
                             <?php
                             $status = isset($_SESSION['hasil-ppdb']) ? $_SESSION['hasil-ppdb'] : null;
-                            if ($status == 'LULUS-TERPILIH'): ?>
+                            if ($status == 'LULUS-DITERIMA'): ?>
                                 <span>SELAMAT ANDA DINYATAKAN <strong>LULUS</strong> SELEKSI PPDB 2025</span>
                             <?php elseif ($status == 'DITOLAK'): ?>
                                 <span>MAAF ANDA DINYATAKAN <strong>TIDAK LULUS</strong> PPDB 2025 😂😂🫵</span>
@@ -64,7 +64,7 @@
                         <div class="instruction-box">
                             <?php
                             $status = isset($_SESSION['hasil-ppdb']) ? $_SESSION['hasil-ppdb'] : null;
-                            if ($status == 'LULUS-TERPILIH'): ?>
+                            if ($status == 'LULUS-DITERIMA'): ?>
                                 <div class="daftar-ulang" style="gap: 15px;">
                                     <span>Silakan lakukan pendaftaran ulang. Informasi pendaftaran ulang di PPDB Jabar 2025 dapat dilihat pada link berikut:</span>
                                     <!-- Tombol Pendaftaran -->
@@ -73,7 +73,7 @@
                             <?php elseif ($status == 'DITOLAK'): ?>
                                 <span>Kegagalan bukanlah akhir, masih ada jalur lain untuk masuk ke sekolah impianmu. Keep Going !! 🤙🫵</span>
                             <?php else: ?>
-                                <span>Harap bersabar, proses seleksi masih sedang berlangsung</span>
+                                <span style="color: black;">Harap bersabar, proses seleksi masih sedang berlangsung</span>
                             <?php endif; ?>
                         </div>
                         <!-- Informasi Tambahan -->
