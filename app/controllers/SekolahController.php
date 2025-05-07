@@ -1,5 +1,5 @@
 <?php
-include '../app/models/SekolahModel.php';
+include_once '../app/models/SekolahModel.php';
 
 class SekolahController
 {
