@@ -87,7 +87,7 @@ class SiswaController
     public function updateMurid()
     {
         // Determine role and NISN
-        if (isset($_SESSION['siswa_nisn'])) {
+        if (isset($_SESSION['siswa_logged_in'])) {
             $role = 'siswa';
             $nisn = $_SESSION['siswa_nisn'];
         } elseif (isset($_SESSION['admin_logged_in'])) {
