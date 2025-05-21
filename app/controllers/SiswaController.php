@@ -53,6 +53,12 @@ class SiswaController
 
     public function registerAkunSiswa()
     {
+        // Check if all required POST fields are set
+        if (!isset($_POST['NISN'], $_POST['nama_murid'], $_POST['alamat'], $_POST['tanggal_lahir'], $_POST['password'])) {
+            $_SESSION['error'] = 'All fields are required';
+            header('Location: index.php?page=register-siswa');
+            exit;
+        }
 
         $data = [
             'NISN' => $_POST['NISN'],
@@ -62,66 +68,86 @@ class SiswaController
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
         ];
 
-
         if ($this->siswaModel->addSiswa($data)) {
             $role = $_GET['role'] ?? 'siswa';
+            $_SESSION['success'] = "Data Murid Berhasil Ditambahkan oleh $role";
             if ($role === 'admin') {
-                $_SESSION['success'] = "Data Murid berhasil ditambahkan oleh admin";
                 header('Location: index.php?page=dashboard-admin');
             } else {
-                $success = "Data berhasil diregistrasi oleh kamu !!";
-                include '../app/resources/views/siswa/auth-siswa/login-siswa.php';
+                header('Location: index.php?page=login-siswa');
             }
             exit;
         } else {
-            $error = 'Register Error';
-            include 'index.php?page=register-siswa';
+            $_SESSION['error'] = 'Register Error: NISN already exists';
+            header('Location: index.php?page=register-siswa');
+            exit;
         }
     }
 
     public function updateMurid()
     {
+        // Determine role and NISN
+        if (isset($_SESSION['siswa_nisn'])) {
+            $role = 'siswa';
+            $nisn = $_SESSION['siswa_nisn'];
+        } elseif (isset($_SESSION['admin_logged_in'])) {
+            $role = 'admin';
+            $nisn = $_POST['NISN'] ?? null;
+            if (!$nisn) {
+                $_SESSION['error'] = 'NISN is required';
+                header('Location: ?page=dashboard-admin');
+                exit;
+            }
+        } else {
+            header('Location: index.php?page=login-siswa');
+            exit;
+        }
+
+        // Base data for both roles
         $data = [
-            'NISN' => $_POST['NISN'],
-            'nama_murid' => $_POST['nama_murid'],
-            'alamat' => $_POST['alamat'],
-            'tanggal_lahir' => $_POST['tanggal_lahir'],
-            'password' => !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null
+            'nama_murid' => $_POST['nama_murid'] ?? '',
+            'alamat' => $_POST['alamat'] ?? '',
+            'tanggal_lahir' => $_POST['tanggal_lahir'] ?? ''
         ];
 
-        try {
+        // Student-specific updates
+        if ($role === 'siswa' && isset($_POST['password']) && !empty($_POST['password'])) {
+            $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
 
-            if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
-                $fileExtension = strtolower(pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION));
-                if ($fileExtension !== 'pdf') {
-                    throw new Exception("Hanya file PDF yang diperbolehkan untuk rapor.");
-                }
+        if ($role === 'siswa' && isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
+            $fileExtension = strtolower(pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION));
+            if ($fileExtension !== 'pdf') {
+                $_SESSION['error'] = "Hanya file PDF yang diperbolehkan untuk rapor.";
+                header("Location: ?page=dashboard-siswa");
+                exit;
             }
+            $raporData = file_get_contents($_FILES['rapor_siswa']['tmp_name']);
+            if ($raporData === false) {
+                $_SESSION['error'] = "Gagal membaca konten file.";
+                header("Location: ?page=dashboard-siswa");
+                exit;
+            }
+            $data['rapor_siswa'] = $raporData;
+        }
 
-            if ($this->siswaModel->addSiswa($data, $_FILES)) {
+        // Perform the update
+        if ($this->siswaModel->updateSiswa($nisn, $data)) {
+            $_SESSION['success'] = "Data Murid Berhasil Diubah oleh $role";
+            // Update session for student
+            if ($role === 'siswa') {
                 $_SESSION['siswa_nama'] = $data['nama_murid'];
                 $_SESSION['siswa_alamat'] = $data['alamat'];
                 $_SESSION['siswa_tanggal_lahir'] = $data['tanggal_lahir'];
-                if (isset($_FILES['rapor_siswa']) && $_FILES['rapor_siswa']['name'] !== '') {
-                    $fileExtension = pathinfo($_FILES['rapor_siswa']['name'], PATHINFO_EXTENSION);
-                    $fileName = $data['NISN'] . '_RAPOR_FINALE_PPDB.' . $fileExtension;
-                    $_SESSION['siswa_rapor_siswa'] = $fileName;
-                } elseif (!isset($_SESSION['siswa_rapor_siswa'])) {
-                    $_SESSION['siswa_rapor_siswa'] = null;
-                }
-
-                $_SESSION['success'] = 'Update Success';
                 header("Location: ?page=dashboard-siswa");
-                exit();
             } else {
-                $_SESSION['error'] = 'Update Error';
-                header("Location: ?page=dashboard-siswa");
-                exit();
+                header("Location: ?page=dashboard-admin");
             }
-        } catch (Exception $e) {
-            $_SESSION['error'] = 'Update Error: ' . $e->getMessage();
-            header("Location: ?page=dashboard-siswa");
-            exit();
+            exit;
+        } else {
+            $_SESSION['error'] = $role === 'siswa' ? 'Update Error' : 'Update Error: NISN not found';
+            header("Location: ?page=" . ($role === 'siswa' ? 'dashboard-siswa' : 'dashboard-admin'));
+            exit;
         }
     }
 

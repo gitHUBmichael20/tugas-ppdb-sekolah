@@ -61,7 +61,8 @@ class SekolahController
             'email' => $_POST['email'],
             'kouta' => $_POST['kouta'],
             'lokasi' => $_POST['lokasi'],
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT,),
+            'role' => 'sekolah'
         ];
 
         // Simpan data

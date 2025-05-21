@@ -35,7 +35,7 @@ class SekolahModel
     public function addSekolah($data)
     {
         $query = "INSERT INTO $this->tabel 
-                Values (:id_sekolah, :nama_sekolah, :jenis, :email, :kouta, :lokasi, :password)";
+                Values (:id_sekolah, :nama_sekolah, :jenis, :email, :kouta, :lokasi, :password, :role)";
         $stmt = $this->db->prepare($query);
         return $stmt->execute($data);
     }

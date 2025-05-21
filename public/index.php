@@ -137,7 +137,7 @@ switch ($page) {
         break;
 
     case 'edit-profile-siswa':
-        restrictToLoggedIn('siswa');
+        restrictToLoggedIn('admin', 'siswa');
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'edit') {
             $siswa->updateMurid();
         } else {

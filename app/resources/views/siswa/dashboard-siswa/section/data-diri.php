@@ -18,7 +18,7 @@
         <!-- Form Siswa -->
         <div class="form-container" style="width: 55em !important;">
             <h2 class="form-title">Lengkapi / Perbarui Data Anda</h2>
-            <form action="index.php?page=edit-profile-siswa&action=edit" method="POST" enctype="multipart/form-data">
+            <form action="index.php?page=edit-profile-siswa&action=edit&role=siswa" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="hidden" name="edit" value="edit">
                     <label for="NISN">NISN:</label>

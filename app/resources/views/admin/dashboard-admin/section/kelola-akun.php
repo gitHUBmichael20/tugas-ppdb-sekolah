@@ -19,14 +19,14 @@
     <div class="modal-window-siswa" style="display:none; width: 30em; max-width: 30em; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 999;">
         <div class="form-container">
             <h2 class="form-title">Edit Siswa | Nama Siswa</h2>
-            <form action="index.php?page=register-siswa&action=register&role=admin" method="POST">
+            <form action="index.php?page=edit-profile-siswa&action=edit&role=admin" method="POST">
                 <div class="form-group">
                     <label for="nisn">NISN:</label>
-                    <input type="text" id="nisn" name="NISN" maxlength="20" required value="">
+                    <input type="text" id="nisn" name="NISN" maxlength="20" required value="" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nama_murid">Nama Murid:</label>
-                    <input type="text" id="nama_murid" name="nama_murid" maxlength="100" value=">
+                    <input type="text" id="nama_murid" name="nama_murid" maxlength="100" value="">
                 </div>
                 <div class=" form-group">
                     <label for="alamat">Alamat:</label>
@@ -52,7 +52,7 @@
             <form action="index.php?page=register-sekolah&action=register&role=admin" method="POST">
                 <div class="form-group">
                     <label for="id_sekolah">ID Sekolah:</label>
-                    <input type="text" id="id_sekolah" name="id_sekolah" maxlength="20" required>
+                    <input type="text" id="id_sekolah" name="id_sekolah" maxlength="20" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="nama_sekolah">Nama Sekolah:</label>
@@ -119,8 +119,8 @@
                                 <td><?= htmlspecialchars($siswa['nama_murid']); ?></td>
                                 <td><?= htmlspecialchars($siswa['alamat'] ?? 'Tidak tersedia'); ?></td>
                                 <td><?= htmlspecialchars($siswa['tanggal_lahir'] ?? 'Tidak tersedia'); ?></td>
-                                <td><?php if ($siswa['rapor_siswa']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></td>
-                                <td><span style="font-weight: 600; "><?php if ($siswa['password']) : ?>Available<?php else : ?>Unavailable<?php endif; ?></span></td>
+                                <td><?php if ($siswa['rapor_siswa']) : ?>Terlampir<?php else : ?>Tidak Dilampirkan<?php endif; ?></td>
+                                <td><span style="font-weight: 600; "><?php if ($siswa['password']) : ?>Tersedia<?php else : ?>Tidak Tersedia<?php endif; ?></span></td>
                                 <td id="hapus-akun-siswa">
                                     <button class="green-button" onclick="openModalSiswa(
                                         '<?= htmlspecialchars($siswa['NISN'], ENT_QUOTES) ?>',

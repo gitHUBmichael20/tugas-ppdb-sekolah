@@ -27,77 +27,49 @@ class SiswaModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addSiswa($data, $file = null)
+    public function addSiswa($data)
     {
-        $storagePath = 'D:/laragon/laragon/www/tugas-ppdb-sekolah/app/storage';
-
-        if (!is_dir($storagePath)) {
-            throw new Exception("Folder storage tidak ditemukan: " . $storagePath);
-        }
-        if (!is_writable($storagePath)) {
-            throw new Exception("Folder storage tidak dapat ditulis: " . $storagePath);
-        }
-
-        $nisn = $data['NISN'] ?? null;
-
+        $nisn = $data['NISN'];
         $queryCheck = "SELECT COUNT(*) FROM siswa WHERE NISN = :nisn";
         $stmtCheck = $this->db->prepare($queryCheck);
         $stmtCheck->execute([':nisn' => $nisn]);
-        $exists = $stmtCheck->fetchColumn() > 0;
-
-        if (!$exists) {
-            // Untuk siswa baru, set rapor_siswa ke null
-            $data['rapor_siswa'] = null;
-            $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password) 
-                  VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
-            $stmt = $this->db->prepare($query);
-            return $stmt->execute($data);
-        } else {
-            // Untuk siswa yang sudah ada
-            if ($file && isset($file['rapor_siswa']) && $file['rapor_siswa']['name'] !== '') {
-                $raporFile = $file['rapor_siswa'];
-                if ($raporFile['error'] !== UPLOAD_ERR_OK) {
-                    throw new Exception("Error upload file: " . $raporFile['error']);
-                }
-                $fileExtension = pathinfo($raporFile['name'], PATHINFO_EXTENSION);
-                $fileName = $nisn . '_RAPOR_FINALE_PPDB.' . $fileExtension;
-                $targetFile = $storagePath . DIRECTORY_SEPARATOR . $fileName;
-
-                // Pindahkan file ke folder storage
-                if (move_uploaded_file($raporFile['tmp_name'], $targetFile)) {
-                    // Baca konten file sebagai data biner
-                    $raporData = file_get_contents($targetFile);
-                    if ($raporData === false) {
-                        throw new PDOException("Gagal membaca konten file: " . $targetFile);
-                    }
-                    $data['rapor_siswa'] = $raporData;
-                } else {
-                    throw new PDOException("Gagal mengunggah file rapor siswa dari " . $raporFile['tmp_name'] . " ke " . $targetFile);
-                }
-            }
-
-            // Bangun set clause untuk update
-            $setClause = '';
-            $params = [];
-            foreach ($data as $key => $value) {
-                if ($value !== null) {
-                    $setClause .= "$key = :$key, ";
-                    $params[":$key"] = $value;
-                }
-            }
-            $setClause = rtrim($setClause, ', ');
-
-            if (empty($setClause)) {
-                return true;
-            }
-
-            $query = "UPDATE siswa SET $setClause WHERE NISN = :nisn";
-            $params[':nisn'] = $nisn;
-
-            $stmt = $this->db->prepare($query);
-            // Eksekusi dengan parameter (PDO akan menangani data biner sebagai string secara default)
-            return $stmt->execute($params);
+        if ($stmtCheck->fetchColumn() > 0) {
+            return false;
         }
+
+        $data['rapor_siswa'] = null;
+        $query = "INSERT INTO siswa (NISN, nama_murid, alamat, tanggal_lahir, rapor_siswa, password)
+                  VALUES (:NISN, :nama_murid, :alamat, :tanggal_lahir, :rapor_siswa, :password)";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute($data);
+    }
+
+    public function updateSiswa($nisn, $data)
+    {
+        $queryCheck = "SELECT COUNT(*) FROM siswa WHERE NISN = :nisn";
+        $stmtCheck = $this->db->prepare($queryCheck);
+        $stmtCheck->execute([':nisn' => $nisn]);
+        if ($stmtCheck->fetchColumn() == 0) {
+            return false;
+        }
+
+        $setClause = '';
+        $params = [];
+        foreach ($data as $key => $value) {
+            if ($value !== null) {
+                $setClause .= "$key = :$key, ";
+                $params[":$key"] = $value;
+            }
+        }
+        $setClause = rtrim($setClause, ', ');
+        if (empty($setClause)) {
+            return true;
+        }
+
+        $query = "UPDATE siswa SET $setClause WHERE NISN = :nisn";
+        $params[':nisn'] = $nisn;
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute($params);
     }
 
     public function daftarSekolah($data)
